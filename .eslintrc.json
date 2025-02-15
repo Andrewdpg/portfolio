@@ -1,0 +1,38 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "prettier"
+  ],
+  "plugins": ["react", "@typescript-eslint", "import", "tailwindcss", "prettier"],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "tailwindcss/no-custom-classname": "off",
+    "prettier/prettier": "error",
+    "import/no-unresolved": "error",
+    "import/named": "error",
+    "import/default": "error",
+    "import/namespace": "error",
+    "import/no-absolute-path": "error"
+  }
+}
