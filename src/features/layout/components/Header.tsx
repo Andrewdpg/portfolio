@@ -1,24 +1,9 @@
 import React from 'react'
 import { Toolbar, Box } from '@mui/material'
 import appIcon from '../../../assets/svg/react-logo.svg'
-import { logout } from '../../../store/slices/authSlice'
-import { useNavigate } from 'react-router-dom'
-import { AppDispatch } from 'store'
-import { useDispatch } from 'react-redux'
 import { Button } from '../../../components/Button'
-import RequireAuth from '../../auth/components/RequireAuth'
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const navigate = useNavigate()
-
-  const handleLogout = async () => {
-    const result = await dispatch(logout())
-    if (logout.fulfilled.match(result)) {
-      navigate('/login?logout=true')
-    }
-  }
-
   return (
     <>
       <header className={`p-2 w-full fixed text-app-white z-20`}>
@@ -28,11 +13,6 @@ const Header: React.FC = () => {
           <Box className={`items-center gap-4 w-full justify-end flex`}>
             <Button variant="text">Home</Button>
             <Button variant="text">About me</Button>
-            <RequireAuth>
-              <Button onClick={handleLogout} variant="secondary">
-                Logout
-              </Button>
-            </RequireAuth>
           </Box>
         </Toolbar>
       </header>

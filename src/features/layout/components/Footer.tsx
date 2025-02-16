@@ -1,15 +1,41 @@
 import React from 'react'
-import appIcon from '../../../assets/svg/react-logo.svg'
-import Heading from '../../../components/Heading'
+import { Button } from '../../../components/Button'
+import { GitHub, Instagram, LinkedIn, X } from '@mui/icons-material'
 
 const Footer = () => {
   return (
-    <footer className="bg-app-main/50 backdrop-blur text-app-white py-4 z-20">
-      <div className="px-4 flex justify-between items-center text-sm">
-        <img src={appIcon} alt="app Logo" className="h-20 -my-2" />
-        <div className="text-right">
-          <Heading>Andrewpg</Heading>
-        </div>
+    <footer className="p-4 w-full fixed text-app-white z-20 bottom-0 items-center justify-center flex">
+      <div className="flex flew-wrap gap-4">
+        <Button
+          variant="icon"
+          className="hover:bg-purple-400"
+          onClick={() => window.open('https://github.com/Andrewdpg')}
+        >
+          <GitHub />
+        </Button>
+        <Button
+          variant="icon"
+          className="hover:bg-blue-300"
+          onClick={() => window.open('https://www.linkedin.com/in/andrewdpg/')}
+        >
+          <LinkedIn />
+        </Button>
+        <Button
+          variant="icon"
+          className="hover:bg-gray-400"
+          onClick={() => window.open('https://x.com/Andrewpg29')}
+        >
+          <X />
+        </Button>
+        <Button
+          variant="icon"
+          className="hover:bg-pink-300"
+          onClick={() =>
+            window.open('https://www.instagram.com/andresparra1002')
+          }
+        >
+          <Instagram />
+        </Button>
       </div>
     </footer>
   )

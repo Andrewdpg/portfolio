@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/AppRoutes'
-import { Provider } from 'react-redux'
-import { store } from './store'
 import './index.css'
+import { PopupProvider } from './context/PopupContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={store}>
+    <PopupProvider>
       <RouterProvider router={router} />
-    </Provider>
+    </PopupProvider>
   </React.StrictMode>
 )

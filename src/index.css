@@ -25,3 +25,33 @@ ol {
 li {
   display: list-item;
 }
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.glow-effect {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, #ba63cb3b 0%, rgba(255, 255, 255, 0) 50%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+}
