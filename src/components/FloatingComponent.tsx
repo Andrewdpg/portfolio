@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 
 type FloatingComponent = {
@@ -10,43 +10,31 @@ export const FloatingComponent: React.FC<FloatingComponent> = ({
   count = 1,
   children,
 }) => {
-  const [dimensions, setDimensions] = useState({
+  const dimensions = {
     width: window.innerWidth,
     height: window.innerHeight,
-  })
-
-  useEffect(() => {
-    const handleResize = () => {
-      setDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }
 
   return (
-    <div className="relative w-full h-full">
+    <div className="absolute w-full h-full pointer-events-none">
       {Array.from({ length: count }).map((_, i) => (
         <motion.div
           key={i}
           className="absolute"
           initial={{
-            x: Math.random() * dimensions.width,
-            y: Math.random() * dimensions.height,
+            x: Math.random() * (dimensions.width - 100),
+            y: Math.random() * (dimensions.height - 100),
           }}
           animate={{
             x: [
-              Math.random() * dimensions.width,
-              Math.random() * dimensions.width,
-              Math.random() * dimensions.width,
+              Math.random() * (dimensions.width - 100),
+              Math.random() * (dimensions.width - 100),
+              Math.random() * (dimensions.width - 100),
             ],
             y: [
-              Math.random() * dimensions.height,
-              Math.random() * dimensions.height,
-              Math.random() * dimensions.height,
+              Math.random() * (dimensions.height - 100),
+              Math.random() * (dimensions.height - 100),
+              Math.random() * (dimensions.height - 100),
             ],
             rotate: [0, 180, 360],
           }}

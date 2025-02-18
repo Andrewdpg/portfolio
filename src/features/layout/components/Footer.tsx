@@ -5,6 +5,7 @@ import { GitHub, Instagram, LinkedIn, X } from '@mui/icons-material'
 const Footer = () => {
   return (
     <footer className="p-4 w-full fixed text-app-white z-20 bottom-0 items-center justify-center flex">
+      <div className="absolute bg-app-main/10 rounded-full blur-xl w-full h-[90vw] top-0" />
       <div className="flex flew-wrap gap-4">
         <Button
           variant="icon"

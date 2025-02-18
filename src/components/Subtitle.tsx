@@ -7,7 +7,9 @@ type SubtitleProps = {
 
 const Subtitle: React.FC<SubtitleProps> = ({ children, className }) => {
   return (
-    <h1 className={`text-5xl font-semibold text-white ${className}`}>
+    <h1
+      className={`text-3xl sm:text-4xl font-semibold text-white ${className}`}
+    >
       {children}
     </h1>
   )

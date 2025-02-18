@@ -13,11 +13,13 @@ type TimelineProps = {
 
 const TimelineCard: React.FC<{ item: TimelineItem }> = ({ item }) => {
   return (
-    <div className="bg-app-contrast rounded-2xl shadow-lg p-4 sm:w-3/4 md:w-2/3 lg:w-1/2">
-      <h3 className="text-white text-xl font-bold">{item.title}</h3>
-      <p className="text-gray-100 text-sm">{item.subtitle}</p>
-      <hr className="my-2 border-app-main" />
-      <p className="text-gray-300 text-sm">{item.body}</p>
+    <div className="shadow-lg sm:w-3/4 md:w-2/3 lg:w-1/2 appear">
+      <div className="bg-app-contrast w-full p-4 rounded-2xl">
+        <h3 className="text-white text-xl font-bold">{item.title}</h3>
+        <p className="text-gray-100 text-sm">{item.subtitle}</p>
+        <hr className="my-2 border-app-main" />
+        <p className="text-gray-300 text-sm">{item.body}</p>
+      </div>
     </div>
   )
 }

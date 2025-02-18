@@ -19,7 +19,7 @@ export const Section: React.FC<SectionProps> = ({
 
   return (
     <div
-      className={`flex flex-col justify-center gap-4 ${className} ${!opened ? 'max-w-min' : ''}`}
+      className={`flex flex-col justify-center gap-4 ${className} ${!opened ? 'max-w-min' : ''} overflow-visible`}
     >
       <Button
         variant="text"
@@ -39,7 +39,7 @@ export const Section: React.FC<SectionProps> = ({
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            style={{ overflow: 'hidden', paddingRight: '1rem' }}
+            style={{ paddingRight: '1rem' }}
           >
             {children}
           </motion.div>

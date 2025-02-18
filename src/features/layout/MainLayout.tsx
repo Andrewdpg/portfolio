@@ -5,13 +5,13 @@ import { Background } from './components/Background'
 
 const MainLayout = () => {
   return (
-    <div className="h-full min-h-screen flex flex-col">
+    <Background>
       <main className={`flex flex-col flex-1 transition-all duration-300 mt-6`}>
-        <Background />
         <Outlet />
+        <div className="h-16" />
       </main>
       <Footer />
-    </div>
+    </Background>
   )
 }
 

@@ -2,6 +2,9 @@ import React from 'react'
 import { Project } from '../types/project'
 import { usePopup } from '../context/PopupContext'
 import { ImageGallery } from './ImageGallery'
+import Body from './Body'
+import { SkillButton } from './SkillButton'
+import { Button } from './Button'
 
 type ProjectCardProps = {
   project: Project
@@ -10,8 +13,47 @@ type ProjectCardProps = {
 const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
   return (
     <div>
-      <ImageGallery images={project.images} />
+      <div className="flex flex-wrap justify-center">
+        <ImageGallery
+          images={project.images}
+          className="w-full sm:w-1/2 max-w-full"
+        />
+        <div className="flex flex-col items-start px-4 w-full sm:w-1/2 max-w-full gap-4">
+          <Body className="text-nowrap">Involved Skills</Body>
+          <div className="flex flex-wrap justify-center gap-4 w-full">
+            {project.skills.map((skill, index) => (
+              <SkillButton key={index} skill={skill} />
+            ))}
+          </div>
+        </div>
+      </div>
       <p className="mt-4">{project.body}</p>
+      <p className="text-gray-400 text-sm mt-2">{project.subtitle}</p>
+      <div className="flex flex-wrap items-center gap-2 mt-4">
+        {project.codeLink && (
+          <Button
+            variant="primary"
+            className="flex-1"
+            onClick={() => {
+              window.open(project.codeLink, '_blank')
+            }}
+          >
+            View code
+          </Button>
+        )}
+
+        {project.siteLink && (
+          <Button
+            variant="secondary"
+            className="flex-1"
+            onClick={() => {
+              window.open(project.siteLink, '_blank')
+            }}
+          >
+            Visit site
+          </Button>
+        )}
+      </div>
     </div>
   )
 }

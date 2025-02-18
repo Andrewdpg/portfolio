@@ -8,19 +8,19 @@ import FlipCard from '../../../../components/Flipcard'
 
 export const Presentation = () => {
   return (
-    <div className="flex flex-wrap items-start justify-around gap-x-20 gap-y-8 transition-all duration-300 ease-in-out px-8">
-      <div className="relative w-[400px] h-[400px] rounded-full perspective-1000">
+    <div className="flex flex-wrap items-start justify-around gap-x-12 gap-y-8 transition-all duration-300 ease-in-out px-4">
+      <div className="w-full flex justify-center max-w-[400px]">
         <FlipCard
-          className="w-[400px] h-[400px] max-w-[calc(100vw-110px)] max-h-[calc(100vw-110px)]"
+          className="w-full aspect-square"
           front={
             <>
-              <div className="z-[-1] absolute bg-app-main/30 rounded-full blur-xl w-[400px] h-[400px] max-w-[calc(100vw-110px)] max-h-[calc(100vw-110px)]" />
+              <div className="z-[-1] absolute bg-app-main/30 rounded-full blur-xl w-full h-full" />
               <img src={standing} alt="Andrew" className="w-full h-full" />
             </>
           }
           back={
             <>
-              <div className="z-[-1] absolute bg-blue-800/30 rounded-full blur-xl w-[400px] h-[400px] max-w-[calc(100vw-110px)] max-h-[calc(100vw-110px)]" />
+              <div className="z-[-1] absolute bg-blue-800/30 rounded-full blur-xl w-full h-full" />
               <img
                 src={flipped}
                 alt="Andrew Flipped"

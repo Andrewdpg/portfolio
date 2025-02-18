@@ -174,7 +174,7 @@ export const Sparkles = ({
     <canvas
       ref={canvasRef}
       id={id}
-      className={className}
+      className={`overflow-hidden fixed top-0 left-0 ${className}`}
       style={{
         background,
         width: '100%',

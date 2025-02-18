@@ -55,3 +55,19 @@ li {
   pointer-events: none;
   z-index: 1;
 }
+
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    scale: 0.5;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.appear {
+  animation: appear 0.5s ease-in;
+}

@@ -4,17 +4,16 @@ import { FloatingComponent } from '../../../../components/FloatingComponent'
 import { Bot, Cpu } from 'lucide-react'
 import { MouseGlow } from './components/MouseGlow'
 
-export const Background = () => {
+type BackgroundProps = {
+  children: React.ReactNode
+}
+
+export const Background: React.FC<BackgroundProps> = ({ children }) => {
   return (
-    <div className="fixed inset-0 z-[-1] bg-app-secondary">
-      <div
-        className="absolute bg-app-main/10 rounded-full blur-xl w-full"
-        style={{
-          top: '85%',
-          height: '90vw',
-        }}
-      />
-      <div className="relative z-10">
+    <div className="h-full flex min-h-screen w-full flex-col bg-app-secondary -z-1">
+      <Sparkles />
+      <MouseGlow />
+      <div className="absolute w-full">
         <FloatingComponent count={3}>
           <Bot size={50} className="text-app-main" />
         </FloatingComponent>
@@ -22,10 +21,7 @@ export const Background = () => {
           <Cpu size={50} className="text-app-contrast" />
         </FloatingComponent>
       </div>
-      <div className="h-full w-full absolute inset-0 z-0">
-        <Sparkles />
-      </div>
-      <MouseGlow />
+      <div className="z-0">{children}</div>
     </div>
   )
 }
