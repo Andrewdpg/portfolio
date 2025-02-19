@@ -82,7 +82,10 @@ li {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #402456; /* Color of the scrollbar thumb */
   border-radius: 10px; /* Roundness of the scrollbar thumb */
   border: 0px solid transparent; /* Padding around the scrollbar thumb */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #402456; /* Color of the scrollbar thumb on hover */
 }
