@@ -71,3 +71,18 @@ li {
 .appear {
   animation: appear 0.5s ease-in;
 }
+
+/* scrollbar */
+*::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: #151B1E; /* Background of the scrollbar track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #402456; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Roundness of the scrollbar thumb */
+  border: 0px solid transparent; /* Padding around the scrollbar thumb */
+}

@@ -21,7 +21,7 @@ const Popup: React.FC = () => {
           transition={{ duration: 0.3 }}
         >
           <motion.div
-            className="flex flex-col bg-app-secondary/90 rounded-xl shadow-lg relative items-center max-w-prose m-4 text-app-white"
+            className="flex flex-col bg-app-secondary/90 rounded-xl shadow-lg relative items-center max-w-prose max-h-[98%] m-4 overflow-y-auto text-app-white"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
