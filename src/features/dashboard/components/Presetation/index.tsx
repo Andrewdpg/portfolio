@@ -40,7 +40,15 @@ export const Presentation = () => {
           Interested in AI development, problem-solving and creating scalable
           intelligent solutions.
         </Body>
-        <Button variant="secondary"> Source code </Button>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            window.open('https://github.com/Andrewdpg/portfolio', '_blank')
+          }}
+        >
+          {' '}
+          Source code{' '}
+        </Button>
       </div>
     </div>
   )

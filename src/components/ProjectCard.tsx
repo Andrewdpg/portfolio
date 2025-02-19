@@ -5,6 +5,7 @@ import { ImageGallery } from './ImageGallery'
 import Body from './Body'
 import { SkillButton } from './SkillButton'
 import { Button } from './Button'
+import { People, Person } from '@mui/icons-material'
 
 type ProjectCardProps = {
   project: Project
@@ -50,7 +51,7 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
               window.open(project.siteLink, '_blank')
             }}
           >
-            Visit site
+            Visit
           </Button>
         )}
       </div>
@@ -73,16 +74,26 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       className="flex flex-col items-center group pt-10 pb-4 hover:cursor-pointer"
       onClick={handleImageClick}
     >
-      <div className="h-fit w-60 bg-app-contrast/0 opacity-50 rounded-xl z-0 transition-all duration-300 group-hover:scale-y-110 group-hover:bg-app-contrast group-hover:mt-[-1rem]">
+      <div className="h-fit w-60 bg-app-contrast/0 opacity-90 rounded-xl z-0 transition-all duration-300 group-hover:scale-y-110 group-hover:bg-app-contrast group-hover:mt-[-1rem]">
         {/* Data Section */}
         <ImageGallery
           className="relative w-60 h-40 group-hover:scale-y-95 group-hover:-translate-x-3 group-hover:-translate-y-2 group-hover:shadow-xl z-10 mb-3 group-hover:-mb-2"
           images={project.images}
         />
+
         <div className="flex opacity-100 group-hover:opacity-0 mx-4 space-x-3 transition-all duration-300 group-hover:hidden group-hover:scale-y-90">
           {/* Icon */}
-          <div className="w-10 h-10 bg-app-main rounded-md flex items-center justify-center text-app-white">
-            {project.icon}
+          <div className="flex flex-col gap-2 ">
+            <div className="w-fit h-fit p-2 bg-app-main rounded-md flex items-center justify-center text-app-white">
+              {project.icon}
+            </div>
+            <div className=" flex items-center justify-center">
+              {!project.alone ? (
+                <People className="w-12 h-12 text-app-white" />
+              ) : (
+                <Person className="w-12 h-12 text-app-white" />
+              )}
+            </div>
           </div>
 
           {/* Text */}

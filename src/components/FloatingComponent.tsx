@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 type FloatingComponent = {
@@ -10,10 +10,22 @@ export const FloatingComponent: React.FC<FloatingComponent> = ({
   count = 1,
   children,
 }) => {
-  const dimensions = {
+  const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
-  }
+  })
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  })
 
   return (
     <div className="absolute w-full h-full pointer-events-none">

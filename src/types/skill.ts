@@ -1,5 +1,3 @@
-import { Technology } from './technology'
-
 export enum Experience {
   Basic = 'Begginner',
   Intermediate = 'Intermediate',
@@ -8,21 +6,23 @@ export enum Experience {
 }
 
 export type SkillCategory =
-  | 'Frontend'
+  | 'UI/UX'
   | 'Backend'
   | 'Database'
-  | 'DevOps'
+  | 'Tools'
   | 'Methodologies'
   | 'Testing'
   | 'Mobile'
-  | 'Other'
   | 'Languages'
+  | 'Algorithms'
+  | 'Data Science'
+  | 'Hardware'
+  | 'Other'
 
 export type Skill = {
   id: string
   title: string
   experience: Experience
-  technology: Technology
   category: SkillCategory
   color: string
   icon: React.ReactNode

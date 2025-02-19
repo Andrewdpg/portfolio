@@ -1,16 +1,16 @@
 import React from 'react'
-import Subtitle from './Subtitle'
-import { ChevronDown } from 'lucide-react'
+
 import { Button } from './Button'
 import { motion, AnimatePresence } from 'framer-motion'
+import Body from './Body'
 
-type SectionProps = {
+type SubSectionProps = {
   title: string
   className?: string
   children: React.ReactNode
 }
 
-export const Section: React.FC<SectionProps> = ({
+export const SubSection: React.FC<SubSectionProps> = ({
   title,
   className,
   children,
@@ -19,17 +19,16 @@ export const Section: React.FC<SectionProps> = ({
 
   return (
     <div
-      className={`flex flex-col justify-center gap-4 ${className} ${!opened ? 'max-w-min' : ''} overflow-visible`}
+      className={`flex flex-col justify-center gap-4 ${className} w-full ${!opened ? 'max-w-min' : ''} overflow-visible`}
     >
       <Button
-        variant="text"
-        className="flex items-center text-center flex-row gap-2"
+        variant="tab"
+        className={`flex items-center text-center flex-row ${opened ? 'border-app-main border-solid' : ''}`}
         onClick={() => setOpened(!opened)}
       >
-        <ChevronDown
-          className={`h-12 w-12 transform ${opened ? 'rotate-180' : ''} transition-all duration-300`}
-        />
-        <Subtitle className="text-nowrap">{title}</Subtitle>
+        <Body className={`text-xl text-nowrap font-bold mb-2 text-center`}>
+          {title}
+        </Body>
       </Button>
 
       <AnimatePresence>

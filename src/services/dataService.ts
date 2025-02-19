@@ -8,17 +8,22 @@ import {
   FaGit,
   FaFigma,
 } from 'react-icons/fa'
-import { Technology } from '../types/technology'
 import { Experience, Skill } from '../types/skill'
 import { Project } from '../types/project'
-import { Web } from '@mui/icons-material'
+import { Cached, DataArray, Science, Web } from '@mui/icons-material'
 import kuki_home from '../assets/img/kuki/home.png'
 import kuki_comments from '../assets/img/kuki/comments.png'
 import kuki_login from '../assets/img/kuki/login.png'
 import first from '../assets/img/kids-db/first.png'
 import second from '../assets/img/kids-db/second.png'
 import third from '../assets/img/kids-db/third.png'
+import base from '../assets/img/lab/base.png'
+import inew from '../assets/img/lab/new.png'
+import arduino from '../assets/img/parkinson/arduino.png'
+import movement from '../assets/img/parkinson/movement.png'
+import gyro from '../assets/img/parkinson/gyro.png'
 import { TimelineItem } from '../components/Timeline'
+import { Bluetooth, Cpu, Laptop, Search } from 'lucide-react'
 
 const timelineItems: TimelineItem[] = [
   {
@@ -61,8 +66,7 @@ const skills: Skill[] = [
     id: 'react',
     title: 'React',
     experience: Experience.Advanced,
-    technology: Technology.React,
-    category: 'Frontend',
+    category: 'UI/UX',
     icon: React.createElement(FaReact),
     color: '#61DAFB',
   },
@@ -70,7 +74,6 @@ const skills: Skill[] = [
     id: 'nest',
     title: 'Nest.js',
     experience: Experience.Basic,
-    technology: Technology.NestJS,
     category: 'Backend',
     icon: React.createElement('i', { className: 'devicon-nestjs-plain' }),
     color: '#68A063',
@@ -79,7 +82,6 @@ const skills: Skill[] = [
     id: 'java',
     title: 'Java',
     experience: Experience.Expert,
-    technology: Technology.Java,
     category: 'Languages',
     icon: React.createElement(FaJava),
     color: '#007396',
@@ -88,7 +90,6 @@ const skills: Skill[] = [
     id: 'python',
     title: 'Python',
     experience: Experience.Advanced,
-    technology: Technology.Python,
     category: 'Languages',
     icon: React.createElement(FaPython),
     color: '#3776AB',
@@ -97,7 +98,6 @@ const skills: Skill[] = [
     id: 'dart',
     title: 'Dart',
     experience: Experience.Intermediate,
-    technology: Technology.Dart,
     category: 'Languages',
     icon: React.createElement('i', { className: 'devicon-dart-plain' }),
     color: '#0175C2',
@@ -106,7 +106,6 @@ const skills: Skill[] = [
     id: 'javascript',
     title: 'JavaScript',
     experience: Experience.Advanced,
-    technology: Technology.JavaScript,
     category: 'Languages',
     icon: React.createElement(FaJs),
     color: '#F7DF1E',
@@ -115,7 +114,6 @@ const skills: Skill[] = [
     id: 'typescript',
     title: 'TypeScript',
     experience: Experience.Advanced,
-    technology: Technology.TypeScript,
     category: 'Languages',
     icon: React.createElement('i', { className: 'devicon-typescript-plain' }),
     color: '#007ACC',
@@ -124,7 +122,6 @@ const skills: Skill[] = [
     id: 'csharp',
     title: 'C#',
     experience: Experience.Basic,
-    technology: Technology.CSharp,
     category: 'Languages',
     icon: React.createElement('i', { className: 'devicon-csharp-plain' }),
     color: '#00599C',
@@ -133,8 +130,7 @@ const skills: Skill[] = [
     id: 'flutter',
     title: 'Flutter',
     experience: Experience.Intermediate,
-    technology: Technology.Flutter,
-    category: 'Mobile',
+    category: 'UI/UX',
     icon: React.createElement('i', { className: 'devicon-flutter-plain' }),
     color: '#02569B',
   },
@@ -142,7 +138,6 @@ const skills: Skill[] = [
     id: 'django',
     title: 'Django',
     experience: Experience.Advanced,
-    technology: Technology.Django,
     category: 'Backend',
     icon: React.createElement('i', { className: 'devicon-django-plain' }),
     color: '#092E20',
@@ -151,7 +146,6 @@ const skills: Skill[] = [
     id: 'express',
     title: 'Express.js',
     experience: Experience.Intermediate,
-    technology: Technology.Express,
     category: 'Backend',
     icon: React.createElement('i', { className: 'devicon-express-original' }),
     color: '#000000',
@@ -160,7 +154,6 @@ const skills: Skill[] = [
     id: 'springboot',
     title: 'Spring Boot',
     experience: Experience.Advanced,
-    technology: Technology.Spring,
     category: 'Backend',
     icon: React.createElement('i', { className: 'devicon-spring-plain' }),
     color: '#6DB33F',
@@ -169,8 +162,7 @@ const skills: Skill[] = [
     id: 'tailwindcss',
     title: 'TailwindCSS',
     experience: Experience.Intermediate,
-    technology: Technology.TailwindCSS,
-    category: 'Frontend',
+    category: 'UI/UX',
     icon: React.createElement('i', { className: 'devicon-tailwindcss-plain' }),
     color: '#38B2AC',
   },
@@ -178,7 +170,6 @@ const skills: Skill[] = [
     id: 'postgresql',
     title: 'PostgreSQL',
     experience: Experience.Advanced,
-    technology: Technology.PostgreSQL,
     category: 'Database',
     icon: React.createElement('i', { className: 'devicon-postgresql-plain' }),
     color: '#4169E1',
@@ -187,7 +178,6 @@ const skills: Skill[] = [
     id: 'firebase',
     title: 'Firebase',
     experience: Experience.Advanced,
-    technology: Technology.Firebase,
     category: 'Database',
     icon: React.createElement('i', { className: 'devicon-firebase-plain' }),
     color: '#FFCA28',
@@ -196,7 +186,6 @@ const skills: Skill[] = [
     id: 'mongodb',
     title: 'MongoDB',
     experience: Experience.Intermediate,
-    technology: Technology.MongoDB,
     category: 'Database',
     icon: React.createElement('i', { className: 'devicon-mongodb-plain' }),
     color: '#47A248',
@@ -205,7 +194,6 @@ const skills: Skill[] = [
     id: 'mysql',
     title: 'MySQL',
     experience: Experience.Advanced,
-    technology: Technology.MySQL,
     category: 'Database',
     icon: React.createElement('i', { className: 'devicon-mysql-plain' }),
     color: '#4479A1',
@@ -214,8 +202,7 @@ const skills: Skill[] = [
     id: 'docker',
     title: 'Docker',
     experience: Experience.Intermediate,
-    technology: Technology.Docker,
-    category: 'DevOps',
+    category: 'Tools',
     icon: React.createElement(FaDocker),
     color: '#2496ED',
   },
@@ -223,8 +210,7 @@ const skills: Skill[] = [
     id: 'git',
     title: 'Git',
     experience: Experience.Expert,
-    technology: Technology.Git,
-    category: 'DevOps',
+    category: 'Tools',
     icon: React.createElement(FaGit),
     color: '#F05032',
   },
@@ -232,8 +218,7 @@ const skills: Skill[] = [
     id: 'postman',
     title: 'Postman',
     experience: Experience.Advanced,
-    technology: Technology.Postman,
-    category: 'DevOps',
+    category: 'Tools',
     icon: React.createElement('i', { className: 'devicon-postman-plain' }),
     color: '#FF6C37',
   },
@@ -241,8 +226,7 @@ const skills: Skill[] = [
     id: 'vscode',
     title: 'VS Code',
     experience: Experience.Advanced,
-    technology: Technology.VSCode,
-    category: 'DevOps',
+    category: 'Tools',
     icon: React.createElement('i', { className: 'devicon-vscode-plain' }),
     color: '#007ACC',
   },
@@ -250,8 +234,7 @@ const skills: Skill[] = [
     id: 'figma',
     title: 'Figma',
     experience: Experience.Advanced,
-    technology: Technology.Figma,
-    category: 'DevOps',
+    category: 'Tools',
     icon: React.createElement(FaFigma),
     color: '#F24E1E',
   },
@@ -259,7 +242,6 @@ const skills: Skill[] = [
     id: 'junit',
     title: 'JUnit',
     experience: Experience.Intermediate,
-    technology: Technology.JUnit,
     category: 'Testing',
     icon: React.createElement('i', { className: 'devicon-junit-plain' }),
     color: '#25A162',
@@ -268,7 +250,6 @@ const skills: Skill[] = [
     id: 'selenium',
     title: 'Selenium',
     experience: Experience.Intermediate,
-    technology: Technology.Selenium,
     category: 'Testing',
     icon: React.createElement('i', { className: 'devicon-selenium-plain' }),
     color: '#43B02A',
@@ -277,12 +258,98 @@ const skills: Skill[] = [
     id: 'google-cloud',
     title: 'Google Cloud',
     experience: Experience.Intermediate,
-    technology: Technology.GoogleCloud,
-    category: 'DevOps',
+    category: 'Tools',
     color: '#4285F4',
     icon: React.createElement('i', { className: 'devicon-googlecloud-plain' }),
   },
-  // Add more skills as needed
+  {
+    id: 'cpp',
+    title: 'C++',
+    experience: Experience.Basic,
+    category: 'Languages',
+    icon: React.createElement('i', { className: 'devicon-cplusplus-plain' }),
+    color: '#00599C',
+  },
+  {
+    id: 'hpc',
+    title: 'High-Performance Computing',
+    experience: Experience.Basic,
+    category: 'Data Science',
+    icon: React.createElement(Laptop),
+    color: '#008000',
+  },
+  {
+    id: 'cache-optimization',
+    title: 'Cache Optimization',
+    experience: Experience.Intermediate,
+    category: 'Data Science',
+    icon: React.createElement(Cached),
+    color: '#FF5733',
+  },
+  {
+    id: 'doe',
+    title: 'Design of Experiments (DoE)',
+    experience: Experience.Intermediate,
+    category: 'Data Science',
+    icon: React.createElement(Science),
+    color: '#FFD700',
+  },
+  {
+    id: 'statistics',
+    title: 'Statistical Analysis',
+    experience: Experience.Intermediate,
+    category: 'Data Science',
+    icon: React.createElement(Search),
+    color: '#1D6F42',
+  },
+  {
+    id: 'ble',
+    title: 'Bluetooth Low Energy (BLE)',
+    experience: Experience.Basic,
+    category: 'Hardware',
+    icon: React.createElement(Bluetooth),
+    color: '#0082FC',
+  },
+  {
+    id: 'arduino',
+    title: 'Arduino',
+    experience: Experience.Basic,
+    category: 'Hardware',
+    icon: React.createElement('i', { className: 'devicon-arduino-plain' }),
+    color: '#00979D',
+  },
+  {
+    id: 'sensor-processing',
+    title: 'Sensor Data Processing',
+    experience: Experience.Basic,
+    category: 'Data Science',
+    icon: React.createElement(Cpu),
+    color: '#FFD700',
+  },
+  {
+    id: 'data-acquisition',
+    title: 'Data Acquisition',
+    experience: Experience.Intermediate,
+    category: 'Data Science',
+    icon: React.createElement(DataArray),
+    color: '#DA5B0B',
+  },
+  {
+    id: 'kotlin',
+    title: 'Kotlin',
+    experience: Experience.Intermediate,
+    category: 'Languages',
+    icon: React.createElement('i', { className: 'devicon-kotlin-plain' }),
+    color: '#7F52FF',
+  },
+  {
+    id: 'Android',
+    title: 'Android',
+    experience: Experience.Intermediate,
+    category: 'UI/UX',
+    icon: React.createElement('i', { className: 'devicon-android-plain' }),
+    color: '#3DDC84',
+  },
 ]
 // Define projects
 const projects: Project[] = [
@@ -303,13 +370,14 @@ const projects: Project[] = [
     images: [kuki_home, kuki_comments, kuki_login],
     codeLink: 'https://github.com/Andrewdpg/kuki-social-network-back',
     siteLink: 'https://kuki-social-network-front-production.up.railway.app/',
+    category: 'Web',
   },
   {
     title: 'People-Database',
     subtitle: 'Database management system',
+    alone: true,
     body: 'A people database management system. It allows administrators to manage employees data and generate reports. Also, employees can manage clients data and visit reports. It includes user authentication, data validation and data visualization.',
     icon: React.createElement(Web),
-    //flutter firebase sql google cloud
     skills: skills.filter(
       (skill) =>
         skill.title === 'Flutter' ||
@@ -317,6 +385,43 @@ const projects: Project[] = [
         skill.title === 'Google Cloud'
     ),
     images: [first, second, third],
+    category: 'Multiplatform',
+  },
+  {
+    title: 'Memory Optimization in Matrix Multiplication',
+    subtitle: 'High-performance computing research project',
+    body: 'A research project focused on optimizing matrix multiplication by leveraging cache locality principles. It evaluates multiple algorithmic approaches and introduces a panel-based multiplication technique to improve performance. Statistical analysis and experimental design were applied to validate results.',
+    icon: React.createElement(Science),
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'C++' ||
+        skill.title === 'High-Performance Computing' ||
+        skill.title === 'Cache Optimization' ||
+        skill.title === 'Design of Experiments (DoE)' ||
+        skill.title === 'Statistical Analysis'
+    ),
+    images: [base, inew],
+    siteLink:
+      'https://drive.google.com/file/d/1s01Nf1VwsXHdgxaaLZ1bJD09BXW0Do7r/view?usp=sharing',
+    category: 'Research',
+  },
+  {
+    title: 'Early Parkinson Detection',
+    subtitle: 'Research project on biomedical signal processing',
+    body: 'A research project focused on developing a system for early detection of Parkinson’s disease using inertial sensors and a mobile application. The system utilizes Arduino Nano 33 IoT for data acquisition, Bluetooth Low Energy for wireless communication, and machine learning techniques to identify motor patterns.',
+    icon: React.createElement(Science),
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'Arduino' ||
+        skill.title === 'Bluetooth Low Energy (BLE)' ||
+        skill.title === 'Sensor Data Processing' ||
+        skill.title === 'Data Acquisition' ||
+        skill.title === 'Android'
+    ),
+    images: [arduino, movement, gyro],
+    siteLink:
+      'https://drive.google.com/file/d/1yFMc7df5MKc4jlOZC7zKR7on0HKm3EF7/view?usp=sharing',
+    category: 'Research',
   },
 ]
 

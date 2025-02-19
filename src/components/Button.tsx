@@ -2,7 +2,7 @@ import * as React from 'react'
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   className?: string
-  variant?: 'primary' | 'secondary' | 'text' | 'icon' | 'option'
+  variant?: 'primary' | 'secondary' | 'text' | 'icon' | 'option' | 'tab'
   fullWidth?: boolean
 }
 
@@ -23,6 +23,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       icon: 'bg-white hover:bg-app-main text-app-secondary focus:ring-2 focus:ring-app-main rounded-full p-2 hover:translate-y-[-7px]',
       option:
         'bg-transparent hover:bg-app-main/90 hover:text-app-white text-black focus:ring-2 focus:ring-app-main rounded-md px-3 py-2',
+      tab: 'bg-transparent border-b-2 text-black rounded-md border-b-2 border-dashed hover:border-solid px-3',
     }
 
     return (
