@@ -5,6 +5,7 @@ import flipped from '../../../../assets/img/me.jpg'
 import Heading from '../../../../components/Heading'
 import Body from '../../../../components/Body'
 import FlipCard from '../../../../components/Flipcard'
+import { Button } from '../../../../components/Button'
 
 export const Presentation = () => {
   return (
@@ -39,6 +40,7 @@ export const Presentation = () => {
           Interested in AI development, problem-solving and creating scalable
           intelligent solutions.
         </Body>
+        <Button variant="secondary"> Source code </Button>
       </div>
     </div>
   )

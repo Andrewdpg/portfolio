@@ -4,9 +4,8 @@ import { GitHub, Instagram, LinkedIn, X } from '@mui/icons-material'
 
 const Footer = () => {
   return (
-    <footer className="p-4 w-full fixed text-app-white z-20 bottom-0 items-center justify-center flex">
-      <div className="absolute bg-app-main/10 rounded-full blur-xl w-full h-[90vw] top-0" />
-      <div className="flex flew-wrap gap-4">
+    <footer className="p-4 w-full fixed text-app-white bottom-0 items-center justify-center flex">
+      <div className="flex flew-wrap gap-4 z-20">
         <Button
           variant="icon"
           className="hover:bg-purple-400"
@@ -38,6 +37,7 @@ const Footer = () => {
           <Instagram />
         </Button>
       </div>
+      <div className="absolute bg-app-main/10 rounded-full blur-xl w-full h-[90vw] top-0" />
     </footer>
   )
 }
