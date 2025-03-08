@@ -9,7 +9,7 @@ export default {
       colors: {
         // Main colors
         'app-main': '#b963cb',
-        'app-secondary': '#151B1E',
+        'app-secondary': '#0f1416',
         'app-contrast': '#402456',
         'app-white': '#F1E0F5',
 

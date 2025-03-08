@@ -36,7 +36,9 @@ const Popup: React.FC = () => {
               <Close />
             </Button>
             {content.title && (
-              <h2 className="mt-4 font-bold text-2xl">{content.title}</h2>
+              <h2 className="mt-4 font-bold text-2xl max-w-[80%]">
+                {content.title}
+              </h2>
             )}
             <div className="p-4">{content.body}</div>
           </motion.div>

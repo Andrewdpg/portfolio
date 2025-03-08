@@ -69,7 +69,7 @@ export const Sparkles = ({
 
       update() {
         this.x += this.speedX
-        this.y += this.speedY - (isScrolling ? 10 * scrollDirection : 0)
+        this.y += this.speedY - (isScrolling ? 2.5 * scrollDirection : 0)
 
         const width = canvas.width / dpr
         const height = canvas.height / dpr

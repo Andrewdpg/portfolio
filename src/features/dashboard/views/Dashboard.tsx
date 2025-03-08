@@ -24,9 +24,9 @@ function Dashboard() {
     <>
       <div className="w-full px-8 flex flex-col gap-4 transition-all duration-1000 ease-in-out">
         <Presentation />
-        <div className="grid grid-cols-1 sm:grid-cols-2 items-start sm:justify-center gap-y-2 m-4">
+        <div className="flex flex-col items-start sm:justify-center gap-y-2 m-4">
           <Section
-            className="flex flex-wrap justify-around gap-x-2 w-full"
+            className="flex flex-wrap justify-around gap-x-8 gap-y-4 w-full"
             title="Projects"
           >
             {projects.map((project, index) => (
@@ -34,7 +34,7 @@ function Dashboard() {
             ))}
           </Section>
           <Section className="w-full" title="Skills">
-            <div className="flex flex-wrap justify-center gap-2 gap-y-4 w-full">
+            <div className="flex flex-wrap justify-center gap-2 w-full">
               {Object.entries(groupedSkills).map(([category, skills]) => (
                 <SubSection title={category} key={category}>
                   <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">

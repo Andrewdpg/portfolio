@@ -5,20 +5,66 @@ export type TimelineItem = {
   subtitle: string
   body: string
   align: 'left' | 'right'
+  image?: string
+  link?: string
+  skills?: string[]
 }
 
 type TimelineProps = {
   items: TimelineItem[]
 }
 
-const TimelineCard: React.FC<{ item: TimelineItem }> = ({ item }) => {
+export const TimelineCard: React.FC<{ item: TimelineItem }> = ({ item }) => {
   return (
-    <div className="shadow-lg sm:w-3/4 md:w-2/3 lg:w-1/2 appear">
-      <div className="bg-app-contrast w-full p-4 rounded-2xl">
+    <div className="shadow-lg sm:w-3/4 md:w-2/3 lg:w-1/2 appear transition-all duration-300 hover:scale-[101%]">
+      <div className="bg-app-contrast/90 w-full p-4 rounded-2xl overflow-hidden">
+        {/* Image Section */}
+        {item.image && (
+          <div className="mb-3 -mx-4 -mt-4">
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-40 object-cover"
+            />
+          </div>
+        )}
+
+        {/* Header Section */}
         <h3 className="text-white text-xl font-bold">{item.title}</h3>
         <p className="text-gray-100 text-sm">{item.subtitle}</p>
-        <hr className="my-2 border-app-main" />
-        <p className="text-gray-300 text-sm">{item.body}</p>
+
+        <hr className="my-2 border-app-main rounded-full" />
+
+        {/* Body Section */}
+        <p className="text-gray-300 text-sm mb-3">{item.body}</p>
+
+        {/* Skills Section */}
+        {item.skills && item.skills.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {item.skills.map((skill, idx) => (
+              <span
+                key={idx}
+                className="bg-app-main px-2 py-1 rounded-lg text-xs text-white"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Link Section */}
+        {item.link && (
+          <div className="mt-3 text-right">
+            <a
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-app-main hover:text-app-secondary text-sm font-medium transition-colors"
+            >
+              Learn more →
+            </a>
+          </div>
+        )}
       </div>
     </div>
   )

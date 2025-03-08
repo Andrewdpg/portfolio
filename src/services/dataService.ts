@@ -31,30 +31,34 @@ const timelineItems: TimelineItem[] = [
     subtitle: 'ICESI University (2022 - 2026)',
     body: 'Undergraduate program in Software Engineering, focused on software development, architecture, and agile methodologies.',
     align: 'left',
-  },
-  {
-    title: 'Academic Honors',
-    subtitle: 'ICESI University (2023)',
-    body: 'Recognized for outstanding academic performance during the Software Engineering program.',
-    align: 'left',
+    link: 'https://www.icesi.edu.co/programas/ingenieria-diseno-y-ciencias-aplicadas/ingenieria-de-sistemas/',
+    skills: [
+      'Software Development',
+      'Agile Methodologies',
+      'Software Architecture',
+    ],
   },
   {
     title: 'Multimedia Support Monitor',
     subtitle: 'ICESI University (2023 - 2024)',
     body: 'Provided technical support for multimedia equipment to ensure smooth operation in academic environments.',
     align: 'right',
+    link: 'https://www.icesi.edu.co/servicios/multimedios/',
+    skills: ['Technical Support', 'Multimedia Equipment', 'Problem Solving'],
   },
   {
     title: 'Software Architecture Certification',
     subtitle: 'Perficient (2024)',
     body: 'Completed a course on software architecture design, patterns, and best practices.',
     align: 'left',
+    skills: ['Software Architecture', 'Design Patterns', 'Best Practices'],
   },
   {
     title: 'Software Development Intern',
     subtitle: 'Syri Development - ICESI University (2024 - Present)',
     body: 'Software development using different programming languages, adapting to project requirements. Working with agile methodologies and Scrum teams.',
     align: 'right',
+    skills: ['Software Development', 'Agile Methodologies', 'Scrum'],
   },
 ]
 
@@ -369,7 +373,10 @@ const projects: Project[] = [
     ),
     images: [kuki_home, kuki_comments, kuki_login],
     codeLink: 'https://github.com/Andrewdpg/kuki-social-network-back',
-    siteLink: 'https://kuki-social-network-front-production.up.railway.app/',
+    siteLink: 'https://kuki-social-network-front.vercel.app/',
+    warnings: [
+      'Backend is hosted on free-tier render so it may take a few seconds/minutes to start',
+    ],
     category: 'Web',
   },
   {

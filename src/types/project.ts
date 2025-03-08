@@ -20,4 +20,5 @@ export type Project = {
   images: string[]
   codeLink?: string
   siteLink?: string
+  warnings?: string[]
 }

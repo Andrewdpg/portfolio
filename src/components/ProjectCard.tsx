@@ -6,6 +6,7 @@ import Body from './Body'
 import { SkillButton } from './SkillButton'
 import { Button } from './Button'
 import { People, Person } from '@mui/icons-material'
+import { Info } from 'lucide-react'
 
 type ProjectCardProps = {
   project: Project
@@ -29,7 +30,17 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
         </div>
       </div>
       <p className="mt-4">{project.body}</p>
-      <p className="text-gray-400 text-sm mt-2">{project.subtitle}</p>
+      <p className="text-gray-300 text-sm mt-2">{project.subtitle}</p>
+      {project.warnings && (
+        <div className="flex flex-col gap-2 mt-4">
+          {project.warnings.map((warning, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <Info className="w-4 h-4 text-app-main" />
+              <p className="text-sm italic text-gray-400">{warning}</p>
+            </div>
+          ))}
+        </div>
+      )}
       <div className="flex flex-wrap items-center gap-2 mt-4">
         {project.codeLink && (
           <Button
@@ -74,14 +85,23 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       className="flex flex-col items-center group pt-10 pb-4 hover:cursor-pointer"
       onClick={handleImageClick}
     >
-      <div className="h-fit w-60 bg-app-contrast/0 opacity-90 rounded-xl z-0 transition-all duration-300 group-hover:scale-y-110 group-hover:bg-app-contrast group-hover:mt-[-1rem]">
+      <div className="absolute h-fit w-60 bg-app-contrast/0 opacity-90 rounded-xl z-0 group-hover:z-20 transition-all duration-300 group-hover:scale-y-110 group-hover:bg-app-contrast group-hover:mt-[-1rem]">
+        <div className="w-60 h-40 mb-3 group-hover:-mb-2" />
+        <p className="hidden px-4 pb-4 text-white text-sm max-w-[15rem] group-hover:scale-y-90 group-hover:opacity-100 group-hover:block opacity-0 transition-all duration-300">
+          {project.body}
+        </p>
+      </div>
+
+      <div className="h-fit w-60 bg-app-contrast/0 opacity-90 rounded-xl z-0 group-hover:z-20 transition-all duration-300 group-hover:scale-y-110">
         {/* Data Section */}
         <ImageGallery
-          className="relative w-60 h-40 group-hover:scale-y-95 group-hover:-translate-x-3 group-hover:-translate-y-2 group-hover:shadow-xl z-10 mb-3 group-hover:-mb-2"
+          className="absolute w-60 h-40 group-hover:scale-y-95 group-hover:-translate-x-3 group-hover:-translate-y-2 group-hover:shadow-xl z-10 mb-3 group-hover:-mb-2 group-hover:mt-[-1rem] group-hover:z-30"
           images={project.images}
         />
 
-        <div className="flex opacity-100 group-hover:opacity-0 mx-4 space-x-3 transition-all duration-300 group-hover:hidden group-hover:scale-y-90">
+        <div className="w-60 h-40 mb-3" />
+
+        <div className="flex opacity-100 group-hover:opacity-0 mx-4 space-x-3 transition-all duration-300 ">
           {/* Icon */}
           <div className="flex flex-col gap-2 ">
             <div className="w-fit h-fit p-2 bg-app-main rounded-md flex items-center justify-center text-app-white">
@@ -102,9 +122,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <p className="text-gray-400 text-sm">{project.subtitle}</p>
           </div>
         </div>
-        <p className="hidden px-4 pb-4 text-white text-sm max-w-[15rem] group-hover:scale-y-90 group-hover:opacity-100 group-hover:block opacity-0 transition-all duration-300">
-          {project.body}
-        </p>
       </div>
     </div>
   )

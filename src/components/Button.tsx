@@ -16,14 +16,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        'bg-app-main hover:bg-app-main/90 text-app-white focus:ring-2 focus:ring-app-main rounded-md px-4 py-2',
+        'bg-app-main hover:bg-app-main/90 text-app-white focus:ring-2 focus:ring-app-main rounded-lg px-4 py-2',
       secondary:
-        'bg-black hover:bg-app-main/90 text-app-white focus:ring-2 focus:ring-app-main rounded-md px-4 py-2',
-      text: 'bg-transparent hover:text-gray-700 text-app-main disabled:hover:text-white rounded-md px-4 py-2',
-      icon: 'bg-white hover:bg-app-main text-app-secondary focus:ring-2 focus:ring-app-main rounded-full p-2 hover:translate-y-[-7px]',
+        'bg-black hover:bg-app-main/90 text-app-white focus:ring-2 focus:ring-app-main rounded-lg px-4 py-2',
+      text: 'bg-transparent hover:text-gray-700 text-app-main disabled:hover:text-white rounded-lg px-4 py-2',
+      icon: 'bg-white hover:bg-app-main text-app-secondary focus:ring-2 focus:ring-app-main rounded-xl p-2 hover:translate-y-[-7px]',
       option:
-        'bg-transparent hover:bg-app-main/90 hover:text-app-white text-black focus:ring-2 focus:ring-app-main rounded-md px-3 py-2',
-      tab: 'bg-transparent border-b-2 text-black rounded-md border-b-2 border-dashed hover:border-solid px-3',
+        'bg-transparent hover:bg-app-main/90 hover:text-app-white text-black focus:ring-2 focus:ring-app-main rounded-lg px-3 py-2',
+      tab: 'bg-transparent border text-black rounded-lg hover:border-solid px-3',
     }
 
     return (
