@@ -5,8 +5,14 @@ type BodyProps = {
   className?: string
 }
 
-const Body: React.FC<BodyProps> = ({ children, className }) => {
-  return <h1 className={`text-lg text-white ${className}`}>{children}</h1>
+const Body: React.FC<BodyProps> = ({ children, className = '' }) => {
+  return (
+    <p
+      className={`text-lg text-app-secondary/80 font-light leading-relaxed ${className}`}
+    >
+      {children}
+    </p>
+  )
 }
 
 export default Body

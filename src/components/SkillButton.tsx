@@ -12,9 +12,10 @@ export const SkillButton: React.FC<SkillButtonProps> = ({ skill }) => {
       onClick={() => {}}
       title={skill.title}
       tooltip={`My level is '${skill.experience}' on this one`}
-      color={skill.color}
     >
-      {skill.icon}
+      <div className="flex items-center justify-center transition-colors group-hover:text-app-main">
+        {skill.icon}
+      </div>
     </Tooltip>
   )
 }

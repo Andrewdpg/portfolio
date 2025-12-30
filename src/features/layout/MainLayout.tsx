@@ -8,7 +8,6 @@ const MainLayout = () => {
     <Background>
       <main className={`flex flex-col flex-1 transition-all duration-300`}>
         <Outlet />
-        <div className="h-16" />
       </main>
       <Footer />
     </Background>

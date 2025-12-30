@@ -15,9 +15,9 @@ export const Sparkles = ({
   background = 'transparent',
   minSize = 0.5,
   maxSize = 1.4,
-  particleDensity = 100,
+  particleDensity = 60,
   className = 'h-full w-full',
-  particleColor = '#FFFFFF',
+  particleColor = '#9B76D3', // Brand Purple
 }: SparklesProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationFrameIdRef = useRef<number>(0)
@@ -58,6 +58,7 @@ export const Sparkles = ({
       size: number
       speedX: number
       speedY: number
+      opacity: number
 
       constructor() {
         this.x = Math.random() * (canvas.width / dpr)
@@ -65,6 +66,7 @@ export const Sparkles = ({
         this.size = Math.random() * (maxSize - minSize) + minSize
         this.speedX = Math.random() * 0.5 - 0.25
         this.speedY = Math.random() * 0.5 - 0.25
+        this.opacity = Math.random() * 0.5 + 0.2
       }
 
       update() {
@@ -105,6 +107,8 @@ export const Sparkles = ({
           }
           gradientCache[key] = offCanvas
         }
+
+        ctx.globalAlpha = this.opacity
         ctx.drawImage(
           gradientCache[key],
           this.x - key,
@@ -112,6 +116,7 @@ export const Sparkles = ({
           key * 2,
           key * 2
         )
+        ctx.globalAlpha = 1.0
       }
     }
 
@@ -174,11 +179,12 @@ export const Sparkles = ({
     <canvas
       ref={canvasRef}
       id={id}
-      className={`overflow-hidden fixed top-0 left-0 ${className}`}
+      className={`overflow-hidden fixed top-0 left-0 pointer-events-none ${className}`}
       style={{
         background,
         width: '100%',
         height: '100%',
+        zIndex: 0,
       }}
     />
   )

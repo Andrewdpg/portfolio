@@ -22,43 +22,80 @@ import inew from '../assets/img/lab/new.png'
 import arduino from '../assets/img/parkinson/arduino.png'
 import movement from '../assets/img/parkinson/movement.png'
 import gyro from '../assets/img/parkinson/gyro.png'
-import { TimelineItem } from '../components/Timeline'
+import { ExperienceGroup } from '../types/timeline'
 import { Bluetooth, Cpu, Laptop, Search } from 'lucide-react'
 
-const timelineItems: TimelineItem[] = [
+// Images for hero backgrounds
+
+const experienceGroups: ExperienceGroup[] = [
   {
-    title: 'Software Engineering Degree',
-    subtitle: 'ICESI University (2022 - 2026)',
-    body: 'Undergraduate program in Software Engineering, focused on software development, architecture, and agile methodologies.',
+    place: 'Academic Foundation',
+    description:
+      'Systems Engineering undergraduate studies focused on software architecture, AI research, and specialized certifications.',
+    heroImage:
+      'https://www.icesi.edu.co/wp-content/uploads/2025/02/trabaja-nosotros-icesi-movil.jpg',
+    backgroundColor: '#5354ED',
+    textColor: '#ffffff',
     align: 'left',
-    link: 'https://www.icesi.edu.co/programas/ingenieria-diseno-y-ciencias-aplicadas/ingenieria-de-sistemas/',
-    skills: [
-      'Software Development',
-      'Agile Methodologies',
-      'Software Architecture',
+    variant: 'immersive',
+    items: [
+      {
+        title: 'Systems Engineering Degree',
+        subtitle: '2022 - 2026 (Expected)',
+        body: 'Focused on Cloud Native architecture and agile development methodologies.',
+        skills: ['Systems Engineering', 'Software Design', 'Agile'],
+      },
+      {
+        title: 'AI & Biomedical Research',
+        subtitle: '2024 - 2026',
+        body: 'Developing machine learning models for early disease detection and pre-anesthetic evaluation.',
+        skills: ['AI/ML', 'Data Science', 'Research'],
+      },
+      {
+        title: 'Software Architecture Certification',
+        subtitle: 'Perficient (2024)',
+        body: 'Specialization in Microservices, Serverless design, and scalable architectural patterns.',
+        skills: ['Microservices', 'System Design', 'Cloud'],
+      },
     ],
   },
   {
-    title: 'Multimedia Support Monitor',
-    subtitle: 'ICESI University (2023 - 2024)',
-    body: 'Provided technical support for multimedia equipment to ensure smooth operation in academic environments.',
+    place: 'ICESI University',
+    description:
+      'Applied software engineering and technical support within institutional development centers.',
+    heroImage:
+      'https://www.valoraanalitik.com/wp-content/uploads/2025/09/La-Universidad-Icesi-celebra-una-etapa-de-crecimiento-1024x597.jpg',
+    backgroundColor: '#5354ED',
+    textColor: '#ffffff',
     align: 'right',
-    link: 'https://www.icesi.edu.co/servicios/multimedios/',
-    skills: ['Technical Support', 'Multimedia Equipment', 'Problem Solving'],
+    variant: 'immersive',
+    items: [
+      {
+        title: 'Fullstack Developer (SYRI)',
+        subtitle: '2024 - 2025',
+        body: 'Led the development of automated internal systems, streamlining institutional processes.',
+        skills: ['Fullstack', 'Processes', 'Automation'],
+      },
+    ],
   },
   {
-    title: 'Software Architecture Certification',
-    subtitle: 'Perficient (2024)',
-    body: 'Completed a course on software architecture design, patterns, and best practices.',
+    place: 'Swiset',
+    description:
+      'A leading fintech platform delivering advanced analytics and trading engines for global prop firms.',
+    heroImage:
+      'https://hub.swiset.com/wp-content/uploads/2025/02/featured-image_Mesa-de-trabajo-1-copia.jpg',
+    backgroundColor: '#28EA96',
+    textColor: '#000000',
     align: 'left',
-    skills: ['Software Architecture', 'Design Patterns', 'Best Practices'],
-  },
-  {
-    title: 'Software Development Intern',
-    subtitle: 'Syri Development - ICESI University (2024 - Present)',
-    body: 'Software development using different programming languages, adapting to project requirements. Working with agile methodologies and Scrum teams.',
-    align: 'right',
-    skills: ['Software Development', 'Agile Methodologies', 'Scrum'],
+    variant: 'immersive',
+    items: [
+      {
+        title: 'Software Developer',
+        subtitle: 'Dec 2025 - Present',
+        body: 'Developing high-performance fintech solutions with a focus on trader analytics and risk management.',
+        skills: ['Fintech', 'Analytics', 'Prop Trading'],
+      },
+    ],
   },
 ]
 
@@ -347,12 +384,124 @@ const skills: Skill[] = [
     color: '#7F52FF',
   },
   {
-    id: 'Android',
-    title: 'Android',
-    experience: Experience.Intermediate,
+    id: 'nextjs',
+    title: 'Next.js',
+    experience: Experience.Advanced,
     category: 'UI/UX',
-    icon: React.createElement('i', { className: 'devicon-android-plain' }),
-    color: '#3DDC84',
+    icon: React.createElement('i', { className: 'devicon-nextjs-plain' }),
+    color: '#000000',
+  },
+  {
+    id: 'kubernetes',
+    title: 'Kubernetes',
+    experience: Experience.Basic,
+    category: 'DevOps',
+    icon: React.createElement('i', { className: 'devicon-kubernetes-plain' }),
+    color: '#326CE5',
+  },
+  {
+    id: 'jenkins',
+    title: 'Jenkins',
+    experience: Experience.Basic,
+    category: 'DevOps',
+    icon: React.createElement('i', { className: 'devicon-jenkins-plain' }),
+    color: '#D24939',
+  },
+  {
+    id: 'terraform',
+    title: 'Terraform',
+    experience: Experience.Basic,
+    category: 'DevOps',
+    icon: React.createElement('i', { className: 'devicon-terraform-plain' }),
+    color: '#7B42BC',
+  },
+  {
+    id: 'scikitlearn',
+    title: 'Scikit-learn',
+    experience: Experience.Intermediate,
+    category: 'AI/ML',
+    icon: React.createElement('i', { className: 'devicon-scikitlearn-plain' }),
+    color: '#F7931E',
+  },
+  {
+    id: 'tensorflow',
+    title: 'TensorFlow',
+    experience: Experience.Intermediate,
+    category: 'AI/ML',
+    icon: React.createElement('i', { className: 'devicon-tensorflow-line' }),
+    color: '#FF6F00',
+  },
+  {
+    id: 'pytorch',
+    title: 'PyTorch',
+    experience: Experience.Intermediate,
+    category: 'AI/ML',
+    icon: React.createElement('i', { className: 'devicon-pytorch-plain' }),
+    color: '#EE4C2C',
+  },
+  {
+    id: 'oracle',
+    title: 'Oracle SQL',
+    experience: Experience.Advanced,
+    category: 'Database',
+    icon: React.createElement('i', { className: 'devicon-oracle-original' }),
+    color: '#F80000',
+  },
+  {
+    id: 'linux',
+    title: 'Linux',
+    experience: Experience.Advanced,
+    category: 'Tools',
+    icon: React.createElement('i', { className: 'devicon-linux-plain' }),
+    color: '#FCC624',
+  },
+  {
+    id: 'analytical-reasoning',
+    title: 'Analytical Reasoning',
+    experience: Experience.Expert,
+    category: 'Competencies',
+    icon: React.createElement(Laptop),
+    color: '#4CAF50',
+  },
+  {
+    id: 'leadership',
+    title: 'Leadership',
+    experience: Experience.Advanced,
+    category: 'Competencies',
+    icon: React.createElement(Laptop),
+    color: '#FF9800',
+  },
+  {
+    id: 'problem-solving',
+    title: 'Problem Solving',
+    experience: Experience.Expert,
+    category: 'Competencies',
+    icon: React.createElement(Laptop),
+    color: '#2196F3',
+  },
+  {
+    id: 'ideation-design',
+    title: 'Ideation & Design',
+    experience: Experience.Advanced,
+    category: 'Competencies',
+    icon: React.createElement(Laptop),
+    color: '#9C27B0',
+  },
+  {
+    id: 'english',
+    title: 'English (Professional)',
+    experience: Experience.Advanced,
+    category: 'Languages',
+    icon: React.createElement(Web),
+    color: '#3F51B5',
+  },
+  {
+    id: 'french',
+    title: 'French (A2)',
+    experience: Experience.Basic,
+    category: 'Languages',
+    icon: React.createElement(Web),
+    color: '#E91E63',
   },
 ]
 // Define projects
@@ -368,8 +517,8 @@ const projects: Project[] = [
         skill.title === 'Spring Boot' ||
         skill.title === 'PostgreSQL' ||
         skill.title === 'Postman' ||
-        skill.title === 'JUnit' ||
-        skill.title === 'Docker'
+        skill.title === 'Docker' ||
+        skill.title === 'Next.js'
     ),
     images: [kuki_home, kuki_comments, kuki_login],
     codeLink: 'https://github.com/Andrewdpg/kuki-social-network-back',
@@ -389,7 +538,8 @@ const projects: Project[] = [
       (skill) =>
         skill.title === 'Flutter' ||
         skill.title === 'Firebase' ||
-        skill.title === 'Google Cloud'
+        skill.title === 'Google Cloud' ||
+        skill.title === 'Oracle SQL'
     ),
     images: [first, second, third],
     category: 'Multiplatform',
@@ -404,8 +554,7 @@ const projects: Project[] = [
         skill.title === 'C++' ||
         skill.title === 'High-Performance Computing' ||
         skill.title === 'Cache Optimization' ||
-        skill.title === 'Design of Experiments (DoE)' ||
-        skill.title === 'Statistical Analysis'
+        skill.title === 'Linux'
     ),
     images: [base, inew],
     siteLink:
@@ -421,8 +570,8 @@ const projects: Project[] = [
       (skill) =>
         skill.title === 'Arduino' ||
         skill.title === 'Bluetooth Low Energy (BLE)' ||
-        skill.title === 'Sensor Data Processing' ||
-        skill.title === 'Data Acquisition' ||
+        skill.title === 'TensorFlow' ||
+        skill.title === 'Python' ||
         skill.title === 'Android'
     ),
     images: [arduino, movement, gyro],
@@ -432,4 +581,4 @@ const projects: Project[] = [
   },
 ]
 
-export { skills, projects, timelineItems }
+export { skills, projects, experienceGroups }

@@ -13,6 +13,8 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
   const [fade, setFade] = useState(false)
 
   useEffect(() => {
+    if (images.length <= 1) return
+
     const interval = setInterval(() => {
       setFade(true)
       setTimeout(() => {
@@ -25,10 +27,12 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
   }, [images.length])
 
   return (
-    <img
-      src={images[currentImageIndex]}
-      alt="Gallery Image"
-      className={`rounded-lg transition-all duration-300 ${fade ? 'opacity-10' : 'opacity-100'} ${className}`}
-    />
+    <div className={`relative overflow-hidden ${className}`}>
+      <img
+        src={images[currentImageIndex]}
+        alt="Gallery Image"
+        className={`w-full h-full object-cover transition-opacity duration-500 ${fade ? 'opacity-0' : 'opacity-100'}`}
+      />
+    </div>
   )
 }

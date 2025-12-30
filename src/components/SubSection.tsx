@@ -1,8 +1,6 @@
 import React from 'react'
-
-import { Button } from './Button'
 import { motion, AnimatePresence } from 'framer-motion'
-import Body from './Body'
+import { ChevronDown } from 'lucide-react'
 
 type SubSectionProps = {
   title: string
@@ -12,37 +10,40 @@ type SubSectionProps = {
 
 export const SubSection: React.FC<SubSectionProps> = ({
   title,
-  className,
+  className = '',
   children,
 }) => {
   const [opened, setOpened] = React.useState(false)
 
   return (
     <div
-      className={`flex flex-col rounded-lg justify-center ${className} ${!opened ? 'bg-app-main/20 hover:bg-app-main/30' : 'bg-white/10'} overflow-visible transition-all duration-300  `}
+      className={`flex flex-col rounded-3xl border border-current/10 bg-current/[0.03] overflow-hidden transition-all duration-500 ${opened ? 'shadow-inner' : 'hover:bg-current/[0.05]'} ${className}`}
     >
-      <Button
-        variant="text"
-        className={`flex items-center justify-center text-center flex-row ${opened ? 'border-app-main border-solid' : ' w-fit'} h-full`}
+      <button
+        className="flex items-center justify-between px-8 py-5 w-full text-left transition-all"
         onClick={() => setOpened(!opened)}
       >
-        <Body
-          className={`text-xl text-nowrap font-bold ${opened ? 'mb-1' : ''} text-center`}
-        >
+        <span className="text-xl font-black uppercase tracking-tighter">
           {title}
-        </Body>
-      </Button>
+        </span>
+        <motion.div
+          animate={{ rotate: opened ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+          className="opacity-20"
+        >
+          <ChevronDown size={22} />
+        </motion.div>
+      </button>
 
       <AnimatePresence>
         {opened && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'min-content', opacity: 1 }}
+            animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="pb-4 px-4 w-full"
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            {children}
+            <div className="px-8 pb-8 pt-2">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

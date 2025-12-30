@@ -1,0 +1,21 @@
+.hero-scroll-container {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */ 
+}
+
+.hero-scroll-container::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, and Opera */
+}
+
+.hero-scroll-container>* {
+  scroll-snap-align: start;
+}

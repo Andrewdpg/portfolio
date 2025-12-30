@@ -8,21 +8,21 @@ export default {
       },
       colors: {
         // Main colors
-        'app-main': '#b963cb',
-        'app-secondary': '#0f1416',
-        'app-contrast': '#402456',
-        'app-white': '#F1E0F5',
+        'app-main': '#9B76D3',
+        'app-secondary': '#1A1128', // Dark deep purple for text/bg instead of true black
+        'app-contrast': '#2D1F44',
+        'app-white': '#FFFFFF',
 
         // Secondary colors
-        'app-yellow': '#e4eb60',
-        'app-green': '#4cb979',
-        'app-purple': '#865cf0',
-        'app-orange': '#e9683b',
-        'app-gray': '#88898c',
-        'app-light-gray': '#cecfd4',
+        'app-yellow': '#f0f0f0',
+        'app-green': '#28EA96',
+        'app-purple': '#9B76D3',
+        'app-orange': '#f0f0f0',
+        'app-gray': '#888888',
+        'app-light-gray': '#D1D1D1',
 
         // Neutral colors
-        black: '#1d1e28',
+        black: '#1A1128', // Deep purple-black
       },
     },
   },

@@ -21,6 +21,8 @@ export const MouseGlow = () => {
       style={{
         left: `${mousePosition.x}px`,
         top: `${mousePosition.y}px`,
+        background:
+          'radial-gradient(circle, rgba(155, 118, 211, 0.15) 0%, rgba(255, 255, 255, 0) 70%)',
       }}
     />
   )

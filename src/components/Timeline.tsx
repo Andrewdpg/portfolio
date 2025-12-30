@@ -1,14 +1,6 @@
 import React from 'react'
 
-export type TimelineItem = {
-  title: string
-  subtitle: string
-  body: string
-  align: 'left' | 'right'
-  image?: string
-  link?: string
-  skills?: string[]
-}
+import { TimelineItem } from '../types/timeline'
 
 type TimelineProps = {
   items: TimelineItem[]

@@ -17,6 +17,10 @@ export type SkillCategory =
   | 'Algorithms'
   | 'Data Science'
   | 'Hardware'
+  | 'DevOps'
+  | 'AI/ML'
+  | 'Cloud'
+  | 'Competencies'
   | 'Other'
 
 export type Skill = {

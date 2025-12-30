@@ -48,12 +48,16 @@ li {
 
 .glow-effect {
   position: fixed;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, #ba63cb3b 0%, rgba(255, 255, 255, 0) 50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(155, 118, 211, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 1;
+}
+
+body {
+  @apply font-sans bg-white text-black;
 }
 
 
@@ -72,20 +76,13 @@ li {
   animation: appear 0.5s ease-in;
 }
 
-/* scrollbar */
-*::-webkit-scrollbar {
-  width: 12px; /* Width of the scrollbar */
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-*::-webkit-scrollbar-track {
-  background: #151B1E; /* Background of the scrollbar track */
-}
-
-*::-webkit-scrollbar-thumb {
-  border-radius: 10px; /* Roundness of the scrollbar thumb */
-  border: 0px solid transparent; /* Padding around the scrollbar thumb */
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: #402456; /* Color of the scrollbar thumb on hover */
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
