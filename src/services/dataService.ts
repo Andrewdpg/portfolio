@@ -486,23 +486,7 @@ const skills: Skill[] = [
     category: 'Competencies',
     icon: React.createElement(Laptop),
     color: '#9C27B0',
-  },
-  {
-    id: 'english',
-    title: 'English (Professional)',
-    experience: Experience.Advanced,
-    category: 'Languages',
-    icon: React.createElement(Web),
-    color: '#3F51B5',
-  },
-  {
-    id: 'french',
-    title: 'French (A2)',
-    experience: Experience.Basic,
-    category: 'Languages',
-    icon: React.createElement(Web),
-    color: '#E91E63',
-  },
+  }
 ]
 // Define projects
 const projects: Project[] = [

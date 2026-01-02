@@ -138,7 +138,7 @@ function Dashboard() {
                 <SubSection
                   title={category}
                   key={category}
-                  className="flex-1 min-w-[300px]"
+                  className="flex-1 w-[400px] max-w-full"
                 >
                   <div className="flex flex-wrap justify-center md:justify-start gap-4 mt-6">
                     {skills.map((skill: Skill, i: number) => (

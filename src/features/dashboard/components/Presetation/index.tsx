@@ -1,28 +1,73 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import Heading from '../../../../components/Heading'
 import Body from '../../../../components/Body'
 import me from '../../../../assets/img/me.jpeg'
 import { TitleCard } from './Components/TitleCard'
-import { Download } from 'lucide-react'
+import { Download, Play, X } from 'lucide-react'
 import Partner from '../../../../components/Partner'
+import { Tilt3D } from '../../../../components/Tilt3D'
+import { LanguageStamps } from './Components/LanguageStamps'
 
 export const Presentation = () => {
+  const [showVideo, setShowVideo] = useState(false)
+
   return (
     <div className="flex flex-col md:flex-row items-center justify-center md:justify-between p-6 md:p-16 gap-8 md:gap-12 min-h-screen relative overflow-y-auto no-scrollbar">
       <div className="w-full md:w-[45%] flex justify-center max-w-[320px] md:max-w-[500px] order-1 md:order-2 shrink-0">
-        <div className="relative w-full aspect-square overflow-hidden bg-app-main/10 rounded-[32px] md:rounded-[48px] shadow-2xl group border-[8px] md:border-[12px] border-white ring-1 ring-black/5">
-          <img
-            src={me}
-            alt="Andrew Parra"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-app-main/20 to-transparent pointer-events-none" />
-        </div>
+        <Tilt3D>
+          <div className="relative w-full aspect-square overflow-hidden bg-app-main/10 rounded-[32px] md:rounded-[48px] shadow-2xl group border-[8px] md:border-[12px] border-white ring-1 ring-black/5">
+            {!showVideo ? (
+              <>
+                <img
+                  src={me}
+                  alt="Andrew Parra"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-app-main/20 to-transparent pointer-events-none" />
+
+                {/* Play Button Overlay */}
+                <button
+                  onClick={() => setShowVideo(true)}
+                  className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                  <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform scale-90 group-hover:scale-100 transition-transform duration-500">
+                    <Play size={40} className="fill-white translate-x-1" />
+                  </div>
+                </button>
+                <motion.span
+                  initial={{ opacity: 0.6, y: 10 }}
+                  whileHover={{ opacity: 1, y: 0 }}
+                  className="absolute bottom-4 left-4 transform -translate-x-1/2 text-[10px] font-black uppercase tracking-[0.4em] text-white bg-app-main/80 px-4 py-1.5 rounded-full backdrop-blur-sm"
+                >
+                  Watch Pitch
+                </motion.span>
+              </>
+            ) : (
+              <div className="absolute inset-0 bg-black">
+                <iframe
+                  src="https://www.youtube.com/embed/MKu16mOYshE?autoplay=1"
+                  title="Pitch Video"
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+                <button
+                  onClick={() => setShowVideo(false)}
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors z-10"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            )}
+          </div>
+        </Tilt3D>
       </div>
 
       <div className="flex flex-col flex-1 gap-6 md:gap-8 justify-center items-center text-center md:items-start md:text-start order-2 md:order-1 max-w-2xl">
-        <div className="flex flex-col gap-2 scale-90 md:scale-100">
+        <div className="flex flex-col md:flex-row items-center gap-4 scale-90 md:scale-100">
           <TitleCard title="Andrés" subTitle="Software Developer" />
+          <LanguageStamps className="flex" />
         </div>
 
         <Heading className="text-app-secondary !text-4xl sm:!text-5xl md:!text-7xl">

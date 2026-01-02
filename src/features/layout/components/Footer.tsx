@@ -37,7 +37,6 @@ const Footer = () => {
             {social.icon}
           </button>
         ))}
-        <div className="w-px h-12 bg-app-secondary/10 group-hover:bg-app-main/20 transition-colors" />
       </div>
     </footer>
   )

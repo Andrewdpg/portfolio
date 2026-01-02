@@ -58,12 +58,13 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
     <>
       {/* Desktop Navigation (Right Side) */}
       <div
-        className="hidden md:flex fixed right-8 top-1/2 -translate-y-1/2 z-[150] flex-col gap-6 items-end p-4 rounded-3xl bg-black/5 backdrop-blur-md border border-white/10"
+        className="hidden md:flex fixed right-0 top-1/4 -translate-y-1/2 z-[150] flex-col gap-6 items-end p-4 rounded-3xl rounded-r-none bg-black/40 backdrop-blur-md border border-white/10"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         {sections.map((section) => {
           const isActive = activeSection === section.id
+          if (!isHovered && !isActive) return null
           return (
             <button
               key={section.id}
@@ -76,7 +77,7 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
-                    className={`text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${isActive ? 'text-app-main' : 'text-app-secondary/60'} pr-2`}
+                    className={`text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${isActive ? 'text-app-main' : 'text-white'} pr-2`}
                   >
                     {section.label}
                   </motion.span>
@@ -96,14 +97,18 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
       </div>
 
       {/* Mobile Navigation (Bottom Floating Pill) */}
-      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] w-[90%] max-w-[360px]">
-        <div className="bg-app-secondary/95 backdrop-blur-2xl border border-white/10 rounded-full p-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between gap-1 px-4 overflow-x-auto no-scrollbar">
+      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] max-w-[360px]">
+        <div className="bg-app-secondary/95 backdrop-blur-2xl border border-white/10 rounded-full p-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between gap-1 overflow-x-auto no-scrollbar">
           {sections.map((section) => {
             const isActive = activeSection === section.id
+            if (!isHovered && !isActive) return null
             return (
               <button
                 key={section.id}
-                onClick={() => scrollToSection(section.id)}
+                onClick={() => {
+                  scrollToSection(section.id)
+                  setIsHovered(isActive)
+                }}
                 className={`flex items-center justify-center p-3.5 rounded-full transition-all duration-300 relative ${
                   isActive ? 'text-white' : 'text-white/30 hover:text-white/60'
                 }`}

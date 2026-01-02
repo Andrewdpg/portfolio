@@ -17,7 +17,7 @@ export const SubSection: React.FC<SubSectionProps> = ({
 
   return (
     <div
-      className={`flex flex-col rounded-3xl border border-current/10 bg-current/[0.03] overflow-hidden transition-all duration-500 ${opened ? 'shadow-inner' : 'hover:bg-current/[0.05]'} ${className}`}
+      className={`flex flex-col rounded-3xl border border-current/10 bg-current/[0.03] transition-all duration-500 ${opened ? 'shadow-inner' : 'hover:bg-current/[0.05]'} ${className}`}
     >
       <button
         className="flex items-center justify-between px-8 py-5 w-full text-left transition-all"

@@ -1,4 +1,5 @@
 import React from 'react'
+import { TextReveal } from './TextReveal'
 
 type BodyProps = {
   children: React.ReactNode
@@ -10,7 +11,7 @@ const Body: React.FC<BodyProps> = ({ children, className = '' }) => {
     <p
       className={`text-lg text-app-secondary/80 font-light leading-relaxed ${className}`}
     >
-      {children}
+      {typeof children === 'string' ? <TextReveal text={children} /> : children}
     </p>
   )
 }

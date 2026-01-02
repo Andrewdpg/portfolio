@@ -1,4 +1,5 @@
 import React from 'react'
+import { TextReveal } from './TextReveal'
 
 type SubtitleProps = {
   children: React.ReactNode
@@ -10,7 +11,7 @@ const Subtitle: React.FC<SubtitleProps> = ({ children, className = '' }) => {
     <p
       className={`text-xl md:text-2xl font-light text-app-main/80 uppercase tracking-[0.3em] ${className}`}
     >
-      {children}
+      {typeof children === 'string' ? <TextReveal text={children} /> : children}
     </p>
   )
 }
