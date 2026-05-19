@@ -29,6 +29,24 @@ import { Bluetooth, Cpu, Laptop, Search } from 'lucide-react'
 
 const experienceGroups: ExperienceGroup[] = [
   {
+    place: 'Methodus',
+    description:
+      'Adaptive ICFES preparation platform focused on personalized learning experiences.',
+    heroImage: '',
+    backgroundColor: '#1a1128',
+    textColor: '#ffffff',
+    align: 'right' as const,
+    variant: 'immersive' as const,
+    items: [
+      {
+        title: 'Fullstack Developer · Tech Lead',
+        subtitle: 'Jan 2026 – Present',
+        body: 'Leading the technical development of Methodus. Managing release planning, QA coordination and incident response to prepare the platform for pilot use.',
+        skills: ['React', 'Node.js', 'PostgreSQL', 'CI/CD', 'Tech Lead'],
+      },
+    ],
+  },
+  {
     place: 'Academic Foundation',
     description:
       'Systems Engineering undergraduate studies focused on software architecture, AI research, and specialized certifications.',
@@ -40,22 +58,22 @@ const experienceGroups: ExperienceGroup[] = [
     variant: 'immersive',
     items: [
       {
-        title: 'Systems Engineering Degree',
-        subtitle: '2022 - 2026 (Expected)',
-        body: 'Focused on Cloud Native architecture and agile development methodologies.',
-        skills: ['Systems Engineering', 'Software Design', 'Agile'],
+        title: 'B.S. Systems Engineering',
+        subtitle: '2022 – 2026 (Expected) · GPA 4.6/5.0',
+        body: "Focused on software architecture, cloud-native systems, and agile methodologies. Academic Excellence Scholarship awarded by the Mayor's Office of Cali. Honor Roll recognition.",
+        skills: ['Software Architecture', 'Agile', 'Cloud Native'],
       },
       {
         title: 'AI & Biomedical Research',
-        subtitle: '2024 - 2026',
-        body: 'Developing machine learning models for early disease detection and pre-anesthetic evaluation.',
-        skills: ['AI/ML', 'Data Science', 'Research'],
+        subtitle: '2024 – 2026',
+        body: "Gait-analysis system for early Parkinson's detection (i2t Research, 2024). Thesis in progress: ML classifier for identifying patients eligible for pre-anesthetic assessment, working with real clinical datasets.",
+        skills: ['AI/ML', 'Computer Vision', 'Data Science', 'Research'],
       },
       {
         title: 'Software Architecture Certification',
-        subtitle: 'Perficient (2024)',
+        subtitle: 'Perficient · 2024',
         body: 'Specialization in Microservices, Serverless design, and scalable architectural patterns.',
-        skills: ['Microservices', 'System Design', 'Cloud'],
+        skills: ['Microservices', 'Serverless', 'System Design', 'Cloud'],
       },
     ],
   },
@@ -71,10 +89,10 @@ const experienceGroups: ExperienceGroup[] = [
     variant: 'immersive',
     items: [
       {
-        title: 'Fullstack Developer (SYRI)',
-        subtitle: '2024 - 2025',
-        body: 'Led the development of automated internal systems, streamlining institutional processes.',
-        skills: ['Fullstack', 'Processes', 'Automation'],
+        title: 'Software Development Intern',
+        subtitle: 'Oct 2024 – Present',
+        body: 'Led design and development of a survey management system for academic and administrative processes. Contributed to a certificate generation and validation system. Collaborated with Scrum teams ensuring timely delivery and quality standards.',
+        skills: ['Fullstack', 'Scrum', 'Automation', 'Institutional Systems'],
       },
     ],
   },
@@ -91,9 +109,15 @@ const experienceGroups: ExperienceGroup[] = [
     items: [
       {
         title: 'Software Developer',
-        subtitle: 'Dec 2025 - Present',
-        body: 'Developing high-performance fintech solutions with a focus on trader analytics and risk management.',
-        skills: ['Fintech', 'Analytics', 'Prop Trading'],
+        subtitle: 'Dec 2025 – Present',
+        body: 'Developed and shipped features spanning backend, frontend, and infrastructure — including integrations with external trading services and real-time data flows.\n\nImproved system observability and incident response workflows. Operated in a CI/CD environment, collaborating with product and QA teams.',
+        skills: [
+          'Fintech',
+          'Real-time Data',
+          'Observability',
+          'CI/CD',
+          'Prop Trading',
+        ],
       },
     ],
   },
@@ -486,7 +510,7 @@ const skills: Skill[] = [
     category: 'Competencies',
     icon: React.createElement(Laptop),
     color: '#9C27B0',
-  }
+  },
 ]
 // Define projects
 const projects: Project[] = [
