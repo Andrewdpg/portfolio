@@ -138,7 +138,7 @@ const skills: Skill[] = [
   {
     id: 'nest',
     title: 'Nest.js',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'Backend',
     icon: React.createElement('i', { className: 'devicon-nestjs-plain' }),
     color: '#68A063',
@@ -510,6 +510,50 @@ const skills: Skill[] = [
     category: 'Competencies',
     icon: React.createElement(Laptop),
     color: '#9C27B0',
+  },
+  {
+    id: 'vuejs',
+    title: 'Vue.js',
+    experience: Experience.Intermediate,
+    category: 'UI/UX' as const,
+    icon: React.createElement('i', { className: 'devicon-vuejs-plain' }),
+    color: '#42B883',
+  },
+  {
+    id: 'fastapi',
+    title: 'FastAPI',
+    experience: Experience.Intermediate,
+    category: 'Backend' as const,
+    icon: React.createElement('i', { className: 'devicon-fastapi-plain' }),
+    color: '#009688',
+  },
+  {
+    id: 'dynamodb',
+    title: 'DynamoDB',
+    experience: Experience.Intermediate,
+    category: 'Database' as const,
+    icon: React.createElement('i', {
+      className: 'devicon-amazonwebservices-plain',
+    }),
+    color: '#FF9900',
+  },
+  {
+    id: 'aws',
+    title: 'AWS',
+    experience: Experience.Intermediate,
+    category: 'DevOps' as const,
+    icon: React.createElement('i', {
+      className: 'devicon-amazonwebservices-plain',
+    }),
+    color: '#FF9900',
+  },
+  {
+    id: 'rabbitmq',
+    title: 'RabbitMQ',
+    experience: Experience.Intermediate,
+    category: 'Tools' as const,
+    icon: React.createElement('i', { className: 'devicon-rabbitmq-plain' }),
+    color: '#FF6600',
   },
 ]
 // Define projects
