@@ -6,13 +6,11 @@ import {
   experienceGroups,
 } from '../../../services/dataService'
 import { ProjectCard } from '../../../components/ProjectCard'
-import { SkillButton } from '../../../components/SkillButton'
-import { Skill } from '../../../types/skill'
 import { Section } from '../../../components/Section'
-import { SubSection } from '../../../components/SubSection'
 import { Presentation } from '../components/Presetation'
 import { Navigation, NavSection } from '../../layout/components/Navigation'
 import { AIWorkflow } from '../components/AIWorkflow'
+import { Experience } from '../../../types/skill'
 
 function Dashboard() {
   const sections: NavSection[] = [
@@ -25,16 +23,6 @@ function Dashboard() {
     { id: 'skills', label: 'Skills' },
     { id: 'workflow', label: 'Workflow' },
   ]
-  const groupedSkills = skills.reduce(
-    (acc, skill) => {
-      if (!acc[skill.category]) {
-        acc[skill.category] = []
-      }
-      acc[skill.category].push(skill)
-      return acc
-    },
-    {} as Record<string, Skill[]>
-  )
 
   return (
     <div className="max-h-screen overflow-hidden">
@@ -135,20 +123,74 @@ function Dashboard() {
             containerStyle={{ backgroundColor: '#FFFFFF', color: '#1A1128' }}
             align="left"
           >
-            <div className="flex flex-wrap justify-center gap-12 mt-12 w-full">
-              {Object.entries(groupedSkills).map(([category, skills]) => (
-                <SubSection
-                  title={category}
-                  key={category}
-                  className="flex-1 w-[400px] max-w-full"
-                >
-                  <div className="flex flex-wrap justify-center md:justify-start gap-4 mt-6">
-                    {skills.map((skill: Skill, i: number) => (
-                      <SkillButton key={i} skill={skill} />
+            <div className="flex flex-col gap-12 mt-12 w-full max-w-4xl mx-auto">
+              {/* Featured skills */}
+              <div>
+                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-app-main block mb-6">
+                  Core skills
+                </span>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                  {skills
+                    .filter(
+                      (s) =>
+                        s.experience === Experience.Expert ||
+                        s.experience === Experience.Advanced
+                    )
+                    .map((skill, i) => {
+                      const pct =
+                        skill.experience === Experience.Expert ? 100 : 80
+                      return (
+                        <div
+                          key={i}
+                          className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-app-secondary/8 bg-app-secondary/3 hover:border-app-main/40 hover:bg-app-main/5 transition-all duration-200 group"
+                        >
+                          <div className="text-3xl">{skill.icon}</div>
+                          <span className="text-xs font-bold text-app-secondary text-center leading-tight">
+                            {skill.title}
+                          </span>
+                          <span
+                            className="text-[9px] font-bold tracking-widest uppercase"
+                            style={{ color: skill.color }}
+                          >
+                            {skill.experience}
+                          </span>
+                          <div className="w-full h-1 rounded-full bg-app-secondary/10 overflow-hidden">
+                            <div
+                              className="h-full rounded-full transition-all duration-500"
+                              style={{
+                                width: `${pct}%`,
+                                backgroundColor: skill.color,
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
+
+              {/* Also proficient in */}
+              <div>
+                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-app-main block mb-4">
+                  Also proficient in
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {skills
+                    .filter(
+                      (s) =>
+                        s.experience !== Experience.Expert &&
+                        s.experience !== Experience.Advanced
+                    )
+                    .map((skill, i) => (
+                      <span
+                        key={i}
+                        className="px-3 py-1.5 rounded-full text-[11px] font-semibold border border-app-secondary/10 bg-app-secondary/4 text-app-secondary/70 hover:bg-app-main hover:text-white hover:border-app-main transition-all duration-200 cursor-default"
+                      >
+                        {skill.title}
+                      </span>
                     ))}
-                  </div>
-                </SubSection>
-              ))}
+                </div>
+              </div>
             </div>
           </Section>
         </div>
@@ -156,8 +198,8 @@ function Dashboard() {
         {/* AI Workflow Section */}
         <div id="workflow">
           <Section
-            title=""
-            containerStyle={{ backgroundColor: '#09090f', color: '#ffffff' }}
+            title="AI Workflow"
+            containerStyle={{ backgroundColor: '#000000', color: '#ffffff' }}
             align="left"
           >
             <AIWorkflow />
