@@ -18,7 +18,10 @@ export const Presentation = () => {
         <Tilt3D>
           <div className="relative w-full aspect-square overflow-hidden bg-app-main/10 rounded-[32px] md:rounded-[48px] shadow-2xl group border-[8px] md:border-[12px] border-white ring-1 ring-black/5">
             {!showVideo ? (
-              <div className="cursor-pointer" onClick={() => setShowVideo(true)}>
+              <div
+                className="cursor-pointer"
+                onClick={() => setShowVideo(true)}
+              >
                 <img
                   src={me}
                   alt="Andrew Parra"
@@ -27,9 +30,7 @@ export const Presentation = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-app-main/20 to-transparent pointer-events-none" />
 
                 {/* Play Button Overlay */}
-                <button
-                  className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                >
+                <button className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform scale-90 group-hover:scale-100 transition-transform duration-500">
                     <Play size={40} className="fill-white translate-x-1" />
                   </div>
@@ -74,10 +75,11 @@ export const Presentation = () => {
         </Heading>
 
         <Body className="text-app-secondary/60 max-w-xl text-base md:text-lg px-4 md:px-0">
-          Systems Engineering student at ICESI University with experience in
-          software development applied to academic and professional projects.
-          Focused on building high-performance fintech solutions and intelligent
-          systems with real-world impact.
+          Software engineer with experience building backend systems, full-stack
+          applications, and data-driven platforms. Interested in backend
+          architecture, distributed systems, data engineering, and applied
+          machine learning. Currently building fintech infrastructure at Swiset
+          and leading platform development at Methodus.
         </Body>
 
         <div className="flex flex-wrap gap-3 md:gap-4 justify-center md:justify-start scale-90 md:scale-100">
