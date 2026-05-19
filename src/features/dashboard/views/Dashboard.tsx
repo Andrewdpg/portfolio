@@ -12,6 +12,7 @@ import { Section } from '../../../components/Section'
 import { SubSection } from '../../../components/SubSection'
 import { Presentation } from '../components/Presetation'
 import { Navigation, NavSection } from '../../layout/components/Navigation'
+import { AIWorkflow } from '../components/AIWorkflow'
 
 function Dashboard() {
   const sections: NavSection[] = [
@@ -22,6 +23,7 @@ function Dashboard() {
     })),
     { id: 'projects', label: 'Projects' },
     { id: 'skills', label: 'Skills' },
+    { id: 'workflow', label: 'Workflow' },
   ]
   const groupedSkills = skills.reduce(
     (acc, skill) => {
@@ -148,6 +150,17 @@ function Dashboard() {
                 </SubSection>
               ))}
             </div>
+          </Section>
+        </div>
+
+        {/* AI Workflow Section */}
+        <div id="workflow">
+          <Section
+            title=""
+            containerStyle={{ backgroundColor: '#09090f', color: '#ffffff' }}
+            align="left"
+          >
+            <AIWorkflow />
           </Section>
         </div>
       </HeroScroll>
