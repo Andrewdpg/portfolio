@@ -1,6 +1,6 @@
 import React from 'react'
 import { Project } from '../types/project'
-import { usePopup } from '../context/PopupContext'
+import { useDrawer } from '../context/DrawerContext'
 import { ImageGallery } from './ImageGallery'
 import { SkillButton } from './SkillButton'
 import { Info, ExternalLink, Github, Users, User } from 'lucide-react'
@@ -97,14 +97,14 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
-  const { openPopup } = usePopup()
+  const { openDrawer } = useDrawer()
 
   return (
     <Tilt3D>
       <div
         className="group relative h-[380px] w-full overflow-hidden rounded-[32px] bg-app-secondary border border-white/10 hover:border-app-main/40 transition-all duration-700 cursor-pointer shadow-2xl"
         onClick={() =>
-          openPopup({
+          openDrawer({
             title: project.title,
             body: <ProjectDetail project={project} />,
           })
