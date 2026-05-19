@@ -29,24 +29,6 @@ import { Bluetooth, Cpu, Laptop, Search } from 'lucide-react'
 
 const experienceGroups: ExperienceGroup[] = [
   {
-    place: 'Methodus',
-    description:
-      'Adaptive ICFES preparation platform focused on personalized learning experiences.',
-    heroImage: '',
-    backgroundColor: '#1a1128',
-    textColor: '#ffffff',
-    align: 'right' as const,
-    variant: 'immersive' as const,
-    items: [
-      {
-        title: 'Fullstack Developer · Tech Lead',
-        subtitle: 'Jan 2026 – Present',
-        body: 'Leading the technical development of Methodus. Managing release planning, QA coordination and incident response to prepare the platform for pilot use.',
-        skills: ['React', 'Node.js', 'PostgreSQL', 'CI/CD', 'Tech Lead'],
-      },
-    ],
-  },
-  {
     place: 'Academic Foundation',
     description:
       'Systems Engineering undergraduate studies focused on software architecture, AI research, and specialized certifications.',
@@ -118,6 +100,24 @@ const experienceGroups: ExperienceGroup[] = [
           'CI/CD',
           'Prop Trading',
         ],
+      },
+    ],
+  },
+  {
+    place: 'Methodus',
+    description:
+      'Adaptive ICFES preparation platform focused on personalized learning experiences.',
+    heroImage: '',
+    backgroundColor: '#1B2A5E',
+    textColor: '#ffffff',
+    align: 'right' as const,
+    variant: 'immersive' as const,
+    items: [
+      {
+        title: 'Fullstack Developer · Tech Lead',
+        subtitle: 'Jan 2026 – Present',
+        body: 'Leading the technical development of Methodus. Managing release planning, QA coordination and incident response to prepare the platform for pilot use.',
+        skills: ['React', 'Node.js', 'PostgreSQL', 'CI/CD', 'Tech Lead'],
       },
     ],
   },

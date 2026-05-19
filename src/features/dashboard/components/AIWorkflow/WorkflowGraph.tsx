@@ -22,7 +22,7 @@ const nodes: NodeDef[] = [
     label: 'Claude Code',
     sublabel: 'Primary Agent',
     color: '#f97316',
-    bg: 'linear-gradient(135deg,#1c0900,#2e1500)',
+    bg: '#2e1500',
     link: 'https://github.com/anthropics/claude-code',
     area: 'top',
     tooltip:
@@ -35,7 +35,7 @@ const nodes: NodeDef[] = [
     label: 'Engram',
     sublabel: 'Persistent Memory',
     color: '#3b82f6',
-    bg: 'linear-gradient(135deg,#00091c,#001638)',
+    bg: '#001638',
     link: 'https://github.com/Gentleman-Programming/engram',
     area: 'left',
     tooltip:
@@ -45,10 +45,10 @@ const nodes: NodeDef[] = [
   {
     id: 'you',
     emoji: '⚡',
-    label: 'Andrés',
+    label: 'Me',
     sublabel: 'Orchestrator',
     color: '#9B76D3',
-    bg: 'linear-gradient(135deg,#1a1128,#2d1f4e)',
+    bg: '#2d1f4e',
     area: 'center',
     size: 'lg',
     tooltip: '',
@@ -60,7 +60,7 @@ const nodes: NodeDef[] = [
     label: 'Context7',
     sublabel: 'Live Docs',
     color: '#10b981',
-    bg: 'linear-gradient(135deg,#001c0e,#002e18)',
+    bg: '#002e18',
     link: 'https://github.com/upstash/context7',
     area: 'right',
     tooltip:
@@ -73,7 +73,7 @@ const nodes: NodeDef[] = [
     label: 'TDD Guard',
     sublabel: 'Test Enforcer',
     color: '#ec4899',
-    bg: 'linear-gradient(135deg,#1c0012,#2e0020)',
+    bg: '#2e0020',
     link: 'https://github.com/nizos/tdd-guard',
     area: 'bot1',
     tooltip: 'Enforces TDD. Blocks implementation without failing tests.',
@@ -85,7 +85,7 @@ const nodes: NodeDef[] = [
     label: 'RTK + CodeGraph',
     sublabel: 'Token Optimizer',
     color: '#f2cc60',
-    bg: 'linear-gradient(135deg,#1c1700,#2e2500)',
+    bg: '#2e2500',
     link: 'https://github.com/rtk-ai/rtk',
     area: 'bot2',
     tooltip:
@@ -93,12 +93,12 @@ const nodes: NodeDef[] = [
     badge: 'Rust binary · Semantic index',
   },
   {
-    id: 'coco',
+    id: 'openclaw',
     emoji: '🐾',
-    label: 'Coco / OpenClaw',
+    label: 'OpenClaw',
     sublabel: 'General Automation',
     color: '#a855f7',
-    bg: 'linear-gradient(135deg,#160a2a,#220f3e)',
+    bg: '#220f3e',
     link: 'https://github.com/openclaw/openclaw',
     area: 'bot3',
     tooltip:
@@ -129,7 +129,7 @@ export const WorkflowGraph: React.FC = () => {
     const cy = cRect.top + cRect.height / 2 - wRect.top
 
     const lines: typeof edges = []
-    ;['claude', 'engram', 'ctx7', 'tdd', 'rtk', 'coco'].forEach((id) => {
+    ;['claude', 'engram', 'ctx7', 'tdd', 'rtk', 'openclaw'].forEach((id) => {
       const icon = wrap.querySelector<HTMLElement>(
         `[data-node="${id}"] .node-icon`
       )
@@ -232,7 +232,7 @@ export const WorkflowGraph: React.FC = () => {
                   }}
                 />
                 <div
-                  className={`node-icon ${iconSize} flex items-center justify-center border border-white/8 shadow-lg transition-shadow duration-300 group-hover:shadow-2xl`}
+                  className={`node-icon ${iconSize} flex items-center justify-center border-none shadow-lg transition-shadow duration-300 group-hover:shadow-2xl`}
                   style={{ background: node.bg }}
                 >
                   {node.emoji}

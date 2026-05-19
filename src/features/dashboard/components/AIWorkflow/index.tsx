@@ -16,15 +16,6 @@ export const AIWorkflow: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center gap-16 w-full">
-      {/* Eyebrow */}
-      <div className="flex items-center gap-3">
-        <div className="w-7 h-px bg-app-main/30" />
-        <span className="text-xs font-bold tracking-[0.25em] uppercase text-app-main">
-          AI Workflow
-        </span>
-        <div className="w-7 h-px bg-app-main/30" />
-      </div>
-
       {/* Headline */}
       <div className="flex flex-col items-center gap-4 text-center max-w-xl">
         <h2 className="text-4xl md:text-5xl font-black leading-tight text-white">
@@ -34,7 +25,7 @@ export const AIWorkflow: React.FC = () => {
         </h2>
         <p className="text-base text-white/45 leading-relaxed max-w-md">
           A network of specialized agents and optimization tools — each with a
-          defined role. I orchestrate. They execute.
+          defined role.
         </p>
       </div>
 
