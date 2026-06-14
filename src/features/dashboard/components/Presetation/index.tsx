@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import Heading from '../../../../components/Heading'
 import Body from '../../../../components/Body'
-import me from '../../../../assets/img/me.jpeg'
+import me from '../../../../assets/img/me.webp'
 import { TitleCard } from './Components/TitleCard'
 import { Download, Play, X } from 'lucide-react'
 import Partner from '../../../../components/Partner'
@@ -19,18 +19,28 @@ export const Presentation = () => {
           <div className="relative w-full aspect-square overflow-hidden bg-app-main/10 rounded-[32px] md:rounded-[48px] shadow-2xl group border-[8px] md:border-[12px] border-white ring-1 ring-black/5">
             {!showVideo ? (
               <div
+                role="button"
+                aria-label="Watch pitch video"
+                tabIndex={0}
                 className="cursor-pointer"
                 onClick={() => setShowVideo(true)}
+                onKeyDown={(e) => e.key === 'Enter' && setShowVideo(true)}
               >
                 <img
                   src={me}
                   alt="Andrew Parra"
+                  width={400}
+                  height={400}
+                  fetchPriority="high"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-app-main/20 to-transparent pointer-events-none" />
 
                 {/* Play Button Overlay */}
-                <button className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button
+                  aria-label="Play pitch video"
+                  className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
                   <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform scale-90 group-hover:scale-100 transition-transform duration-500">
                     <Play size={40} className="fill-white translate-x-1" />
                   </div>
@@ -53,6 +63,7 @@ export const Presentation = () => {
                   allowFullScreen
                 />
                 <button
+                  aria-label="Close video"
                   onClick={() => setShowVideo(false)}
                   className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors z-10"
                 >

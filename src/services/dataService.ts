@@ -10,7 +10,6 @@ import {
 } from 'react-icons/fa'
 import { Experience, Skill } from '../types/skill'
 import { Project } from '../types/project'
-import { Cached, DataArray, Science, Web } from '@mui/icons-material'
 import kuki_home from '../assets/img/kuki/home.png'
 import kuki_comments from '../assets/img/kuki/comments.png'
 import kuki_login from '../assets/img/kuki/login.png'
@@ -23,7 +22,16 @@ import arduino from '../assets/img/parkinson/arduino.png'
 import movement from '../assets/img/parkinson/movement.png'
 import gyro from '../assets/img/parkinson/gyro.png'
 import { ExperienceGroup } from '../types/timeline'
-import { Bluetooth, Cpu, Laptop, Search } from 'lucide-react'
+import {
+  Bluetooth,
+  Braces,
+  Cpu,
+  FlaskConical,
+  Globe,
+  Laptop,
+  RefreshCw,
+  Search,
+} from 'lucide-react'
 
 // Images for hero backgrounds
 
@@ -32,8 +40,7 @@ const experienceGroups: ExperienceGroup[] = [
     place: 'Academic Foundation',
     description:
       'Systems Engineering undergraduate studies focused on software architecture, AI research, and specialized certifications.',
-    heroImage:
-      'https://www.icesi.edu.co/wp-content/uploads/2025/02/trabaja-nosotros-icesi-movil.jpg',
+    heroImage: '/img/heroes/icesi.webp',
     backgroundColor: '#5354ED',
     textColor: '#ffffff',
     align: 'left',
@@ -63,8 +70,7 @@ const experienceGroups: ExperienceGroup[] = [
     place: 'ICESI University',
     description:
       'Applied software engineering and technical support within institutional development centers.',
-    heroImage:
-      'https://www.valoraanalitik.com/wp-content/uploads/2025/09/La-Universidad-Icesi-celebra-una-etapa-de-crecimiento-1024x597.jpg',
+    heroImage: '/img/heroes/valora.webp',
     backgroundColor: '#5354ED',
     textColor: '#ffffff',
     align: 'right',
@@ -82,8 +88,7 @@ const experienceGroups: ExperienceGroup[] = [
     place: 'Swiset',
     description:
       'A leading fintech platform delivering advanced analytics and trading engines for global prop firms.',
-    heroImage:
-      'https://hub.swiset.com/wp-content/uploads/2025/02/featured-image_Mesa-de-trabajo-1-copia.jpg',
+    heroImage: '/img/heroes/swiset.webp',
     backgroundColor: '#28EA96',
     textColor: '#000000',
     align: 'left',
@@ -140,7 +145,13 @@ const skills: Skill[] = [
     title: 'Nest.js',
     experience: Experience.Intermediate,
     category: 'Backend',
-    icon: React.createElement('i', { className: 'devicon-nestjs-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/nestjs.svg',
+      alt: 'nestjs',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#68A063',
   },
   {
@@ -164,7 +175,13 @@ const skills: Skill[] = [
     title: 'Dart',
     experience: Experience.Intermediate,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-dart-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/dart.svg',
+      alt: 'dart',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#0175C2',
   },
   {
@@ -180,7 +197,13 @@ const skills: Skill[] = [
     title: 'TypeScript',
     experience: Experience.Advanced,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-typescript-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/typescript.svg',
+      alt: 'typescript',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#007ACC',
   },
   {
@@ -188,7 +211,13 @@ const skills: Skill[] = [
     title: 'C#',
     experience: Experience.Basic,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-csharp-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/csharp.svg',
+      alt: 'csharp',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#00599C',
   },
   {
@@ -196,7 +225,13 @@ const skills: Skill[] = [
     title: 'Flutter',
     experience: Experience.Intermediate,
     category: 'UI/UX',
-    icon: React.createElement('i', { className: 'devicon-flutter-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/flutter.svg',
+      alt: 'flutter',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#02569B',
   },
   {
@@ -204,7 +239,13 @@ const skills: Skill[] = [
     title: 'Django',
     experience: Experience.Advanced,
     category: 'Backend',
-    icon: React.createElement('i', { className: 'devicon-django-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/django.svg',
+      alt: 'django',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#092E20',
   },
   {
@@ -212,7 +253,13 @@ const skills: Skill[] = [
     title: 'Express.js',
     experience: Experience.Intermediate,
     category: 'Backend',
-    icon: React.createElement('i', { className: 'devicon-express-original' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/express.svg',
+      alt: 'express',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#000000',
   },
   {
@@ -220,7 +267,13 @@ const skills: Skill[] = [
     title: 'Spring Boot',
     experience: Experience.Advanced,
     category: 'Backend',
-    icon: React.createElement('i', { className: 'devicon-spring-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/spring.svg',
+      alt: 'spring',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#6DB33F',
   },
   {
@@ -228,7 +281,13 @@ const skills: Skill[] = [
     title: 'TailwindCSS',
     experience: Experience.Intermediate,
     category: 'UI/UX',
-    icon: React.createElement('i', { className: 'devicon-tailwindcss-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/tailwindcss.svg',
+      alt: 'tailwindcss',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#38B2AC',
   },
   {
@@ -236,7 +295,13 @@ const skills: Skill[] = [
     title: 'PostgreSQL',
     experience: Experience.Advanced,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-postgresql-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/postgresql.svg',
+      alt: 'postgresql',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#4169E1',
   },
   {
@@ -244,7 +309,13 @@ const skills: Skill[] = [
     title: 'Firebase',
     experience: Experience.Advanced,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-firebase-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/firebase.svg',
+      alt: 'firebase',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#FFCA28',
   },
   {
@@ -252,7 +323,13 @@ const skills: Skill[] = [
     title: 'MongoDB',
     experience: Experience.Intermediate,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-mongodb-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/mongodb.svg',
+      alt: 'mongodb',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#47A248',
   },
   {
@@ -260,7 +337,13 @@ const skills: Skill[] = [
     title: 'MySQL',
     experience: Experience.Advanced,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-mysql-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/mysql.svg',
+      alt: 'mysql',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#4479A1',
   },
   {
@@ -284,7 +367,13 @@ const skills: Skill[] = [
     title: 'Postman',
     experience: Experience.Advanced,
     category: 'Tools',
-    icon: React.createElement('i', { className: 'devicon-postman-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/postman.svg',
+      alt: 'postman',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#FF6C37',
   },
   {
@@ -292,7 +381,13 @@ const skills: Skill[] = [
     title: 'VS Code',
     experience: Experience.Advanced,
     category: 'Tools',
-    icon: React.createElement('i', { className: 'devicon-vscode-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/vscode.svg',
+      alt: 'vscode',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#007ACC',
   },
   {
@@ -308,7 +403,13 @@ const skills: Skill[] = [
     title: 'JUnit',
     experience: Experience.Intermediate,
     category: 'Testing',
-    icon: React.createElement('i', { className: 'devicon-junit-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/junit.svg',
+      alt: 'junit',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#25A162',
   },
   {
@@ -316,7 +417,13 @@ const skills: Skill[] = [
     title: 'Selenium',
     experience: Experience.Intermediate,
     category: 'Testing',
-    icon: React.createElement('i', { className: 'devicon-selenium-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/selenium.svg',
+      alt: 'selenium',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#43B02A',
   },
   {
@@ -325,14 +432,26 @@ const skills: Skill[] = [
     experience: Experience.Intermediate,
     category: 'Tools',
     color: '#4285F4',
-    icon: React.createElement('i', { className: 'devicon-googlecloud-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/googlecloud.svg',
+      alt: 'googlecloud',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
   },
   {
     id: 'cpp',
     title: 'C++',
     experience: Experience.Basic,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-cplusplus-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/cplusplus.svg',
+      alt: 'cplusplus',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#00599C',
   },
   {
@@ -348,7 +467,7 @@ const skills: Skill[] = [
     title: 'Cache Optimization',
     experience: Experience.Intermediate,
     category: 'Data Science',
-    icon: React.createElement(Cached),
+    icon: React.createElement(RefreshCw),
     color: '#FF5733',
   },
   {
@@ -356,7 +475,7 @@ const skills: Skill[] = [
     title: 'Design of Experiments (DoE)',
     experience: Experience.Intermediate,
     category: 'Data Science',
-    icon: React.createElement(Science),
+    icon: React.createElement(FlaskConical),
     color: '#FFD700',
   },
   {
@@ -380,7 +499,13 @@ const skills: Skill[] = [
     title: 'Arduino',
     experience: Experience.Basic,
     category: 'Hardware',
-    icon: React.createElement('i', { className: 'devicon-arduino-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/arduino.svg',
+      alt: 'arduino',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#00979D',
   },
   {
@@ -396,7 +521,7 @@ const skills: Skill[] = [
     title: 'Data Acquisition',
     experience: Experience.Intermediate,
     category: 'Data Science',
-    icon: React.createElement(DataArray),
+    icon: React.createElement(Braces),
     color: '#DA5B0B',
   },
   {
@@ -404,7 +529,13 @@ const skills: Skill[] = [
     title: 'Kotlin',
     experience: Experience.Intermediate,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-kotlin-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/kotlin.svg',
+      alt: 'kotlin',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#7F52FF',
   },
   {
@@ -412,7 +543,13 @@ const skills: Skill[] = [
     title: 'Next.js',
     experience: Experience.Advanced,
     category: 'UI/UX',
-    icon: React.createElement('i', { className: 'devicon-nextjs-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/nextjs.svg',
+      alt: 'nextjs',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#000000',
   },
   {
@@ -420,7 +557,13 @@ const skills: Skill[] = [
     title: 'Kubernetes',
     experience: Experience.Basic,
     category: 'DevOps',
-    icon: React.createElement('i', { className: 'devicon-kubernetes-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/kubernetes.svg',
+      alt: 'kubernetes',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#326CE5',
   },
   {
@@ -428,7 +571,13 @@ const skills: Skill[] = [
     title: 'Jenkins',
     experience: Experience.Basic,
     category: 'DevOps',
-    icon: React.createElement('i', { className: 'devicon-jenkins-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/jenkins.svg',
+      alt: 'jenkins',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#D24939',
   },
   {
@@ -436,7 +585,13 @@ const skills: Skill[] = [
     title: 'Terraform',
     experience: Experience.Basic,
     category: 'DevOps',
-    icon: React.createElement('i', { className: 'devicon-terraform-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/terraform.svg',
+      alt: 'terraform',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#7B42BC',
   },
   {
@@ -444,7 +599,13 @@ const skills: Skill[] = [
     title: 'Scikit-learn',
     experience: Experience.Intermediate,
     category: 'AI/ML',
-    icon: React.createElement('i', { className: 'devicon-scikitlearn-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/scikitlearn.svg',
+      alt: 'scikitlearn',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#F7931E',
   },
   {
@@ -452,7 +613,13 @@ const skills: Skill[] = [
     title: 'TensorFlow',
     experience: Experience.Intermediate,
     category: 'AI/ML',
-    icon: React.createElement('i', { className: 'devicon-tensorflow-line' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/tensorflow.svg',
+      alt: 'tensorflow',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#FF6F00',
   },
   {
@@ -460,7 +627,13 @@ const skills: Skill[] = [
     title: 'PyTorch',
     experience: Experience.Intermediate,
     category: 'AI/ML',
-    icon: React.createElement('i', { className: 'devicon-pytorch-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/pytorch.svg',
+      alt: 'pytorch',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#EE4C2C',
   },
   {
@@ -468,7 +641,13 @@ const skills: Skill[] = [
     title: 'Oracle SQL',
     experience: Experience.Advanced,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-oracle-original' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/oracle.svg',
+      alt: 'oracle',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#F80000',
   },
   {
@@ -476,7 +655,13 @@ const skills: Skill[] = [
     title: 'Linux',
     experience: Experience.Advanced,
     category: 'Tools',
-    icon: React.createElement('i', { className: 'devicon-linux-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/linux.svg',
+      alt: 'linux',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#FCC624',
   },
   {
@@ -516,7 +701,13 @@ const skills: Skill[] = [
     title: 'Vue.js',
     experience: Experience.Intermediate,
     category: 'UI/UX' as const,
-    icon: React.createElement('i', { className: 'devicon-vuejs-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/vuejs.svg',
+      alt: 'vuejs',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#42B883',
   },
   {
@@ -524,7 +715,13 @@ const skills: Skill[] = [
     title: 'FastAPI',
     experience: Experience.Intermediate,
     category: 'Backend' as const,
-    icon: React.createElement('i', { className: 'devicon-fastapi-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/fastapi.svg',
+      alt: 'fastapi',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#009688',
   },
   {
@@ -552,7 +749,13 @@ const skills: Skill[] = [
     title: 'RabbitMQ',
     experience: Experience.Intermediate,
     category: 'Tools' as const,
-    icon: React.createElement('i', { className: 'devicon-rabbitmq-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/rabbitmq.svg',
+      alt: 'rabbitmq',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#FF6600',
   },
 ]
@@ -562,7 +765,7 @@ const projects: Project[] = [
     title: 'Kuki',
     subtitle: 'Social network for chefs',
     body: 'A cooking-focused social network for home and professional chefs. Users can share recipes, upload photos, interact, and get ingredient-based recommendations, creating a vibrant culinary community.',
-    icon: React.createElement(Web),
+    icon: React.createElement(Globe),
     skills: skills.filter(
       (skill) =>
         skill.title === 'React' ||
@@ -585,7 +788,7 @@ const projects: Project[] = [
     subtitle: 'Database management system',
     alone: true,
     body: 'A people database management system. It allows administrators to manage employees data and generate reports. Also, employees can manage clients data and visit reports. It includes user authentication, data validation and data visualization.',
-    icon: React.createElement(Web),
+    icon: React.createElement(Globe),
     skills: skills.filter(
       (skill) =>
         skill.title === 'Flutter' ||
@@ -600,7 +803,7 @@ const projects: Project[] = [
     title: 'Memory Optimization in Matrix Multiplication',
     subtitle: 'High-performance computing research project',
     body: 'A research project focused on optimizing matrix multiplication by leveraging cache locality principles. It evaluates multiple algorithmic approaches and introduces a panel-based multiplication technique to improve performance. Statistical analysis and experimental design were applied to validate results.',
-    icon: React.createElement(Science),
+    icon: React.createElement(FlaskConical),
     skills: skills.filter(
       (skill) =>
         skill.title === 'C++' ||
@@ -617,7 +820,7 @@ const projects: Project[] = [
     title: 'Early Parkinson Detection',
     subtitle: 'Research project on biomedical signal processing',
     body: 'A research project focused on developing a system for early detection of Parkinson’s disease using inertial sensors and a mobile application. The system utilizes Arduino Nano 33 IoT for data acquisition, Bluetooth Low Energy for wireless communication, and machine learning techniques to identify motor patterns.',
-    icon: React.createElement(Science),
+    icon: React.createElement(FlaskConical),
     skills: skills.filter(
       (skill) =>
         skill.title === 'Arduino' ||

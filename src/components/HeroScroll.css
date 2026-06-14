@@ -4,7 +4,6 @@
   flex-direction: column;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
   -ms-overflow-style: none;
   /* IE and Edge */
   scrollbar-width: none;

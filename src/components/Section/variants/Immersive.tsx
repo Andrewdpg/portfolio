@@ -1,5 +1,4 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 import { SectionProps } from '../types'
 
 export const ImmersiveVariant: React.FC<SectionProps> = ({
@@ -33,7 +32,7 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
         {/* Imagen: Independiente en el hueco */}
         {hasImage && (
           <div
-            className={`absolute top-8 ${isLeft ? 'right-8' : 'left-8'} overflow-hidden z-20 shadow-2xl`}
+            className={`absolute top-8 ${isLeft ? 'right-8' : 'left-8'} overflow-hidden z-20`}
             style={{
               width: `calc(${HOLE_W}% - ${GAP} / 2)`,
               height: `calc(${HOLE_H}% - ${GAP} / 2)`,
@@ -44,6 +43,9 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
               src={heroImage}
               className="w-full h-full object-cover"
               alt={title}
+              loading="lazy"
+              width={480}
+              height={576}
             />
           </div>
         )}
@@ -59,7 +61,6 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
                   width: `calc(${100 - HOLE_W}% - ${GAP})`,
                   backgroundColor: containerStyle?.backgroundColor || '#1a1a1a',
                   borderRadius: ROUNDING,
-                  transition: 'background-color 0.5s ease',
                 }}
               />
               {/* Barra Horizontal */}
@@ -69,7 +70,6 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
                   height: `calc(${100 - HOLE_H}% - ${GAP})`,
                   backgroundColor: containerStyle?.backgroundColor || '#1a1a1a',
                   borderRadius: ROUNDING,
-                  transition: 'background-color 0.5s ease',
                 }}
               />
               {/* Fillet cóncavo */}
@@ -84,7 +84,6 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
                   backgroundColor: containerStyle?.backgroundColor || '#1a1a1a',
                   maskImage: `radial-gradient(circle at ${isLeft ? '100% 0%' : '0% 0%'}, transparent ${ROUNDING}, black ${ROUNDING})`,
                   WebkitMaskImage: `radial-gradient(circle at ${isLeft ? '100% 0%' : '0% 0%'}, transparent ${ROUNDING}, black ${ROUNDING})`,
-                  transition: 'background-color 0.5s ease',
                 }}
               />
             </>
@@ -112,13 +111,7 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
           textAlign: hasImage ? (isLeft ? 'left' : 'right') : 'center',
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: 'circOut' }}
-          className="pointer-events-auto"
-        >
+        <div className="pointer-events-auto">
           <h2 className="text-5xl lg:text-7xl font-black tracking-tighter leading-[0.9] mb-4 uppercase">
             {title}
           </h2>
@@ -127,35 +120,25 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
               {subtitle}
             </p>
           )}
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="h-2 w-32 bg-white/20 rounded-full pointer-events-auto shrink-0"
-        />
+        <div className="h-2 w-32 bg-white/20 rounded-full pointer-events-auto shrink-0" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.7 }}
+        <div
           className={`relative flex-1 min-h-0 pointer-events-auto overflow-hidden flex flex-col w-full`}
         >
           <div
-            className={`flex-1 overflow-y-auto no-scrollbar bg-white/5 backdrop-blur-sm p-6 lg:p-10 border border-white/10 shadow-2xl w-full ${className}`}
+            className={`flex-1 overflow-y-auto no-scrollbar bg-white/5 p-6 lg:p-10 border border-white/10 w-full ${className}`}
             style={{ borderRadius: ROUNDING }}
           >
             {children}
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* --- DISEÑO MOBILE --- */}
       <div
-        className="md:hidden w-full max-w-md max-h-[90vh] flex flex-col overflow-hidden z-10 shadow-2xl"
+        className="md:hidden w-full max-w-md max-h-[90vh] flex flex-col overflow-hidden z-10"
         style={{
           backgroundColor: containerStyle?.backgroundColor || '#1a1a1a',
           borderRadius: ROUNDING,
@@ -167,6 +150,9 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
               src={heroImage}
               className="w-full h-full object-cover"
               alt={title}
+              loading="lazy"
+              width={448}
+              height={224}
             />
           </div>
         )}

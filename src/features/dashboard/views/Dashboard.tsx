@@ -45,7 +45,7 @@ function Dashboard() {
               }}
               heroImage={group.heroImage}
               align={group.align}
-              variant={group.variant || 'immersive'}
+              variant={group.variant || 'minimal'}
             >
               <div className="flex flex-col gap-8 w-full">
                 {group.items.map((item, i: number) => (
@@ -102,6 +102,7 @@ function Dashboard() {
         <div id="projects">
           <Section
             title="Projects"
+            variant="minimal"
             containerStyle={{
               backgroundColor: '#1A1128', // Brand Deep Purple
               color: '#FFFFFF',
@@ -120,6 +121,7 @@ function Dashboard() {
         <div id="skills">
           <Section
             title="Skills"
+            variant="minimal"
             containerStyle={{ backgroundColor: '#FFFFFF', color: '#1A1128' }}
             align="left"
           >
@@ -142,7 +144,7 @@ function Dashboard() {
                       return (
                         <div
                           key={i}
-                          className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-app-secondary/8 bg-app-secondary/3 hover:border-app-main/40 hover:bg-app-main/5 transition-all duration-200 group"
+                          className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-app-secondary/8 bg-app-secondary/3 hover:border-app-main/40 hover:bg-app-main/5 group"
                         >
                           <div className="text-3xl">{skill.icon}</div>
                           <span className="text-xs font-bold text-app-secondary text-center leading-tight">
@@ -156,7 +158,7 @@ function Dashboard() {
                           </span>
                           <div className="w-full h-1 rounded-full bg-app-secondary/10 overflow-hidden">
                             <div
-                              className="h-full rounded-full transition-all duration-500"
+                              className="h-full rounded-full"
                               style={{
                                 width: `${pct}%`,
                                 backgroundColor: skill.color,
@@ -184,7 +186,7 @@ function Dashboard() {
                     .map((skill, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1.5 rounded-full text-[11px] font-semibold border border-app-secondary/10 bg-app-secondary/4 text-app-secondary/70 hover:bg-app-main hover:text-white hover:border-app-main transition-all duration-200 cursor-default"
+                        className="px-3 py-1.5 rounded-full text-[11px] font-semibold border border-app-secondary/10 bg-app-secondary/4 text-app-secondary/70 hover:bg-app-main hover:text-white hover:border-app-main cursor-default"
                       >
                         {skill.title}
                       </span>
@@ -199,6 +201,7 @@ function Dashboard() {
         <div id="workflow">
           <Section
             title="AI Workflow"
+            variant="minimal"
             containerStyle={{ backgroundColor: '#000000', color: '#ffffff' }}
             align="left"
           >

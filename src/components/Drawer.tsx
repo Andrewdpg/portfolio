@@ -13,7 +13,7 @@ const Drawer: React.FC = () => {
         <>
           {/* Overlay */}
           <motion.div
-            className="fixed inset-0 bg-app-secondary/60 backdrop-blur-sm z-[500]"
+            className="fixed inset-0 bg-app-secondary/70 z-[500]"
             onClick={closeDrawer}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

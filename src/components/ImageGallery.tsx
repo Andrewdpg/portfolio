@@ -31,6 +31,9 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({
       <img
         src={images[currentImageIndex]}
         alt="Gallery Image"
+        loading="lazy"
+        width={800}
+        height={600}
         className={`w-full h-full object-cover transition-opacity duration-500 ${fade ? 'opacity-0' : 'opacity-100'}`}
       />
     </div>

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useCallback, useEffect } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 type Tilt3DProps = {
@@ -6,57 +6,65 @@ type Tilt3DProps = {
   className?: string
 }
 
-export const Tilt3D: React.FC<Tilt3DProps> = ({ children, className = "" }) => {
+export const Tilt3D: React.FC<Tilt3DProps> = ({ children, className = '' }) => {
   const ref = useRef<HTMLDivElement>(null)
+  const cachedRect = useRef<DOMRect | null>(null)
 
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
-  // Smooth springs for rotation
-  const mouseXSpring = useSpring(x)
-  const mouseYSpring = useSpring(y)
+  const mouseXSpring = useSpring(x, { damping: 30, stiffness: 200 })
+  const mouseYSpring = useSpring(y, { damping: 30, stiffness: 200 })
 
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"])
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['10deg', '-10deg'])
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-10deg', '10deg'])
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return
+  // Cache rect on mount and resize — never read it on mousemove
+  useEffect(() => {
+    const update = () => {
+      cachedRect.current = ref.current?.getBoundingClientRect() ?? null
+    }
+    update()
+    window.addEventListener('resize', update, { passive: true })
+    return () => window.removeEventListener('resize', update)
+  }, [])
 
-    const rect = ref.current.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
+  const handleMouseEnter = useCallback(() => {
+    cachedRect.current = ref.current?.getBoundingClientRect() ?? null
+  }, [])
 
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = cachedRect.current
+      if (!rect) return
+      x.set((e.clientX - rect.left) / rect.width - 0.5)
+      y.set((e.clientY - rect.top) / rect.height - 0.5)
+    },
+    [x, y]
+  )
 
-    const xPct = mouseX / width - 0.5
-    const yPct = mouseY / height - 0.5
-
-    x.set(xPct)
-    y.set(yPct)
-  }
-
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     x.set(0)
     y.set(0)
-  }
+  }, [x, y])
 
   return (
     <motion.div
       ref={ref}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
         rotateX,
         rotateY,
-        transformStyle: "preserve-3d",
+        transformStyle: 'preserve-3d',
       }}
       className={`relative w-full h-full ${className}`}
     >
-      <div 
+      <div
         style={{
-          transform: "translateZ(20px)",
-          transformStyle: "preserve-3d",
+          transform: 'translateZ(20px)',
+          transformStyle: 'preserve-3d',
         }}
         className="w-full h-full"
       >

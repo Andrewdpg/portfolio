@@ -16,6 +16,9 @@ export const TimelineCard: React.FC<{ item: TimelineItem }> = ({ item }) => {
             <img
               src={item.image}
               alt={item.title}
+              loading="lazy"
+              width={600}
+              height={160}
               className="w-full h-40 object-cover"
             />
           </div>
