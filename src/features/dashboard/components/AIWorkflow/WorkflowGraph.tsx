@@ -1,167 +1,355 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
-type FlowStep = {
-  id: string
-  step: string
-  emoji: string
-  label: string
-  role: string
-  description: string
-  color: string
-  bg: string
-  link?: string
-  connector?: string
+type P = {
+  d: string
+  stroke: string
+  dashed?: boolean
+  label?: string
+  lx?: number
+  ly?: number
+  anchor?: 'middle' | 'start' | 'end'
+  vertical?: boolean
+  marker: 'white' | 'pink' | 'green' | 'purple'
 }
 
-const steps: FlowStep[] = [
-  {
-    id: 'you',
-    step: '01',
-    emoji: '⚡',
-    label: 'Me',
-    role: 'Orchestrator',
-    description:
-      'Define intent, set constraints, review and accept output. The human always leads — AI executes.',
-    color: '#9B76D3',
-    bg: '#2d1f4e',
-    connector: 'loads context from memory via',
-  },
-  {
-    id: 'engram',
-    step: '02',
-    emoji: '🧠',
-    label: 'Engram',
-    role: 'Persistent Memory',
-    description:
-      'Recovers prior decisions, bug fixes, and architecture conventions across sessions. Agents never start blind.',
-    color: '#3b82f6',
-    bg: '#001638',
-    link: 'https://github.com/Gentleman-Programming/engram',
-    connector: 'enriches prompt with live docs via',
-  },
-  {
-    id: 'ctx7',
-    step: '03',
-    emoji: '📚',
-    label: 'Context7',
-    role: 'Live Docs',
-    description:
-      'Injects up-to-date library documentation into agent context. Eliminates hallucinated or stale APIs.',
-    color: '#10b981',
-    bg: '#002e18',
-    link: 'https://github.com/upstash/context7',
-    connector: 'executes via',
-  },
-  {
-    id: 'claude',
-    step: '04',
-    emoji: '🤖',
-    label: 'Claude Code',
-    role: 'Primary Agent',
-    description:
-      'Handles architecture decisions, writes code, runs bash, and orchestrates parallel sub-agents when the task demands it.',
-    color: '#f97316',
-    bg: '#2e1500',
-    link: 'https://github.com/anthropics/claude-code',
-    connector: 'output blocked until tests pass by',
-  },
-  {
-    id: 'tdd',
-    step: '05',
-    emoji: '🛡️',
-    label: 'TDD Guard',
-    role: 'Test Enforcer',
-    description:
-      'Pre-commit hook that enforces test-first discipline. No implementation ships without a prior failing test.',
-    color: '#ec4899',
-    bg: '#2e0020',
-    link: 'https://github.com/nizos/tdd-guard',
-    connector: 'efficiency optimized throughout by',
-  },
-  {
-    id: 'rtk',
-    step: '06',
-    emoji: '⚡',
-    label: 'RTK + CodeGraph',
-    role: 'Token Optimizer',
-    description:
-      '−80% token consumption via CLI output proxy. −94% agent tool calls via pre-indexed semantic code graph.',
-    color: '#f2cc60',
-    bg: '#2e2500',
-    link: 'https://github.com/rtk-ai/rtk',
-    connector: 'background tasks automated by',
-  },
-  {
-    id: 'openclaw',
-    step: '07',
-    emoji: '🐾',
-    label: 'OpenClaw',
-    role: 'Background Automation',
-    description:
-      'Daemon agent that monitors Jira, enriches tasks with Confluence context, and maintains a persistent task filesystem.',
-    color: '#a855f7',
-    bg: '#220f3e',
-    link: 'https://github.com/openclaw/openclaw',
-  },
-]
+const C = {
+  white: 'rgba(255,255,255,0.22)',
+  pink: '#ec4899',
+  green: '#10b981',
+  purple: '#9B76D3',
+}
 
 export const WorkflowGraph: React.FC = () => {
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const iRef = useRef<HTMLDivElement>(null)
+  const eRef = useRef<HTMLDivElement>(null)
+  const tRef = useRef<HTMLDivElement>(null)
+  const wRef = useRef<HTMLDivElement>(null)
+  const rvRef = useRef<HTMLDivElement>(null)
+  const dRef = useRef<HTMLDivElement>(null)
+  const [paths, setPaths] = useState<P[]>([])
+
+  const compute = () => {
+    const wrap = wrapRef.current
+    if (!wrap) return
+    const wr = wrap.getBoundingClientRect()
+    const g = (ref: React.RefObject<HTMLDivElement | null>) => {
+      const el = ref.current
+      if (!el) return null
+      const r = el.getBoundingClientRect()
+      return {
+        cx: r.left + r.width / 2 - wr.left,
+        cy: r.top + r.height / 2 - wr.top,
+        t: r.top - wr.top,
+        b: r.bottom - wr.top,
+        l: r.left - wr.left,
+        r: r.right - wr.left,
+      }
+    }
+
+    const I = g(iRef),
+      E = g(eRef),
+      T = g(tRef)
+    const W = g(wRef),
+      Rv = g(rvRef),
+      D = g(dRef)
+    if (!I || !E || !T || !W || !Rv || !D) return
+
+    // All main-flow nodes share the same cx (same grid column width).
+    // I.cx = E.cx = T.cx = Rv.cx = D.cx → all vertical arrows are perfectly straight.
+    setPaths([
+      // ── main flow, straight down ──────────────────────────────────────────
+      {
+        d: `M ${I.cx},${I.b} L ${E.cx},${E.t}`,
+        stroke: C.white,
+        marker: 'white',
+      },
+      {
+        d: `M ${E.cx},${E.b} L ${T.cx},${T.t}`,
+        stroke: C.white,
+        marker: 'white',
+      },
+
+      // ── TDD → WriteTest  (fail path, horizontal dashed) ──────────────────
+      {
+        d: `M ${T.r},${T.cy} L ${W.l},${W.cy}`,
+        stroke: C.pink,
+        dashed: true,
+        label: 'no failing test found',
+        lx: (T.r + W.l) / 2,
+        ly: T.cy - 12,
+        anchor: 'middle',
+        marker: 'pink',
+      },
+
+      // ── WriteTest → Execute  (retry — right-side arc, stays clear of nodes)
+      {
+        d: `M ${W.r},${W.cy} C ${W.r + 40},${W.cy} ${W.r + 40},${E.cy} ${E.r},${E.cy}`,
+        stroke: C.pink,
+        marker: 'pink',
+      },
+
+      // ── TDD → Review  (pass path) ─────────────────────────────────────────
+      {
+        d: `M ${T.cx},${T.b} L ${Rv.cx},${Rv.t}`,
+        stroke: C.white,
+        label: 'all tests green',
+        lx: T.cx + 8,
+        ly: (T.b + Rv.t) / 2,
+        anchor: 'start',
+        marker: 'white',
+      },
+
+      // ── Review → Done  (I approve, green) ────────────────────────────────
+      {
+        d: `M ${Rv.cx},${Rv.b} L ${D.cx},${D.t}`,
+        stroke: C.green,
+        label: 'I approve',
+        lx: Rv.cx + 8,
+        ly: (Rv.b + D.t) / 2,
+        anchor: 'start',
+        marker: 'green',
+      },
+
+      // ── Review → Intent  (I give feedback — left-side arc, full outer loop)
+      {
+        d: `M ${Rv.l},${Rv.cy} C ${Rv.l - 55},${Rv.cy} ${I.l - 55},${I.cy} ${I.l},${I.cy}`,
+        stroke: C.purple,
+        label: 'I give feedback',
+        // Rotated text sits along the left arc, inside the buffer column
+        lx: I.l - 42,
+        ly: (Rv.cy + I.cy) / 2,
+        anchor: 'middle',
+        vertical: true,
+        marker: 'purple',
+      },
+    ])
+  }
+
+  useEffect(() => {
+    const t = setTimeout(compute, 150)
+    window.addEventListener('resize', compute)
+    return () => {
+      clearTimeout(t)
+      window.removeEventListener('resize', compute)
+    }
+  }, [])
+
+  const alwaysOn = [
+    { e: '🧠', l: 'Engram', c: '#3b82f6' },
+    { e: '📚', l: 'Context7', c: '#10b981' },
+    { e: '⚡', l: 'RTK + CodeGraph', c: '#f2cc60' },
+  ]
+
+  // ── JSX ──────────────────────────────────────────────────────────────────
+  // Grid: 3 explicit columns
+  //   col 0  (88px)  — left buffer for the redirect-loop arc
+  //   col 1  (1fr)   — main flow; all flow nodes live here → same width → straight arrows
+  //   col 2  (215px) — WriteTest + right buffer for retry arc
+  // gap-x-6 (24px) gives the TDD→WriteTest arrow visible space
+
+  const node = (
+    color: string,
+    bg: string,
+    emoji: string,
+    title: string,
+    sub: string,
+    ref: React.RefObject<HTMLDivElement | null>
+  ) => (
+    <div
+      ref={ref}
+      className="flex items-center gap-3 px-5 py-4 rounded-2xl border-l-2 border border-white/[0.06]"
+      style={{ borderLeftColor: color, background: bg }}
+    >
+      <span className="text-lg shrink-0">{emoji}</span>
+      <div>
+        <div className="text-sm font-black text-white">{title}</div>
+        <div className="text-[10px] font-mono text-white/30">{sub}</div>
+      </div>
+    </div>
+  )
+
   return (
-    <div className="w-full max-w-2xl mx-auto flex flex-col">
-      {steps.map((step, i) => (
-        <React.Fragment key={step.id}>
-          <div
-            className={`flex items-start gap-4 p-5 rounded-2xl border-l-2 border border-white/5 transition-all duration-300 ${step.link ? 'cursor-pointer hover:border-white/10' : ''}`}
-            style={{
-              background: step.bg,
-              borderLeftColor: step.color,
-            }}
-            onClick={() => step.link && window.open(step.link, '_blank')}
-          >
-            <span
-              className="text-[10px] font-black font-mono tracking-widest mt-1.5 shrink-0 w-5 text-right"
-              style={{ color: `${step.color}55` }}
+    <div ref={wrapRef} className="relative w-full max-w-2xl mx-auto">
+      {/* SVG overlay — arrows rendered above everything */}
+      <svg
+        className="absolute inset-0 pointer-events-none overflow-visible"
+        style={{ width: '100%', height: '100%', zIndex: 10 }}
+      >
+        <defs>
+          {(['white', 'pink', 'green', 'purple'] as const).map((k) => (
+            <marker
+              key={k}
+              id={`wfm-${k}`}
+              markerWidth="7"
+              markerHeight="7"
+              refX="5"
+              refY="3.5"
+              orient="auto"
             >
-              {step.step}
-            </span>
+              <path d="M 0 0 L 6 3.5 L 0 7 Z" fill={C[k]} />
+            </marker>
+          ))}
+        </defs>
 
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0"
-              style={{ background: `${step.color}18` }}
-            >
-              {step.emoji}
-            </div>
-
-            <div className="flex flex-col gap-1 min-w-0">
-              <div className="flex items-baseline gap-2 flex-wrap">
-                <span className="text-sm font-black text-white">
-                  {step.label}
-                </span>
-                <span
-                  className="text-[10px] font-bold uppercase tracking-widest"
-                  style={{ color: step.color }}
+        {paths.map((p, i) => (
+          <g key={i}>
+            <path
+              d={p.d}
+              stroke={p.stroke}
+              strokeWidth="1.5"
+              fill="none"
+              strokeDasharray={p.dashed ? '5 4' : undefined}
+              markerEnd={`url(#wfm-${p.marker})`}
+            />
+            {p.label && p.lx !== undefined && p.ly !== undefined && (
+              <g
+                transform={
+                  p.vertical ? `rotate(-90, ${p.lx}, ${p.ly})` : undefined
+                }
+              >
+                {/* Dark pill behind the text so it's readable over the arc line */}
+                <rect
+                  x={(p.lx ?? 0) - 42}
+                  y={(p.ly ?? 0) - 6}
+                  width={84}
+                  height={12}
+                  fill="rgba(0,0,0,0.72)"
+                  rx={3}
+                />
+                <text
+                  x={p.lx}
+                  y={p.ly}
+                  fill={p.stroke}
+                  fontSize="9"
+                  fontFamily="monospace"
+                  textAnchor={p.anchor ?? 'middle'}
+                  dominantBaseline="middle"
+                  className="select-none"
                 >
-                  {step.role}
-                </span>
+                  {p.label}
+                </text>
+              </g>
+            )}
+          </g>
+        ))}
+      </svg>
+
+      {/* ── Layout grid ───────────────────────────────────────────────────── */}
+      <div
+        className="grid gap-x-6 gap-y-5"
+        style={{ gridTemplateColumns: '88px 1fr 215px' }}
+      >
+        {/* Always-on tools — spans full width */}
+        <div className="col-span-3 flex flex-wrap items-center gap-2 px-4 py-2.5 rounded-xl border border-white/8 bg-white/[0.03]">
+          <span className="text-[9px] font-mono text-white/25 uppercase tracking-wider shrink-0">
+            Active throughout
+          </span>
+          {alwaysOn.map((t) => (
+            <span
+              key={t.l}
+              className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold border border-white/8 bg-black/20"
+              style={{ color: t.c }}
+            >
+              {t.e} {t.l}
+            </span>
+          ))}
+        </div>
+
+        {/* I — Define Intent */}
+        <div />
+        {/* buffer col */}
+        {node(
+          '#9B76D3',
+          '#2d1f4e',
+          '⚡',
+          'I — Define Intent',
+          'describe the goal · set constraints · steer direction',
+          iRef
+        )}
+        <div />
+
+        {/* Claude Code — Execute */}
+        <div />
+        {node(
+          '#f97316',
+          '#2e1500',
+          '🤖',
+          'Claude Code — Execute',
+          'write code · run tools · spawn agents as needed',
+          eRef
+        )}
+        <div />
+
+        {/* TDD Guard  |  WriteTest (same row — grid stretches both to same height) */}
+        <div />
+        {node(
+          '#ec4899',
+          '#2e0020',
+          '🛡️',
+          'TDD Guard — Validate',
+          'blocks any commit without a prior failing test',
+          tRef
+        )}
+        {/* Wrapper stretches to row height; inner div is flex-centered → W.cy = T.cy */}
+        <div className="flex items-center">
+          <div
+            ref={wRef}
+            className="w-full flex items-center gap-2 px-4 py-3 rounded-xl border border-dashed"
+            style={{ borderColor: '#ec489950', background: '#ec489908' }}
+          >
+            <span>✍️</span>
+            <div>
+              <div className="text-xs font-black" style={{ color: '#ec4899' }}>
+                Write failing test
               </div>
-              <p className="text-xs text-white/45 leading-relaxed">
-                {step.description}
-              </p>
+              <div className="text-[9px] font-mono text-white/25">
+                define expected behavior first
+              </div>
             </div>
           </div>
+        </div>
 
-          {i < steps.length - 1 && (
-            <div className="flex items-center gap-3 py-1.5 pl-[76px]">
-              <span className="text-white/15 text-base leading-none">↓</span>
-              {step.connector && (
-                <span className="text-[10px] font-mono text-white/20 italic">
-                  {step.connector}
-                </span>
-              )}
-            </div>
-          )}
-        </React.Fragment>
-      ))}
+        {/* I — Review Output */}
+        <div />
+        {node(
+          '#9B76D3',
+          '#2d1f4e',
+          '⚡',
+          'I — Review Output',
+          'validate it meets the intent · approve or give feedback',
+          rvRef
+        )}
+        <div />
+
+        {/* Shipped */}
+        <div />
+        {node('#10b981', '#002e18', '✓', 'Shipped', 'commit · PR · done', dRef)}
+        <div />
+
+        {/* OpenClaw — independent background daemon, spans full width */}
+        <div
+          className="col-span-3 flex items-center gap-3 px-4 py-3 rounded-xl border"
+          style={{ borderColor: '#a855f720', background: '#a855f708' }}
+        >
+          <span>🐾</span>
+          <div className="min-w-0">
+            <span className="text-xs font-black" style={{ color: '#a855f7' }}>
+              OpenClaw
+            </span>
+            <span className="text-[10px] font-mono text-white/25 ml-2">
+              Background daemon · Jira · Confluence · task filesystem · runs
+              independently
+            </span>
+          </div>
+          <span
+            className="ml-auto text-[9px] font-mono uppercase tracking-wider shrink-0"
+            style={{ color: '#a855f730' }}
+          >
+            always running
+          </span>
+        </div>
+      </div>
     </div>
   )
 }
