@@ -1,10 +1,17 @@
 import { Skill } from './skill'
 
+export type ProjectInstitution = {
+  name: string
+  url?: string
+  logoUrl?: string
+}
+
 export type Project = {
   title: string
   subtitle: string
   body: string
   alone?: boolean
+  institution?: ProjectInstitution
   category:
     | 'Web'
     | 'Mobile'

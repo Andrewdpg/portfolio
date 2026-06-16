@@ -20,7 +20,7 @@ const Footer = () => {
     },
     {
       icon: <Send size={20} />,
-      url: 'https://t.me/Andrewpg',
+      url: 'https://t.me/Andrewdpg',
       color: 'hover:text-[#26A5E4]',
     }, // Replaced X with Telegram or similar Lucide icon
   ]

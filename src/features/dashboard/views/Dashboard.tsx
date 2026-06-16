@@ -17,7 +17,7 @@ function Dashboard() {
     { id: 'intro', label: 'Home' },
     ...experienceGroups.map((group, idx) => ({
       id: `exp-${idx}`,
-      label: group.place,
+      label: group.navLabel || group.place,
     })),
     { id: 'projects', label: 'Projects' },
     { id: 'skills', label: 'Skills' },
@@ -48,6 +48,18 @@ function Dashboard() {
               variant={group.variant || 'minimal'}
             >
               <div className="flex flex-col gap-8 w-full">
+                {group.category && (
+                  <span
+                    className="self-start px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border"
+                    style={{
+                      borderColor: `${group.textColor}30`,
+                      color: group.textColor,
+                      backgroundColor: `${group.textColor}12`,
+                    }}
+                  >
+                    {group.category}
+                  </span>
+                )}
                 {group.items.map((item, i: number) => (
                   <div
                     key={i}

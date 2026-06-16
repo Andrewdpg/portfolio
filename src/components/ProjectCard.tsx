@@ -3,7 +3,8 @@ import { Project } from '../types/project'
 import { useDrawer } from '../context/DrawerContext'
 import { ImageGallery } from './ImageGallery'
 import { SkillButton } from './SkillButton'
-import { Info, ExternalLink, Github, Users, User } from 'lucide-react'
+import { Info, ExternalLink, Users, User, Building2 } from 'lucide-react'
+import { FaGithub } from 'react-icons/fa'
 
 type ProjectCardProps = {
   project: Project
@@ -56,6 +57,54 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
               ))}
             </div>
           </div>
+
+          {project.institution && (
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-app-main">
+                Institution
+              </span>
+              {project.institution.url ? (
+                <a
+                  href={project.institution.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 w-fit px-4 py-2.5 rounded-xl border border-app-main/20 bg-app-main/5 hover:bg-app-main/10 hover:border-app-main/40 transition-colors group/inst"
+                >
+                  {project.institution.logoUrl ? (
+                    <img
+                      src={project.institution.logoUrl}
+                      alt={project.institution.name}
+                      className="h-5 w-auto object-contain"
+                    />
+                  ) : (
+                    <Building2 size={14} className="text-app-main shrink-0" />
+                  )}
+                  <span className="text-sm font-medium text-app-secondary group-hover/inst:text-app-main transition-colors">
+                    {project.institution.name}
+                  </span>
+                  <ExternalLink
+                    size={12}
+                    className="text-app-main/40 group-hover/inst:text-app-main transition-colors"
+                  />
+                </a>
+              ) : (
+                <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl border border-app-main/20 bg-app-main/5 w-fit">
+                  {project.institution.logoUrl ? (
+                    <img
+                      src={project.institution.logoUrl}
+                      alt={project.institution.name}
+                      className="h-5 w-auto object-contain"
+                    />
+                  ) : (
+                    <Building2 size={14} className="text-app-main shrink-0" />
+                  )}
+                  <span className="text-sm font-medium text-app-secondary">
+                    {project.institution.name}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -79,7 +128,7 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
             onClick={() => window.open(project.codeLink, '_blank')}
             className="flex-1 min-w-[200px] py-5 bg-app-secondary text-white rounded-full font-bold flex items-center justify-center gap-3 hover:bg-app-main transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-black/10"
           >
-            <Github size={20} /> Repository
+            <FaGithub size={20} /> Repository
           </button>
         )}
         {project.siteLink && (

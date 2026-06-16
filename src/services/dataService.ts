@@ -21,6 +21,9 @@ import inew from '../assets/img/lab/new.png'
 import arduino from '../assets/img/parkinson/arduino.png'
 import movement from '../assets/img/parkinson/movement.png'
 import gyro from '../assets/img/parkinson/gyro.png'
+import preanesthesiaPipeline from '../assets/img/preanesthesia/pipeline.png'
+import preanesthesiaRoc from '../assets/img/preanesthesia/roc_auc.png'
+import preanesthesiaRanking from '../assets/img/preanesthesia/ranking.png'
 import { ExperienceGroup } from '../types/timeline'
 import {
   Bluetooth,
@@ -38,6 +41,8 @@ import {
 const experienceGroups: ExperienceGroup[] = [
   {
     place: 'Academic Foundation',
+    navLabel: 'Education',
+    category: 'Education',
     description:
       'Systems Engineering undergraduate studies focused on software architecture, AI research, and specialized certifications.',
     heroImage: '/img/heroes/icesi.webp',
@@ -53,12 +58,6 @@ const experienceGroups: ExperienceGroup[] = [
         skills: ['Software Architecture', 'Agile', 'Cloud Native'],
       },
       {
-        title: 'AI & Biomedical Research',
-        subtitle: '2024 – 2026',
-        body: "Gait-analysis system for early Parkinson's detection (i2t Research, 2024). Thesis in progress: ML classifier for identifying patients eligible for pre-anesthetic assessment, working with real clinical datasets.",
-        skills: ['AI/ML', 'Computer Vision', 'Data Science', 'Research'],
-      },
-      {
         title: 'Software Architecture Certification',
         subtitle: 'Perficient · 2024',
         body: 'Specialization in Microservices, Serverless design, and scalable architectural patterns.',
@@ -68,6 +67,8 @@ const experienceGroups: ExperienceGroup[] = [
   },
   {
     place: 'ICESI University',
+    navLabel: 'Work · ICESI',
+    category: 'Work',
     description:
       'Applied software engineering and technical support within institutional development centers.',
     heroImage: '/img/heroes/valora.webp',
@@ -86,6 +87,8 @@ const experienceGroups: ExperienceGroup[] = [
   },
   {
     place: 'Swiset',
+    navLabel: 'Work · Swiset',
+    category: 'Work',
     description:
       'A leading fintech platform delivering advanced analytics and trading engines for global prop firms.',
     heroImage: '/img/heroes/swiset.webp',
@@ -110,6 +113,8 @@ const experienceGroups: ExperienceGroup[] = [
   },
   {
     place: 'Methodus',
+    navLabel: 'Work · Methodus',
+    category: 'Work',
     description:
       'Adaptive ICFES preparation platform focused on personalized learning experiences.',
     heroImage: '',
@@ -817,6 +822,27 @@ const projects: Project[] = [
     category: 'Research',
   },
   {
+    title: 'Pre-Anesthetic Predictive Screening',
+    subtitle:
+      "Bachelor's thesis — ML pipeline for perioperative risk stratification",
+    body: 'End-to-end machine learning system that predicts adverse perioperative events from preoperative clinical records. Apache Airflow orchestrates the full pipeline — data validation, NLP-based medication normalization, feature engineering, training of up to 9 model families with probabilistic calibration, and threshold optimization. A FastAPI server exposes the trained models as a REST API for real-time patient risk scoring (low / medium / high). Deployed entirely in Docker.',
+    icon: React.createElement(FlaskConical),
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'Python' ||
+        skill.title === 'FastAPI' ||
+        skill.title === 'Docker' ||
+        skill.title === 'Scikit-learn' ||
+        skill.title === 'Statistical Analysis'
+    ),
+    images: [preanesthesiaPipeline, preanesthesiaRoc, preanesthesiaRanking],
+    institution: {
+      name: 'Fundación Valle del Lili',
+      url: 'https://www.valledellili.org',
+    },
+    category: 'AI',
+  },
+  {
     title: 'Early Parkinson Detection',
     subtitle: 'Research project on biomedical signal processing',
     body: 'A research project focused on developing a system for early detection of Parkinson’s disease using inertial sensors and a mobile application. The system utilizes Arduino Nano 33 IoT for data acquisition, Bluetooth Low Energy for wireless communication, and machine learning techniques to identify motor patterns.',
@@ -832,6 +858,10 @@ const projects: Project[] = [
     images: [arduino, movement, gyro],
     siteLink:
       'https://drive.google.com/file/d/1yFMc7df5MKc4jlOZC7zKR7on0HKm3EF7/view?usp=sharing',
+    institution: {
+      name: 'i2t Research Group — Universidad Icesi',
+      url: 'https://i2t.icesi.edu.co',
+    },
     category: 'Research',
   },
 ]

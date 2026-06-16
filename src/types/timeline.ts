@@ -14,6 +14,8 @@ export type TimelineItem = {
 
 export type ExperienceGroup = {
   place: string
+  navLabel?: string
+  category?: string
   description?: string
   heroImage?: string
   backgroundColor?: string

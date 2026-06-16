@@ -1,282 +1,167 @@
-// src/features/dashboard/components/AIWorkflow/WorkflowGraph.tsx
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
-type NodeDef = {
+type FlowStep = {
   id: string
+  step: string
   emoji: string
   label: string
-  sublabel: string
+  role: string
+  description: string
   color: string
   bg: string
   link?: string
-  area: string
-  size?: 'lg'
-  tooltip: string
-  badge: string
+  connector?: string
 }
 
-const nodes: NodeDef[] = [
+const steps: FlowStep[] = [
   {
-    id: 'claude',
-    emoji: '🤖',
-    label: 'Claude Code',
-    sublabel: 'Primary Agent',
-    color: '#f97316',
-    bg: '#2e1500',
-    link: 'https://github.com/anthropics/claude-code',
-    area: 'top',
-    tooltip:
-      'Primary coding agent. Handles architecture, writes code, runs bash, orchestrates sub-agents.',
-    badge: 'Anthropic · CLI + IDE',
+    id: 'you',
+    step: '01',
+    emoji: '⚡',
+    label: 'Me',
+    role: 'Orchestrator',
+    description:
+      'Define intent, set constraints, review and accept output. The human always leads — AI executes.',
+    color: '#9B76D3',
+    bg: '#2d1f4e',
+    connector: 'loads context from memory via',
   },
   {
     id: 'engram',
+    step: '02',
     emoji: '🧠',
     label: 'Engram',
-    sublabel: 'Persistent Memory',
+    role: 'Persistent Memory',
+    description:
+      'Recovers prior decisions, bug fixes, and architecture conventions across sessions. Agents never start blind.',
     color: '#3b82f6',
     bg: '#001638',
     link: 'https://github.com/Gentleman-Programming/engram',
-    area: 'left',
-    tooltip:
-      'Persistent memory that survives session resets. Agents never start blind.',
-    badge: 'SQLite · MCP · Go binary',
-  },
-  {
-    id: 'you',
-    emoji: '⚡',
-    label: 'Me',
-    sublabel: 'Orchestrator',
-    color: '#9B76D3',
-    bg: '#2d1f4e',
-    area: 'center',
-    size: 'lg',
-    tooltip: '',
-    badge: '',
+    connector: 'enriches prompt with live docs via',
   },
   {
     id: 'ctx7',
+    step: '03',
     emoji: '📚',
     label: 'Context7',
-    sublabel: 'Live Docs',
+    role: 'Live Docs',
+    description:
+      'Injects up-to-date library documentation into agent context. Eliminates hallucinated or stale APIs.',
     color: '#10b981',
     bg: '#002e18',
     link: 'https://github.com/upstash/context7',
-    area: 'right',
-    tooltip:
-      'Injects up-to-date library docs into agent context. Eliminates hallucinated APIs.',
-    badge: 'MCP · Upstash',
+    connector: 'executes via',
+  },
+  {
+    id: 'claude',
+    step: '04',
+    emoji: '🤖',
+    label: 'Claude Code',
+    role: 'Primary Agent',
+    description:
+      'Handles architecture decisions, writes code, runs bash, and orchestrates parallel sub-agents when the task demands it.',
+    color: '#f97316',
+    bg: '#2e1500',
+    link: 'https://github.com/anthropics/claude-code',
+    connector: 'output blocked until tests pass by',
   },
   {
     id: 'tdd',
+    step: '05',
     emoji: '🛡️',
     label: 'TDD Guard',
-    sublabel: 'Test Enforcer',
+    role: 'Test Enforcer',
+    description:
+      'Pre-commit hook that enforces test-first discipline. No implementation ships without a prior failing test.',
     color: '#ec4899',
     bg: '#2e0020',
     link: 'https://github.com/nizos/tdd-guard',
-    area: 'bot1',
-    tooltip: 'Enforces TDD. Blocks implementation without failing tests.',
-    badge: 'Claude Code plugin · Hook-based',
+    connector: 'efficiency optimized throughout by',
   },
   {
     id: 'rtk',
+    step: '06',
     emoji: '⚡',
     label: 'RTK + CodeGraph',
-    sublabel: 'Token Optimizer',
+    role: 'Token Optimizer',
+    description:
+      '−80% token consumption via CLI output proxy. −94% agent tool calls via pre-indexed semantic code graph.',
     color: '#f2cc60',
     bg: '#2e2500',
     link: 'https://github.com/rtk-ai/rtk',
-    area: 'bot2',
-    tooltip:
-      'RTK compresses CLI output (−80% tokens). CodeGraph pre-indexes code (−94% tool calls).',
-    badge: 'Rust binary · Semantic index',
+    connector: 'background tasks automated by',
   },
   {
     id: 'openclaw',
+    step: '07',
     emoji: '🐾',
     label: 'OpenClaw',
-    sublabel: 'General Automation',
+    role: 'Background Automation',
+    description:
+      'Daemon agent that monitors Jira, enriches tasks with Confluence context, and maintains a persistent task filesystem.',
     color: '#a855f7',
     bg: '#220f3e',
     link: 'https://github.com/openclaw/openclaw',
-    area: 'bot3',
-    tooltip:
-      'Daemon-based agent. Monitors Jira, enriches tasks with Confluence context, maintains a persistent task filesystem.',
-    badge: 'Docker sandbox · Multi-API',
   },
 ]
 
-type TooltipState = { node: NodeDef; x: number; y: number } | null
-
 export const WorkflowGraph: React.FC = () => {
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const [edges, setEdges] = useState<
-    { x1: number; y1: number; x2: number; y2: number }[]
-  >([])
-  const [tooltip, setTooltip] = useState<TooltipState>(null)
-
-  const drawEdges = () => {
-    const wrap = wrapRef.current
-    if (!wrap) return
-    const wRect = wrap.getBoundingClientRect()
-    const centerEl = wrap.querySelector<HTMLElement>(
-      '[data-node="you"] .node-icon'
-    )
-    if (!centerEl) return
-    const cRect = centerEl.getBoundingClientRect()
-    const cx = cRect.left + cRect.width / 2 - wRect.left
-    const cy = cRect.top + cRect.height / 2 - wRect.top
-
-    const lines: typeof edges = []
-    ;['claude', 'engram', 'ctx7', 'tdd', 'rtk', 'openclaw'].forEach((id) => {
-      const icon = wrap.querySelector<HTMLElement>(
-        `[data-node="${id}"] .node-icon`
-      )
-      if (!icon) return
-      const r = icon.getBoundingClientRect()
-      lines.push({
-        x1: r.left + r.width / 2 - wRect.left,
-        y1: r.top + r.height / 2 - wRect.top,
-        x2: cx,
-        y2: cy,
-      })
-    })
-    setEdges(lines)
-  }
-
-  useEffect(() => {
-    const t = setTimeout(drawEdges, 100)
-    window.addEventListener('resize', drawEdges)
-    return () => {
-      clearTimeout(t)
-      window.removeEventListener('resize', drawEdges)
-    }
-  }, [])
-
-  const handleMouseEnter = (e: React.MouseEvent, node: NodeDef) => {
-    if (!node.tooltip) return
-    setTooltip({ node, x: e.clientX, y: e.clientY })
-  }
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (tooltip)
-      setTooltip((t) => (t ? { ...t, x: e.clientX, y: e.clientY } : null))
-  }
-  const handleMouseLeave = () => setTooltip(null)
-  const handleClick = (node: NodeDef) => {
-    if (node.link) window.open(node.link, '_blank')
-  }
-
-  const areaClass: Record<string, string> = {
-    top: 'col-start-2 row-start-1',
-    left: 'col-start-1 row-start-2',
-    center: 'col-start-2 row-start-2',
-    right: 'col-start-3 row-start-2',
-    bot1: 'col-start-1 row-start-3',
-    bot2: 'col-start-2 row-start-3',
-    bot3: 'col-start-3 row-start-3',
-  }
-
   return (
-    <div
-      className="relative w-full"
-      ref={wrapRef}
-      onMouseMove={handleMouseMove}
-    >
-      {/* SVG edges */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
-        style={{ zIndex: 0 }}
-      >
-        {edges.map((e, i) => (
-          <line
-            key={i}
-            x1={e.x1}
-            y1={e.y1}
-            x2={e.x2}
-            y2={e.y2}
-            stroke="rgba(255,255,255,0.07)"
-            strokeWidth="1.5"
-            strokeDasharray="5 4"
-          />
-        ))}
-      </svg>
-
-      {/* Grid */}
-      <div className="grid grid-cols-3 gap-8 relative" style={{ zIndex: 2 }}>
-        {nodes.map((node) => {
-          const isLg = node.size === 'lg'
-          const iconSize = isLg
-            ? 'w-[88px] h-[88px] rounded-[26px] text-4xl'
-            : 'w-[72px] h-[72px] rounded-[20px] text-3xl'
-          return (
-            <div
-              key={node.id}
-              data-node={node.id}
-              className={`${areaClass[node.area]} flex flex-col items-center gap-2.5 group ${node.link ? 'cursor-pointer' : ''}`}
-              onMouseEnter={(e) => handleMouseEnter(e, node)}
-              onMouseLeave={handleMouseLeave}
-              onClick={() => handleClick(node)}
+    <div className="w-full max-w-2xl mx-auto flex flex-col">
+      {steps.map((step, i) => (
+        <React.Fragment key={step.id}>
+          <div
+            className={`flex items-start gap-4 p-5 rounded-2xl border-l-2 border border-white/5 transition-all duration-300 ${step.link ? 'cursor-pointer hover:border-white/10' : ''}`}
+            style={{
+              background: step.bg,
+              borderLeftColor: step.color,
+            }}
+            onClick={() => step.link && window.open(step.link, '_blank')}
+          >
+            <span
+              className="text-[10px] font-black font-mono tracking-widest mt-1.5 shrink-0 w-5 text-right"
+              style={{ color: `${step.color}55` }}
             >
-              <div
-                className="relative"
-                style={{ width: isLg ? 88 : 72, height: isLg ? 88 : 72 }}
-              >
-                {/* Glow ring on hover */}
-                <div
-                  className="absolute rounded-full border opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"
-                  style={{
-                    inset: -10,
-                    borderColor: node.color,
-                    borderWidth: 1.5,
-                  }}
-                />
-                <div
-                  className={`node-icon ${iconSize} flex items-center justify-center border-none shadow-lg transition-shadow duration-300 group-hover:shadow-2xl`}
-                  style={{ background: node.bg }}
-                >
-                  {node.emoji}
-                </div>
-              </div>
-              <div
-                className={`text-center ${isLg ? 'text-sm font-bold text-white' : 'text-xs font-bold text-white/85'}`}
-              >
-                {node.label}
-              </div>
-              <div className="text-[10px] uppercase tracking-widest text-white/30 text-center">
-                {node.sublabel}
-              </div>
-            </div>
-          )
-        })}
-      </div>
-
-      {/* Tooltip */}
-      {tooltip && (
-        <div
-          className="fixed z-[700] pointer-events-none bg-app-secondary border border-white/10 rounded-2xl p-4 max-w-[240px] shadow-2xl"
-          style={{
-            left: tooltip.x + 16,
-            top: Math.min(tooltip.y - 10, window.innerHeight - 160),
-          }}
-        >
-          <div className="flex items-center gap-2 mb-2">
-            <div
-              className="w-2 h-2 rounded-full shrink-0"
-              style={{ background: tooltip.node.color }}
-            />
-            <span className="text-sm font-bold text-white">
-              {tooltip.node.label}
+              {step.step}
             </span>
+
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0"
+              style={{ background: `${step.color}18` }}
+            >
+              {step.emoji}
+            </div>
+
+            <div className="flex flex-col gap-1 min-w-0">
+              <div className="flex items-baseline gap-2 flex-wrap">
+                <span className="text-sm font-black text-white">
+                  {step.label}
+                </span>
+                <span
+                  className="text-[10px] font-bold uppercase tracking-widest"
+                  style={{ color: step.color }}
+                >
+                  {step.role}
+                </span>
+              </div>
+              <p className="text-xs text-white/45 leading-relaxed">
+                {step.description}
+              </p>
+            </div>
           </div>
-          <p className="text-xs text-white/50 leading-relaxed">
-            {tooltip.node.tooltip}
-          </p>
-          <span className="inline-block mt-3 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-white/5 text-white/35">
-            {tooltip.node.badge}
-          </span>
-        </div>
-      )}
+
+          {i < steps.length - 1 && (
+            <div className="flex items-center gap-3 py-1.5 pl-[76px]">
+              <span className="text-white/15 text-base leading-none">↓</span>
+              {step.connector && (
+                <span className="text-[10px] font-mono text-white/20 italic">
+                  {step.connector}
+                </span>
+              )}
+            </div>
+          )}
+        </React.Fragment>
+      ))}
     </div>
   )
 }
