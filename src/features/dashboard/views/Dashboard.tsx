@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { HeroScroll } from '../../../components/HeroScroll'
 import {
   projects,
@@ -10,9 +10,21 @@ import { Section } from '../../../components/Section'
 import { Presentation } from '../components/Presetation'
 import { Navigation, NavSection } from '../../layout/components/Navigation'
 import { AIWorkflow } from '../components/AIWorkflow'
+import { ChatWidget } from '../components/Chat'
 import { Experience } from '../../../types/skill'
 
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
+
 function Dashboard() {
+  useEffect(() => {
+    navigator.sendBeacon(
+      `${API_URL}/api/andres/visit`,
+      new Blob([JSON.stringify({ referrer: document.referrer })], {
+        type: 'application/json',
+      })
+    )
+  }, [])
+
   const sections: NavSection[] = [
     { id: 'intro', label: 'Home' },
     ...experienceGroups.map((group, idx) => ({
@@ -27,6 +39,7 @@ function Dashboard() {
   return (
     <div className="max-h-screen overflow-hidden">
       <Navigation sections={sections} />
+      <ChatWidget />
       <HeroScroll>
         {/* Presentation Section */}
         <div id="intro">
@@ -116,15 +129,28 @@ function Dashboard() {
             title="Projects"
             variant="minimal"
             containerStyle={{
-              backgroundColor: '#1A1128', // Brand Deep Purple
+              backgroundColor: '#1A1128',
               color: '#FFFFFF',
             }}
             align="right"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 w-full">
-              {projects.map((project, idx: number) => (
-                <ProjectCard key={idx} project={project} />
-              ))}
+            <div className="flex flex-col gap-16 mt-12 w-full">
+              {(['Software', 'Research & ML'] as const).map((group) => {
+                const groupProjects = projects.filter((p) => p.group === group)
+                if (!groupProjects.length) return null
+                return (
+                  <div key={group} className="flex flex-col gap-6">
+                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-app-main">
+                      {group}
+                    </span>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+                      {groupProjects.map((project, idx) => (
+                        <ProjectCard key={idx} project={project} />
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </Section>
         </div>

@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fa'
 import { Experience, Skill } from '../types/skill'
 import { Project } from '../types/project'
+import methodus from '../assets/img/methodus.jpg'
 import kuki_home from '../assets/img/kuki/home.png'
 import kuki_comments from '../assets/img/kuki/comments.png'
 import kuki_login from '../assets/img/kuki/login.png'
@@ -79,7 +80,7 @@ const experienceGroups: ExperienceGroup[] = [
     items: [
       {
         title: 'Software Development Intern',
-        subtitle: 'Oct 2024 – Present',
+        subtitle: 'Oct 2024 – Jun 2026',
         body: 'Led design and development of a survey management system for academic and administrative processes. Contributed to a certificate generation and validation system. Collaborated with Scrum teams ensuring timely delivery and quality standards.',
         skills: ['Fullstack', 'Scrum', 'Automation', 'Institutional Systems'],
       },
@@ -108,26 +109,6 @@ const experienceGroups: ExperienceGroup[] = [
           'CI/CD',
           'Prop Trading',
         ],
-      },
-    ],
-  },
-  {
-    place: 'Methodus',
-    navLabel: 'Work · Methodus',
-    category: 'Work',
-    description:
-      'Adaptive ICFES preparation platform focused on personalized learning experiences.',
-    heroImage: '',
-    backgroundColor: '#1B2A5E',
-    textColor: '#ffffff',
-    align: 'right' as const,
-    variant: 'immersive' as const,
-    items: [
-      {
-        title: 'Fullstack Developer · Tech Lead',
-        subtitle: 'Jan 2026 – Present',
-        body: 'Leading the technical development of Methodus. Managing release planning, QA coordination and incident response to prepare the platform for pilot use.',
-        skills: ['React', 'Node.js', 'PostgreSQL', 'CI/CD', 'Tech Lead'],
       },
     ],
   },
@@ -767,10 +748,29 @@ const skills: Skill[] = [
 // Define projects
 const projects: Project[] = [
   {
+    title: 'Methodus',
+    subtitle: 'Adaptive ICFES preparation platform',
+    body: 'Leading the full technical development of Methodus — an adaptive learning platform for ICFES exam preparation. Built with a focus on personalized experiences and real-time feedback. Managing release planning, QA coordination, and incident response as the platform prepares for pilot use with real students.',
+    icon: React.createElement(Globe),
+    inProgress: true,
+    group: 'Software',
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'React' ||
+        skill.title === 'Next.js' ||
+        skill.title === 'TypeScript' ||
+        skill.title === 'PostgreSQL' ||
+        skill.title === 'Docker'
+    ),
+    images: [methodus],
+    category: 'Web',
+  },
+  {
     title: 'Kuki',
     subtitle: 'Social network for chefs',
     body: 'A cooking-focused social network for home and professional chefs. Users can share recipes, upload photos, interact, and get ingredient-based recommendations, creating a vibrant culinary community.',
     icon: React.createElement(Globe),
+    group: 'Software',
     skills: skills.filter(
       (skill) =>
         skill.title === 'React' ||
@@ -792,6 +792,7 @@ const projects: Project[] = [
     title: 'People-Database',
     subtitle: 'Database management system',
     alone: true,
+    group: 'Software',
     body: 'A people database management system. It allows administrators to manage employees data and generate reports. Also, employees can manage clients data and visit reports. It includes user authentication, data validation and data visualization.',
     icon: React.createElement(Globe),
     skills: skills.filter(
@@ -809,6 +810,7 @@ const projects: Project[] = [
     subtitle: 'High-performance computing research project',
     body: 'A research project focused on optimizing matrix multiplication by leveraging cache locality principles. It evaluates multiple algorithmic approaches and introduces a panel-based multiplication technique to improve performance. Statistical analysis and experimental design were applied to validate results.',
     icon: React.createElement(FlaskConical),
+    group: 'Research & ML',
     skills: skills.filter(
       (skill) =>
         skill.title === 'C++' ||
@@ -827,6 +829,7 @@ const projects: Project[] = [
       "Bachelor's thesis — ML pipeline for perioperative risk stratification",
     body: 'End-to-end machine learning system that predicts adverse perioperative events from preoperative clinical records. Apache Airflow orchestrates the full pipeline — data validation, NLP-based medication normalization, feature engineering, training of up to 9 model families with probabilistic calibration, and threshold optimization. A FastAPI server exposes the trained models as a REST API for real-time patient risk scoring (low / medium / high). Deployed entirely in Docker.',
     icon: React.createElement(FlaskConical),
+    group: 'Research & ML',
     skills: skills.filter(
       (skill) =>
         skill.title === 'Python' ||
@@ -845,15 +848,15 @@ const projects: Project[] = [
   {
     title: 'Early Parkinson Detection',
     subtitle: 'Research project on biomedical signal processing',
-    body: 'A research project focused on developing a system for early detection of Parkinson’s disease using inertial sensors and a mobile application. The system utilizes Arduino Nano 33 IoT for data acquisition, Bluetooth Low Energy for wireless communication, and machine learning techniques to identify motor patterns.',
+    body: "A research project focused on developing a system for early detection of Parkinson's disease using inertial sensors and a mobile application. The system utilizes Arduino Nano 33 IoT for data acquisition, Bluetooth Low Energy for wireless communication, and machine learning techniques to identify motor patterns.",
     icon: React.createElement(FlaskConical),
+    group: 'Research & ML',
     skills: skills.filter(
       (skill) =>
         skill.title === 'Arduino' ||
         skill.title === 'Bluetooth Low Energy (BLE)' ||
         skill.title === 'TensorFlow' ||
-        skill.title === 'Python' ||
-        skill.title === 'Android'
+        skill.title === 'Python'
     ),
     images: [arduino, movement, gyro],
     siteLink:

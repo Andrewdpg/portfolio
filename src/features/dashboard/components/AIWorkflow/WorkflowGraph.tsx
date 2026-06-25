@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+
+// ── Types & constants ────────────────────────────────────────────────────────
 
 type P = {
   d: string
@@ -9,18 +11,197 @@ type P = {
   ly?: number
   anchor?: 'middle' | 'start' | 'end'
   vertical?: boolean
-  marker: 'white' | 'pink' | 'green' | 'purple'
+  marker: 'dim' | 'pink' | 'green' | 'purple' | 'violet'
 }
 
 const C = {
-  white: 'rgba(255,255,255,0.22)',
+  dim: 'rgba(255,255,255,0.18)',
   pink: '#ec4899',
   green: '#10b981',
   purple: '#9B76D3',
+  violet: '#a855f7',
 }
 
-export const WorkflowGraph: React.FC = () => {
+const sources = [
+  { e: '📋', l: 'Jira', c: '#4C9EFF' },
+  { e: '📧', l: 'Email', c: '#EA4335' },
+  { e: '🗂️', l: 'Git Repos', c: '#f97316' },
+  { e: '🗄️', l: 'Databases', c: '#10b981' },
+]
+
+const alwaysOn = [
+  { e: '🧠', l: 'Engram', c: '#3b82f6' },
+  { e: '📚', l: 'Context7', c: '#10b981' },
+  { e: '⚡', l: 'RTK + CodeGraph', c: '#f2cc60' },
+]
+
+// ── Shared node ──────────────────────────────────────────────────────────────
+
+const NodeCard = ({
+  color,
+  emoji,
+  title,
+  sub,
+  nodeRef,
+}: {
+  color: string
+  emoji: string
+  title: string
+  sub: string
+  nodeRef?: React.RefObject<HTMLDivElement | null>
+}) => (
+  <div
+    ref={nodeRef}
+    className="flex items-center gap-3 px-4 py-3 rounded-xl border-l-2 border border-white/[0.07] bg-white/[0.04]"
+    style={{ borderLeftColor: color }}
+  >
+    <span className="text-base shrink-0">{emoji}</span>
+    <div>
+      <div className="text-sm font-black text-white leading-tight">{title}</div>
+      <div className="text-[10px] font-mono text-white/55 mt-0.5">{sub}</div>
+    </div>
+  </div>
+)
+
+// ── Mobile layout ────────────────────────────────────────────────────────────
+
+const Connector = ({
+  color = 'rgba(255,255,255,0.12)',
+  label,
+}: {
+  color?: string
+  label?: string
+}) => (
+  <div className="flex flex-col items-center py-1 gap-0.5">
+    <div className="w-px h-4" style={{ background: color }} />
+    {label && (
+      <>
+        <span className="text-[9px] font-mono tracking-wide" style={{ color }}>
+          {label}
+        </span>
+        <div className="w-px h-3" style={{ background: color }} />
+      </>
+    )}
+  </div>
+)
+
+const MobileGraph: React.FC = () => (
+  <div className="flex flex-col w-full max-w-sm mx-auto">
+    {/* Always-on */}
+    <div className="flex flex-wrap items-center gap-2 mb-6">
+      <span className="text-[9px] font-mono text-white/30 uppercase tracking-wider w-full mb-1">
+        Active throughout
+      </span>
+      {alwaysOn.map((t) => (
+        <span
+          key={t.l}
+          className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/[0.05]"
+          style={{ color: t.c }}
+        >
+          {t.e} {t.l}
+        </span>
+      ))}
+    </div>
+
+    {/* reads from card */}
+    <div className="px-4 py-3 rounded-xl border border-white/[0.07] bg-white/[0.04]">
+      <span className="text-[9px] font-mono text-white/40 uppercase tracking-wider block mb-2">
+        reads from
+      </span>
+      <div className="flex flex-wrap gap-x-4 gap-y-1">
+        {sources.map((s) => (
+          <span
+            key={s.l}
+            className="flex items-center gap-1 text-[10px] font-bold"
+            style={{ color: s.c }}
+          >
+            {s.e} {s.l}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    {/* OpenClaw card */}
+    <div
+      className="flex items-center gap-3 px-4 py-3 rounded-xl border-l-2 border border-white/[0.07] bg-white/[0.04]"
+      style={{ borderLeftColor: '#a855f7' }}
+    >
+      <span className="text-base shrink-0">🐾</span>
+      <div>
+        <div className="text-sm font-black" style={{ color: '#a855f7' }}>
+          OpenClaw
+        </div>
+        <div className="text-[10px] font-mono text-white/55">
+          notifies · fetches context
+        </div>
+      </div>
+    </div>
+
+    <Connector color={C.violet} label="context ready" />
+
+    <NodeCard
+      color="#9B76D3"
+      emoji="⚡"
+      title="I — Define Intent"
+      sub="describe the goal · set constraints · steer direction"
+    />
+    <Connector />
+    <NodeCard
+      color="#f97316"
+      emoji="🤖"
+      title="Claude Code — Execute"
+      sub="write code · run tools · spawn agents as needed"
+    />
+    <Connector />
+    <NodeCard
+      color="#ec4899"
+      emoji="🛡️"
+      title="TDD Guard — Validate"
+      sub="blocks any commit without a prior failing test"
+    />
+
+    {/* Write test indented sub-item */}
+    <div
+      className="ml-6 mt-1 flex items-center gap-2 px-3 py-2.5 rounded-lg border border-dashed border-white/[0.07] bg-white/[0.04]"
+      style={{
+        borderLeftColor: '#ec4899',
+        borderLeftWidth: 2,
+        borderLeftStyle: 'solid',
+      }}
+    >
+      <span className="text-sm shrink-0">✍️</span>
+      <div>
+        <div className="text-xs font-black" style={{ color: '#ec4899' }}>
+          Write failing test
+        </div>
+        <div className="text-[9px] font-mono text-white/55">
+          define expected behavior first
+        </div>
+      </div>
+    </div>
+
+    <Connector color={C.dim} label="all tests green" />
+    <NodeCard
+      color="#9B76D3"
+      emoji="⚡"
+      title="I — Review Output"
+      sub="validate it meets the intent · approve or give feedback"
+    />
+    <Connector color={C.green} label="I approve" />
+    <NodeCard
+      color="#10b981"
+      emoji="✓"
+      title="Shipped"
+      sub="commit · PR · done"
+    />
+  </div>
+)
+
+// ── Desktop layout ────────────────────────────────────────────────────────────
+
+const DesktopGraph: React.FC = () => {
   const wrapRef = useRef<HTMLDivElement>(null)
+  const ocRef = useRef<HTMLDivElement>(null)
   const iRef = useRef<HTMLDivElement>(null)
   const eRef = useRef<HTMLDivElement>(null)
   const tRef = useRef<HTMLDivElement>(null)
@@ -46,31 +227,30 @@ export const WorkflowGraph: React.FC = () => {
         r: r.right - wr.left,
       }
     }
-
-    const I = g(iRef),
+    const OC = g(ocRef),
+      I = g(iRef),
       E = g(eRef),
       T = g(tRef)
     const W = g(wRef),
       Rv = g(rvRef),
       D = g(dRef)
-    if (!I || !E || !T || !W || !Rv || !D) return
+    if (!OC || !I || !E || !T || !W || !Rv || !D) return
 
-    // All main-flow nodes share the same cx (same grid column width).
-    // I.cx = E.cx = T.cx = Rv.cx = D.cx → all vertical arrows are perfectly straight.
     setPaths([
-      // ── main flow, straight down ──────────────────────────────────────────
+      // OpenClaw → I (horizontal trigger)
       {
-        d: `M ${I.cx},${I.b} L ${E.cx},${E.t}`,
-        stroke: C.white,
-        marker: 'white',
+        d: `M ${OC.r},${OC.cy} C ${OC.r + 30},${OC.cy} ${I.l - 30},${I.cy} ${I.l},${I.cy}`,
+        stroke: C.violet,
+        label: 'context ready',
+        lx: (OC.r + I.l) / 2,
+        ly: OC.cy - 14,
+        anchor: 'middle',
+        marker: 'violet',
       },
-      {
-        d: `M ${E.cx},${E.b} L ${T.cx},${T.t}`,
-        stroke: C.white,
-        marker: 'white',
-      },
-
-      // ── TDD → WriteTest  (fail path, horizontal dashed) ──────────────────
+      // main flow down
+      { d: `M ${I.cx},${I.b} L ${E.cx},${E.t}`, stroke: C.dim, marker: 'dim' },
+      { d: `M ${E.cx},${E.b} L ${T.cx},${T.t}`, stroke: C.dim, marker: 'dim' },
+      // TDD → WriteTest (no test found, dashed)
       {
         d: `M ${T.r},${T.cy} L ${W.l},${W.cy}`,
         stroke: C.pink,
@@ -81,26 +261,23 @@ export const WorkflowGraph: React.FC = () => {
         anchor: 'middle',
         marker: 'pink',
       },
-
-      // ── WriteTest → Execute  (retry — right-side arc, stays clear of nodes)
+      // WriteTest → Execute (retry arc, right side)
       {
         d: `M ${W.r},${W.cy} C ${W.r + 40},${W.cy} ${W.r + 40},${E.cy} ${E.r},${E.cy}`,
         stroke: C.pink,
         marker: 'pink',
       },
-
-      // ── TDD → Review  (pass path) ─────────────────────────────────────────
+      // TDD → Review (all green)
       {
         d: `M ${T.cx},${T.b} L ${Rv.cx},${Rv.t}`,
-        stroke: C.white,
+        stroke: C.dim,
         label: 'all tests green',
         lx: T.cx + 8,
         ly: (T.b + Rv.t) / 2,
         anchor: 'start',
-        marker: 'white',
+        marker: 'dim',
       },
-
-      // ── Review → Done  (I approve, green) ────────────────────────────────
+      // Review → Shipped
       {
         d: `M ${Rv.cx},${Rv.b} L ${D.cx},${D.t}`,
         stroke: C.green,
@@ -110,13 +287,11 @@ export const WorkflowGraph: React.FC = () => {
         anchor: 'start',
         marker: 'green',
       },
-
-      // ── Review → Intent  (I give feedback — left-side arc, full outer loop)
+      // Review → I (feedback loop, left arc through buffer col)
       {
         d: `M ${Rv.l},${Rv.cy} C ${Rv.l - 55},${Rv.cy} ${I.l - 55},${I.cy} ${I.l},${I.cy}`,
         stroke: C.purple,
         label: 'I give feedback',
-        // Rotated text sits along the left arc, inside the buffer column
         lx: I.l - 42,
         ly: (Rv.cy + I.cy) / 2,
         anchor: 'middle',
@@ -126,58 +301,23 @@ export const WorkflowGraph: React.FC = () => {
     ])
   }
 
-  useEffect(() => {
-    const t = setTimeout(compute, 150)
-    window.addEventListener('resize', compute)
-    return () => {
-      clearTimeout(t)
-      window.removeEventListener('resize', compute)
-    }
+  // ResizeObserver fires after every real layout change — no fragile setTimeout
+  useLayoutEffect(() => {
+    compute()
+    const ro = new ResizeObserver(compute)
+    if (wrapRef.current) ro.observe(wrapRef.current)
+    return () => ro.disconnect()
   }, [])
 
-  const alwaysOn = [
-    { e: '🧠', l: 'Engram', c: '#3b82f6' },
-    { e: '📚', l: 'Context7', c: '#10b981' },
-    { e: '⚡', l: 'RTK + CodeGraph', c: '#f2cc60' },
-  ]
-
-  // ── JSX ──────────────────────────────────────────────────────────────────
-  // Grid: 3 explicit columns
-  //   col 0  (88px)  — left buffer for the redirect-loop arc
-  //   col 1  (1fr)   — main flow; all flow nodes live here → same width → straight arrows
-  //   col 2  (215px) — WriteTest + right buffer for retry arc
-  // gap-x-6 (24px) gives the TDD→WriteTest arrow visible space
-
-  const node = (
-    color: string,
-    bg: string,
-    emoji: string,
-    title: string,
-    sub: string,
-    ref: React.RefObject<HTMLDivElement | null>
-  ) => (
-    <div
-      ref={ref}
-      className="flex items-center gap-3 px-5 py-4 rounded-2xl border-l-2 border border-white/[0.06]"
-      style={{ borderLeftColor: color, background: bg }}
-    >
-      <span className="text-lg shrink-0">{emoji}</span>
-      <div>
-        <div className="text-sm font-black text-white">{title}</div>
-        <div className="text-[10px] font-mono text-white/30">{sub}</div>
-      </div>
-    </div>
-  )
-
   return (
-    <div ref={wrapRef} className="relative w-full max-w-2xl mx-auto">
-      {/* SVG overlay — arrows rendered above everything */}
+    <div ref={wrapRef} className="relative w-full max-w-[900px] mx-auto">
+      {/* SVG overlay — coordinates are relative to wrapRef */}
       <svg
         className="absolute inset-0 pointer-events-none overflow-visible"
         style={{ width: '100%', height: '100%', zIndex: 10 }}
       >
         <defs>
-          {(['white', 'pink', 'green', 'purple'] as const).map((k) => (
+          {(['dim', 'pink', 'green', 'purple', 'violet'] as const).map((k) => (
             <marker
               key={k}
               id={`wfm-${k}`}
@@ -191,7 +331,6 @@ export const WorkflowGraph: React.FC = () => {
             </marker>
           ))}
         </defs>
-
         {paths.map((p, i) => (
           <g key={i}>
             <path
@@ -208,13 +347,12 @@ export const WorkflowGraph: React.FC = () => {
                   p.vertical ? `rotate(-90, ${p.lx}, ${p.ly})` : undefined
                 }
               >
-                {/* Dark pill behind the text so it's readable over the arc line */}
                 <rect
                   x={(p.lx ?? 0) - 42}
                   y={(p.ly ?? 0) - 6}
                   width={84}
                   height={12}
-                  fill="rgba(0,0,0,0.72)"
+                  fill="rgba(0,0,0,0.8)"
                   rx={3}
                 />
                 <text
@@ -235,121 +373,171 @@ export const WorkflowGraph: React.FC = () => {
         ))}
       </svg>
 
-      {/* ── Layout grid ───────────────────────────────────────────────────── */}
-      <div
-        className="grid gap-x-6 gap-y-5"
-        style={{ gridTemplateColumns: '88px 1fr 215px' }}
-      >
-        {/* Always-on tools — spans full width */}
-        <div className="col-span-3 flex flex-wrap items-center gap-2 px-4 py-2.5 rounded-xl border border-white/8 bg-white/[0.03]">
-          <span className="text-[9px] font-mono text-white/25 uppercase tracking-wider shrink-0">
-            Active throughout
+      {/* Always-on bar — full width, above the main layout */}
+      <div className="flex flex-wrap items-center gap-2 pb-4 mb-7 border-b border-white/[0.06]">
+        <span className="text-[9px] font-mono text-white/30 uppercase tracking-wider shrink-0 mr-2">
+          Active throughout
+        </span>
+        {alwaysOn.map((t) => (
+          <span
+            key={t.l}
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/[0.05]"
+            style={{ color: t.c }}
+          >
+            {t.e} {t.l}
           </span>
-          {alwaysOn.map((t) => (
+        ))}
+      </div>
+
+      {/*
+        reads from — anchored to left-col width (160px), sits above OpenClaw.
+        Outside the flex row so it doesn't change OpenClaw's y position.
+      */}
+      <div
+        style={{ width: 160 }}
+        className="mb-2 px-4 py-3 rounded-xl border border-white/[0.07] bg-white/[0.04]"
+      >
+        <span className="text-[9px] font-mono text-white/40 uppercase tracking-wider block mb-2">
+          reads from
+        </span>
+        <div className="flex flex-col gap-1">
+          {sources.map((s) => (
             <span
-              key={t.l}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold border border-white/8 bg-black/20"
-              style={{ color: t.c }}
+              key={s.l}
+              className="flex items-center gap-1.5 text-[10px] font-bold"
+              style={{ color: s.c }}
             >
-              {t.e} {t.l}
+              {s.e} {s.l}
             </span>
           ))}
         </div>
+      </div>
 
-        {/* I — Define Intent */}
-        <div />
-        {/* buffer col */}
-        {node(
-          '#9B76D3',
-          '#2d1f4e',
-          '⚡',
-          'I — Define Intent',
-          'describe the goal · set constraints · steer direction',
-          iRef
-        )}
-        <div />
-
-        {/* Claude Code — Execute */}
-        <div />
-        {node(
-          '#f97316',
-          '#2e1500',
-          '🤖',
-          'Claude Code — Execute',
-          'write code · run tools · spawn agents as needed',
-          eRef
-        )}
-        <div />
-
-        {/* TDD Guard  |  WriteTest (same row — grid stretches both to same height) */}
-        <div />
-        {node(
-          '#ec4899',
-          '#2e0020',
-          '🛡️',
-          'TDD Guard — Validate',
-          'blocks any commit without a prior failing test',
-          tRef
-        )}
-        {/* Wrapper stretches to row height; inner div is flex-centered → W.cy = T.cy */}
-        <div className="flex items-center">
+      {/*
+        Flex row: left col (OpenClaw, 160px fixed) + right section (flex-1).
+        Both start at the same y → OC.cy ≈ I.cy → trigger arrow is horizontal.
+        Right section has its own 3-col grid:
+          col 0  (88px)   left arc buffer for feedback loop
+          col 1  (1fr)    main flow nodes
+          col 2  (200px)  WriteTest + retry arc room
+      */}
+      <div className="flex gap-8 items-start">
+        {/* Left col — OpenClaw only */}
+        <div className="shrink-0" style={{ width: 160 }}>
           <div
-            ref={wRef}
-            className="w-full flex items-center gap-2 px-4 py-3 rounded-xl border border-dashed"
-            style={{ borderColor: '#ec489950', background: '#ec489908' }}
+            ref={ocRef}
+            className="flex items-center gap-3 px-4 py-3 rounded-xl border-l-2 border border-white/[0.07] bg-white/[0.04]"
+            style={{ borderLeftColor: '#a855f7' }}
           >
-            <span>✍️</span>
+            <span className="text-base shrink-0">🐾</span>
             <div>
-              <div className="text-xs font-black" style={{ color: '#ec4899' }}>
-                Write failing test
+              <div className="text-sm font-black" style={{ color: '#a855f7' }}>
+                OpenClaw
               </div>
-              <div className="text-[9px] font-mono text-white/25">
-                define expected behavior first
+              <div className="text-[10px] font-mono text-white/55">
+                notifies · fetches context
               </div>
             </div>
           </div>
         </div>
 
-        {/* I — Review Output */}
-        <div />
-        {node(
-          '#9B76D3',
-          '#2d1f4e',
-          '⚡',
-          'I — Review Output',
-          'validate it meets the intent · approve or give feedback',
-          rvRef
-        )}
-        <div />
-
-        {/* Shipped */}
-        <div />
-        {node('#10b981', '#002e18', '✓', 'Shipped', 'commit · PR · done', dRef)}
-        <div />
-
-        {/* OpenClaw — independent background daemon, spans full width */}
+        {/* Right section — main flow */}
         <div
-          className="col-span-3 flex items-center gap-3 px-4 py-3 rounded-xl border"
-          style={{ borderColor: '#a855f720', background: '#a855f708' }}
+          className="flex-1 grid gap-x-8 gap-y-7"
+          style={{ gridTemplateColumns: '88px 1fr 200px' }}
         >
-          <span>🐾</span>
-          <div className="min-w-0">
-            <span className="text-xs font-black" style={{ color: '#a855f7' }}>
-              OpenClaw
-            </span>
-            <span className="text-[10px] font-mono text-white/25 ml-2">
-              Background daemon · Jira · Confluence · task filesystem · runs
-              independently
-            </span>
+          <div />
+          <NodeCard
+            color="#9B76D3"
+            emoji="⚡"
+            title="I — Define Intent"
+            sub="describe the goal · set constraints · steer direction"
+            nodeRef={iRef}
+          />
+          <div />
+
+          <div />
+          <NodeCard
+            color="#f97316"
+            emoji="🤖"
+            title="Claude Code — Execute"
+            sub="write code · run tools · spawn agents as needed"
+            nodeRef={eRef}
+          />
+          <div />
+
+          <div />
+          <NodeCard
+            color="#ec4899"
+            emoji="🛡️"
+            title="TDD Guard — Validate"
+            sub="blocks any commit without a prior failing test"
+            nodeRef={tRef}
+          />
+          <div className="flex items-center">
+            <div
+              ref={wRef}
+              className="w-full flex items-center gap-2 px-4 py-3 rounded-xl border border-dashed border-white/[0.07] bg-white/[0.04]"
+              style={{
+                borderLeftColor: '#ec4899',
+                borderLeftWidth: 2,
+                borderLeftStyle: 'solid',
+              }}
+            >
+              <span className="text-sm shrink-0">✍️</span>
+              <div>
+                <div
+                  className="text-xs font-black"
+                  style={{ color: '#ec4899' }}
+                >
+                  Write failing test
+                </div>
+                <div className="text-[9px] font-mono text-white/55">
+                  define expected behavior first
+                </div>
+              </div>
+            </div>
           </div>
-          <span
-            className="ml-auto text-[9px] font-mono uppercase tracking-wider shrink-0"
-            style={{ color: '#a855f730' }}
-          >
-            always running
-          </span>
+
+          <div />
+          <NodeCard
+            color="#9B76D3"
+            emoji="⚡"
+            title="I — Review Output"
+            sub="validate it meets the intent · approve or give feedback"
+            nodeRef={rvRef}
+          />
+          <div />
+
+          <div />
+          <NodeCard
+            color="#10b981"
+            emoji="✓"
+            title="Shipped"
+            sub="commit · PR · done"
+            nodeRef={dRef}
+          />
+          <div />
         </div>
       </div>
     </div>
   )
+}
+
+// ── Root ─────────────────────────────────────────────────────────────────────
+
+export const WorkflowGraph: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth < 768 : false
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    setIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
+  return isMobile ? <MobileGraph /> : <DesktopGraph />
 }

@@ -192,6 +192,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         </div>
       </div>
 
+      {project.inProgress && (
+        <div className="absolute top-8 left-8 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 text-[10px] font-bold uppercase tracking-widest">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          In Progress
+        </div>
+      )}
+
       {/* Decorative arrow — removed backdrop-blur-sm */}
       <div className="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/20 group-hover:text-app-main group-hover:border-app-main/40 transition-[color,border-color,transform] duration-300 rotate-12 group-hover:rotate-0 bg-white/5">
         <ExternalLink size={20} />
