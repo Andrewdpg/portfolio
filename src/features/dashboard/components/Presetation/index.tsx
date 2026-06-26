@@ -102,14 +102,24 @@ export const Presentation = () => {
           >
             Source Code
           </button>
-          <a
-            href="/files/cv.pdf"
-            download="Andres_Parra-CV.pdf"
+          <button
+            onClick={async () => {
+              const res = await fetch(
+                `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api/andres/cv`
+              )
+              const blob = await res.blob()
+              const url = URL.createObjectURL(blob)
+              const a = document.createElement('a')
+              a.href = url
+              a.download = 'Andres_Parra-CV.pdf'
+              a.click()
+              URL.revokeObjectURL(url)
+            }}
             className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 border-2 border-app-main text-app-main rounded-full font-bold hover:bg-app-main hover:text-white transition-all hover:scale-105 active:scale-95"
           >
             <Download size={20} />
             Resume
-          </a>
+          </button>
         </div>
 
         <div className="pt-4 border-t border-app-main/5 w-full hidden md:block">
