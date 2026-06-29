@@ -12,10 +12,13 @@ import { Navigation, NavSection } from '../../layout/components/Navigation'
 import { AIWorkflow } from '../components/AIWorkflow'
 import { ChatWidget } from '../components/Chat'
 import { Experience } from '../../../types/skill'
+import { useTheme } from '../../../context/ThemeContext'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
 
 function Dashboard() {
+  const { isDark } = useTheme()
+
   useEffect(() => {
     navigator.sendBeacon(
       `${API_URL}/api/andres/visit`,
@@ -49,77 +52,84 @@ function Dashboard() {
         {/* Scrollable Experience Sections (Grouped by Place) */}
         {experienceGroups.map((group, idx: number) => (
           <div id={`exp-${idx}`} key={idx}>
-            <Section
-              title={group.place}
-              subtitle={group.description}
-              containerStyle={{
-                backgroundColor: group.backgroundColor,
-                color: group.textColor,
-              }}
-              heroImage={group.heroImage}
-              align={group.align}
-              variant={group.variant || 'minimal'}
-            >
-              <div className="flex flex-col gap-8 w-full">
-                {group.category && (
-                  <span
-                    className="self-start px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border"
-                    style={{
-                      borderColor: `${group.textColor}30`,
-                      color: group.textColor,
-                      backgroundColor: `${group.textColor}12`,
-                    }}
-                  >
-                    {group.category}
-                  </span>
-                )}
-                {group.items.map((item, i: number) => (
-                  <div
-                    key={i}
-                    className="relative pl-8 border-l transition-all duration-500 group/item pb-2"
-                    style={{ borderColor: `${group.textColor}33` }}
-                  >
-                    {/* Timeline Dot */}
-                    <div
-                      className="absolute top-2 -left-[5px] w-2.5 h-2.5 rounded-full transition-all duration-300 group-hover/item:scale-150"
-                      style={{
-                        backgroundColor: group.textColor,
-                        boxShadow: `0 0 15px ${group.textColor}66`,
-                      }}
-                    />
-
-                    <h3 className="font-display text-2xl font-black leading-tight uppercase tracking-tight">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs font-mono uppercase tracking-[0.3em] mt-1 opacity-60">
-                      {item.subtitle}
-                    </p>
-
-                    <p className="mt-4 text-lg font-light leading-relaxed whitespace-pre-line opacity-70">
-                      {item.body}
-                    </p>
-
-                    {item.skills && (
-                      <div className="flex flex-wrap gap-2 mt-6">
-                        {item.skills.map((skill: string, sIdx: number) => (
-                          <span
-                            key={sIdx}
-                            className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-all duration-300 hover:bg-white hover:text-black"
-                            style={{
-                              borderColor: `${group.textColor}33`,
-                              backgroundColor: `${group.textColor}08`,
-                              color: group.textColor,
-                            }}
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
+            {(() => {
+              const bg = isDark
+                ? group.backgroundColor
+                : (group.lightBackgroundColor ?? '#F8F7FB')
+              const fg = isDark
+                ? group.textColor
+                : (group.lightTextColor ?? '#1A1128')
+              const accent = group.accentColor ?? group.textColor ?? '#9B76D3'
+              return (
+                <Section
+                  title={group.place}
+                  subtitle={group.description}
+                  containerStyle={{ backgroundColor: bg, color: fg }}
+                  heroImage={group.heroImage}
+                  align={group.align}
+                  variant={group.variant || 'minimal'}
+                >
+                  <div className="flex flex-col gap-8 w-full">
+                    {group.category && (
+                      <span
+                        className="self-start px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border"
+                        style={{
+                          borderColor: `${accent}30`,
+                          color: accent,
+                          backgroundColor: `${accent}12`,
+                        }}
+                      >
+                        {group.category}
+                      </span>
                     )}
+                    {group.items.map((item, i: number) => (
+                      <div
+                        key={i}
+                        className="relative pl-8 border-l transition-all duration-500 group/item pb-2"
+                        style={{ borderColor: `${accent}33` }}
+                      >
+                        <div
+                          className="absolute top-2 -left-[5px] w-2.5 h-2.5 rounded-full transition-all duration-300 group-hover/item:scale-150"
+                          style={{
+                            backgroundColor: accent,
+                            boxShadow: `0 0 15px ${accent}66`,
+                          }}
+                        />
+                        <h3 className="font-display text-2xl font-black leading-tight uppercase tracking-tight">
+                          {item.title}
+                        </h3>
+                        <p
+                          className="text-xs font-mono uppercase tracking-[0.3em] mt-1 opacity-60"
+                          style={{ color: accent }}
+                        >
+                          {item.subtitle}
+                        </p>
+                        <p className="mt-4 text-lg font-light leading-relaxed whitespace-pre-line opacity-70">
+                          {item.body}
+                        </p>
+                        {item.skills && (
+                          <div className="flex flex-wrap gap-2 mt-6">
+                            {item.skills.map((skill: string, sIdx: number) => (
+                              <span
+                                key={sIdx}
+                                className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border transition-all duration-300"
+                                style={{
+                                  borderColor: `${accent}33`,
+                                  backgroundColor: `${accent}10`,
+                                  color: accent,
+                                }}
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </Section>
+                </Section>
+              )
+            })()}
           </div>
         ))}
 
@@ -163,7 +173,10 @@ function Dashboard() {
           <Section
             title="Skills"
             variant="minimal"
-            containerStyle={{ backgroundColor: '#FFFFFF', color: '#1A1128' }}
+            containerStyle={{
+              backgroundColor: isDark ? '#141414' : '#FFFFFF',
+              color: isDark ? '#E8E4F0' : '#1A1128',
+            }}
             align="left"
           >
             <div className="flex flex-col gap-12 mt-12 w-full max-w-4xl mx-auto">
@@ -178,16 +191,15 @@ function Dashboard() {
                   .map((skill, i) => (
                     <div
                       key={i}
-                      className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-app-secondary/8 bg-app-secondary/3 hover:border-app-main/40 hover:bg-app-main/5 group"
+                      className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-app-secondary/10 dark:border-white/8 bg-app-secondary/3 dark:bg-white/3 hover:border-app-main/40 hover:bg-app-main/5 group transition-all duration-300"
                     >
-                      <div className="text-3xl">{skill.icon}</div>
-                      <span className="text-xs font-bold text-app-secondary text-center leading-tight">
+                      <div className="w-10 h-10 rounded-xl bg-white/60 dark:bg-white/10 flex items-center justify-center text-2xl shrink-0">
+                        {skill.icon}
+                      </div>
+                      <span className="text-xs font-bold text-app-secondary dark:text-[#E8E4F0] text-center leading-tight">
                         {skill.title}
                       </span>
-                      <span
-                        className="text-[9px] font-bold tracking-widest uppercase"
-                        style={{ color: skill.color }}
-                      >
+                      <span className="text-[9px] font-bold tracking-widest uppercase text-app-secondary/40 dark:text-white/40">
                         {skill.experience}
                       </span>
                     </div>
@@ -195,7 +207,7 @@ function Dashboard() {
               </div>
 
               {/* Also proficient in */}
-              <div className="pt-2 border-t border-app-secondary/8">
+              <div className="pt-2 border-t border-app-secondary/8 dark:border-white/8">
                 <div className="flex flex-wrap gap-2">
                   {skills
                     .filter(
@@ -206,7 +218,7 @@ function Dashboard() {
                     .map((skill, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1.5 rounded-full text-[11px] font-semibold border border-app-secondary/10 bg-app-secondary/4 text-app-secondary/70 hover:bg-app-main hover:text-white hover:border-app-main cursor-default"
+                        className="px-3 py-1.5 rounded-full text-[11px] font-semibold border border-app-secondary/10 dark:border-white/10 bg-app-secondary/4 dark:bg-white/4 text-app-secondary/70 dark:text-[#E8E4F0]/70 hover:bg-app-main hover:text-white hover:border-app-main cursor-default transition-all duration-200"
                       >
                         {skill.title}
                       </span>

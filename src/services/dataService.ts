@@ -47,8 +47,11 @@ const experienceGroups: ExperienceGroup[] = [
     description:
       'Systems Engineering undergraduate studies focused on software architecture, AI research, and specialized certifications.',
     heroImage: '/img/heroes/icesi.webp',
-    backgroundColor: '#5354ED',
+    backgroundColor: '#7870ff',
     textColor: '#ffffff',
+    lightBackgroundColor: '#5354ED',
+    lightTextColor: '#ffffff',
+    accentColor: '#ffffff',
     align: 'left',
     variant: 'immersive',
     items: [
@@ -73,8 +76,11 @@ const experienceGroups: ExperienceGroup[] = [
     description:
       'Applied software engineering and technical support within institutional development centers.',
     heroImage: '/img/heroes/valora.webp',
-    backgroundColor: '#5354ED',
+    backgroundColor: '#7870ff',
     textColor: '#ffffff',
+    lightBackgroundColor: '#5354ED',
+    lightTextColor: '#ffffff',
+    accentColor: '#ffffff',
     align: 'right',
     variant: 'immersive',
     items: [
@@ -95,6 +101,9 @@ const experienceGroups: ExperienceGroup[] = [
     heroImage: '/img/heroes/swiset.webp',
     backgroundColor: '#28EA96',
     textColor: '#000000',
+    lightBackgroundColor: '#28EA96',
+    lightTextColor: '#000000',
+    accentColor: '#000000',
     align: 'left',
     variant: 'immersive',
     items: [

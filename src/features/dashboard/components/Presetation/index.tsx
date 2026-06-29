@@ -6,7 +6,6 @@ import me from '../../../../assets/img/me.webp'
 import { TitleCard } from './Components/TitleCard'
 import { Download, Play, X, Loader2, AlertCircle } from 'lucide-react'
 import Partner from '../../../../components/Partner'
-import { Tilt3D } from '../../../../components/Tilt3D'
 import { LanguageStamps } from './Components/LanguageStamps'
 
 export const Presentation = () => {
@@ -16,10 +15,10 @@ export const Presentation = () => {
   >('idle')
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center md:justify-between p-6 md:p-16 gap-8 md:gap-12 min-h-screen relative overflow-y-auto no-scrollbar">
+    <div className="flex flex-col md:flex-row items-center justify-center md:justify-between p-6 md:p-16 gap-8 md:gap-12 min-h-screen relative overflow-y-auto no-scrollbar bg-white dark:bg-[#141414]">
       <div className="w-full md:w-[45%] flex justify-center max-w-[320px] md:max-w-[500px] order-1 md:order-2 shrink-0">
-        <Tilt3D>
-          <div className="relative w-full aspect-square overflow-hidden bg-app-main/10 rounded-[32px] md:rounded-[48px] shadow-2xl group border-[8px] md:border-[12px] border-white ring-1 ring-black/5">
+        <div className="relative w-full transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_32px_80px_rgba(155,118,211,0.2)]">
+          <div className="relative w-full aspect-square overflow-hidden bg-app-main/10 rounded-[32px] md:rounded-[40px] shadow-2xl group border-[8px] md:border-[12px] border-white dark:border-app-secondary ring-1 ring-black/5 dark:ring-white/5">
             {!showVideo ? (
               <div
                 role="button"
@@ -75,7 +74,7 @@ export const Presentation = () => {
               </div>
             )}
           </div>
-        </Tilt3D>
+        </div>
       </div>
 
       <div className="flex flex-col flex-1 gap-6 md:gap-8 justify-center items-center text-center md:items-start md:text-start order-2 md:order-1 max-w-2xl">
@@ -84,11 +83,11 @@ export const Presentation = () => {
           <LanguageStamps className="flex" />
         </div>
 
-        <Heading className="text-app-secondary !text-4xl sm:!text-5xl md:!text-7xl">
+        <Heading className="text-app-secondary dark:text-[#E8E4F0] !text-4xl sm:!text-5xl md:!text-7xl">
           Andrés Parra
         </Heading>
 
-        <Body className="text-app-secondary/70 max-w-xl text-base md:text-lg px-4 md:px-0">
+        <Body className="text-app-secondary/70 dark:text-[#E8E4F0]/70 max-w-xl text-base md:text-lg px-4 md:px-0">
           Software engineer with experience building backend systems, full-stack
           applications, and data-driven platforms. Interested in backend
           architecture, distributed systems, data engineering, and applied
@@ -146,7 +145,7 @@ export const Presentation = () => {
           </button>
         </div>
 
-        <div className="pt-4 border-t border-app-main/5 w-full hidden md:block">
+        <div className="pt-4 border-t border-app-main/10 dark:border-app-main/5 w-full hidden md:block">
           <Partner />
         </div>
       </div>

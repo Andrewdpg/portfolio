@@ -13,7 +13,7 @@ export const SkillButton: React.FC<SkillButtonProps> = ({ skill }) => {
       title={skill.title}
       tooltip={`My level is '${skill.experience}' on this one`}
     >
-      <div className="flex items-center justify-center transition-colors group-hover:text-app-main">
+      <div className="w-6 h-6 rounded-md bg-white/60 dark:bg-white/15 flex items-center justify-center">
         {skill.icon}
       </div>
     </Tooltip>

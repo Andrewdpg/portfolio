@@ -12,7 +12,7 @@ type ProjectCardProps = {
 
 const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
   return (
-    <div className="flex flex-col gap-8 text-app-secondary">
+    <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="overflow-hidden rounded-3xl shadow-2xl border border-app-main/10 bg-app-main/5 aspect-video self-start">
           <ImageGallery
@@ -41,7 +41,7 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
             )}
           </div>
 
-          <p className="text-app-secondary/70 text-lg leading-relaxed font-light">
+          <p className="opacity-70 text-lg leading-relaxed font-light">
             {project.body}
           </p>
 
@@ -74,7 +74,7 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
                   ) : (
                     <Building2 size={14} className="text-app-main shrink-0" />
                   )}
-                  <span className="text-sm font-medium text-app-secondary group-hover/inst:text-app-main transition-colors">
+                  <span className="text-sm font-medium group-hover/inst:text-app-main transition-colors">
                     {project.institution.name}
                   </span>
                   <ExternalLink

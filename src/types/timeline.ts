@@ -20,6 +20,9 @@ export type ExperienceGroup = {
   heroImage?: string
   backgroundColor?: string
   textColor?: string
+  lightBackgroundColor?: string
+  lightTextColor?: string
+  accentColor?: string
   align: 'left' | 'right'
   variant?: 'immersive' | 'split' | 'minimal'
   items: TimelineItem[]

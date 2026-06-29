@@ -4,11 +4,14 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/AppRoutes'
 import { DrawerProvider } from './context/DrawerContext'
+import { ThemeProvider } from './context/ThemeContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <DrawerProvider>
-      <RouterProvider router={router} />
-    </DrawerProvider>
+    <ThemeProvider>
+      <DrawerProvider>
+        <RouterProvider router={router} />
+      </DrawerProvider>
+    </ThemeProvider>
   </React.StrictMode>
 )

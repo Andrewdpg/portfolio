@@ -17,7 +17,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     <div className="relative group w-fit h-fit justify-center items-center">
       <div
         onClick={onClick}
-        className="relative flex items-center justify-center w-fit h-fit py-3 px-5 rounded-2xl bg-app-main/5 hover:bg-app-main text-app-secondary/60 hover:text-white transition-all duration-300 ease-in-out hover:shadow-2xl hover:shadow-app-main/20 group cursor-pointer border border-app-main/5 hover:border-app-main active:scale-95"
+        className="relative flex items-center justify-center w-fit h-fit py-3 px-5 rounded-2xl bg-app-main/5 hover:bg-app-main text-app-secondary/60 dark:text-[#E8E4F0]/70 hover:text-white transition-all duration-300 ease-in-out hover:shadow-2xl hover:shadow-app-main/20 group cursor-pointer border border-app-main/5 dark:border-white/10 hover:border-app-main active:scale-95"
       >
         <span className="relative flex items-center gap-3">
           <div className="text-2xl transition-transform duration-300 group-hover:scale-110">

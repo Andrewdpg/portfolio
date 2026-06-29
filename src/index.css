@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply font-sans;
-}
-
 h1, h2, h3 {
   text-wrap: balance;
 }
@@ -65,7 +61,7 @@ li {
 }
 
 body {
-  @apply font-sans bg-white text-black;
+  @apply font-sans bg-white text-black dark:bg-[#141414] dark:text-[#E8E4F0];
 }
 
 

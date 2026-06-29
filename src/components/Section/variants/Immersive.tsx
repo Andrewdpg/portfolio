@@ -128,7 +128,7 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
           className={`relative flex-1 min-h-0 pointer-events-auto overflow-hidden flex flex-col w-full`}
         >
           <div
-            className={`flex-1 overflow-y-auto no-scrollbar bg-white/5 p-6 lg:p-10 border border-white/10 w-full ${className}`}
+            className={`flex-1 overflow-y-auto no-scrollbar bg-black/5 dark:bg-white/5 p-6 lg:p-10 border border-black/10 dark:border-white/10 w-full ${className}`}
             style={{ borderRadius: ROUNDING }}
           >
             {children}

@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronRight, Home, Briefcase, Code, Cpu } from 'lucide-react'
+import {
+  ChevronRight,
+  Home,
+  Briefcase,
+  Code,
+  Cpu,
+  Sun,
+  Moon,
+} from 'lucide-react'
+import { useTheme } from '../../../context/ThemeContext'
 
 export type NavSection = {
   id: string
@@ -14,6 +23,7 @@ type NavigationProps = {
 export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
   const [activeSection, setActiveSection] = useState<string>('')
   const [isHovered, setIsHovered] = useState(false)
+  const { isDark, toggle } = useTheme()
 
   useEffect(() => {
     const observerOptions = {
@@ -58,7 +68,7 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
     <>
       {/* Desktop Navigation (Right Side) */}
       <div
-        className="hidden md:flex fixed right-0 top-1/4 -translate-y-1/2 z-[150] flex-col gap-6 items-end p-4 rounded-3xl rounded-r-none bg-black/40 backdrop-blur-md border border-white/10"
+        className="hidden md:flex fixed right-0 top-1/2 -translate-y-1/2 z-[150] flex-col gap-6 items-end p-4 rounded-3xl rounded-r-none bg-black/40 backdrop-blur-md border border-white/10"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -83,7 +93,6 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
                   </motion.span>
                 )}
               </AnimatePresence>
-
               <div
                 className={`w-3 h-3 rounded-full transition-all duration-500 border-2 ${
                   isActive
@@ -94,6 +103,25 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
             </button>
           )
         })}
+
+        {/* Theme toggle */}
+        {isHovered && (
+          <motion.button
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            onClick={toggle}
+            aria-label="Toggle theme"
+            className="flex items-center gap-4 transition-all duration-300 outline-none group"
+          >
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 pr-2">
+              {isDark ? 'Light' : 'Dark'}
+            </span>
+            <div className="w-3 h-3 flex items-center justify-center text-white/40 group-hover:text-app-main transition-colors">
+              {isDark ? <Sun size={12} /> : <Moon size={12} />}
+            </div>
+          </motion.button>
+        )}
       </div>
 
       {/* Mobile Navigation (Bottom Floating Pill) */}
@@ -124,6 +152,13 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
               </button>
             )
           })}
+          <button
+            aria-label="Toggle theme"
+            onClick={toggle}
+            className="flex items-center justify-center p-3.5 rounded-full transition-all duration-300 text-white/40 hover:text-white/70 min-w-[44px] min-h-[44px]"
+          >
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
         </div>
       </div>
     </>
