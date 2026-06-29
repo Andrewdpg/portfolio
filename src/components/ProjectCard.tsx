@@ -47,15 +47,10 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
 
           <div className="h-px bg-app-main/10 w-full" />
 
-          <div className="flex flex-col gap-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-app-main">
-              Technologies Stack
-            </span>
-            <div className="flex flex-wrap gap-3">
-              {project.skills.map((skill, index) => (
-                <SkillButton key={index} skill={skill} />
-              ))}
-            </div>
+          <div className="flex flex-wrap gap-3">
+            {project.skills.map((skill, index) => (
+              <SkillButton key={index} skill={skill} />
+            ))}
           </div>
 
           {project.institution && (

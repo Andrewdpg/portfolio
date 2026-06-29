@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        sans: ['"Barlow"', 'system-ui', 'sans-serif'],
+        display: ['"Barlow Condensed"', '"Barlow"', 'system-ui', 'sans-serif'],
       },
       colors: {
         // Main colors

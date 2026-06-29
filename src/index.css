@@ -2,32 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/plus-jakarta-sans-400.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/plus-jakarta-sans-500.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Plus Jakarta Sans';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/plus-jakarta-sans-700.woff2') format('woff2');
-}
-
 body {
   @apply font-sans;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 .tiptap {

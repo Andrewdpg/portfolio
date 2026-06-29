@@ -4,13 +4,16 @@ import Heading from '../../../../components/Heading'
 import Body from '../../../../components/Body'
 import me from '../../../../assets/img/me.webp'
 import { TitleCard } from './Components/TitleCard'
-import { Download, Play, X } from 'lucide-react'
+import { Download, Play, X, Loader2, AlertCircle } from 'lucide-react'
 import Partner from '../../../../components/Partner'
 import { Tilt3D } from '../../../../components/Tilt3D'
 import { LanguageStamps } from './Components/LanguageStamps'
 
 export const Presentation = () => {
   const [showVideo, setShowVideo] = useState(false)
+  const [downloadState, setDownloadState] = useState<
+    'idle' | 'loading' | 'error'
+  >('idle')
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center md:justify-between p-6 md:p-16 gap-8 md:gap-12 min-h-screen relative overflow-y-auto no-scrollbar">
@@ -85,7 +88,7 @@ export const Presentation = () => {
           Andrés Parra
         </Heading>
 
-        <Body className="text-app-secondary/60 max-w-xl text-base md:text-lg px-4 md:px-0">
+        <Body className="text-app-secondary/70 max-w-xl text-base md:text-lg px-4 md:px-0">
           Software engineer with experience building backend systems, full-stack
           applications, and data-driven platforms. Interested in backend
           architecture, distributed systems, data engineering, and applied
@@ -103,22 +106,43 @@ export const Presentation = () => {
             Source Code
           </button>
           <button
+            disabled={downloadState === 'loading'}
             onClick={async () => {
-              const res = await fetch(
-                `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api/andres/cv`
-              )
-              const blob = await res.blob()
-              const url = URL.createObjectURL(blob)
-              const a = document.createElement('a')
-              a.href = url
-              a.download = 'Andres_Parra-CV.pdf'
-              a.click()
-              URL.revokeObjectURL(url)
+              setDownloadState('loading')
+              try {
+                const res = await fetch(
+                  `${import.meta.env.VITE_API_URL ?? 'http://localhost:3001'}/api/andres/cv`
+                )
+                if (!res.ok) throw new Error('fetch failed')
+                const blob = await res.blob()
+                const url = URL.createObjectURL(blob)
+                const a = document.createElement('a')
+                a.href = url
+                a.download = 'Andres_Parra-CV.pdf'
+                a.click()
+                URL.revokeObjectURL(url)
+                setDownloadState('idle')
+              } catch {
+                setDownloadState('error')
+                setTimeout(() => setDownloadState('idle'), 3000)
+              }
             }}
-            className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 border-2 border-app-main text-app-main rounded-full font-bold hover:bg-app-main hover:text-white transition-all hover:scale-105 active:scale-95"
+            className={`flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 border-2 rounded-full font-bold transition-all hover:scale-105 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 ${
+              downloadState === 'error'
+                ? 'border-red-500 text-red-500'
+                : 'border-app-main text-app-main hover:bg-app-main hover:text-white'
+            }`}
           >
-            <Download size={20} />
-            Resume
+            {downloadState === 'loading' && (
+              <Loader2 size={20} className="animate-spin" />
+            )}
+            {downloadState === 'error' && <AlertCircle size={20} />}
+            {downloadState === 'idle' && <Download size={20} />}
+            {downloadState === 'loading'
+              ? 'Downloading…'
+              : downloadState === 'error'
+                ? 'Failed — try again'
+                : 'Resume'}
           </button>
         </div>
 

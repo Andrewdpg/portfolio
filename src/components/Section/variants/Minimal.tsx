@@ -14,7 +14,9 @@ export const MinimalVariant: React.FC<SectionProps> = ({
       style={{ ...containerStyle }}
     >
       <div>
-        <h2 className="text-4xl md:text-6xl font-bold mb-4">{title}</h2>
+        <h2 className="font-display text-4xl md:text-6xl font-black uppercase tracking-tight mb-4">
+          {title}
+        </h2>
         {subtitle && (
           <p className="text-xl md:text-2xl opacity-80 mb-6">{subtitle}</p>
         )}

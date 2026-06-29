@@ -97,7 +97,9 @@ export function ChatWidget() {
         style={{ backgroundColor: '#1A1128' }}
         whileHover={{ scale: 1.04, borderColor: 'rgba(155,118,211,0.4)' }}
         whileTap={{ scale: 0.96 }}
-        aria-label="Open chat"
+        aria-label={
+          isOpen ? 'Close chat' : 'Ask me anything — AI answers about Andrés'
+        }
       >
         <AnimatePresence mode="wait" initial={false}>
           {isOpen ? (
@@ -123,7 +125,7 @@ export function ChatWidget() {
           )}
         </AnimatePresence>
         <span className="text-xs font-bold uppercase tracking-widest text-white/70">
-          {isOpen ? 'Cerrar' : 'Chat'}
+          {isOpen ? 'Close' : 'Ask me'}
         </span>
       </motion.button>
 

@@ -97,20 +97,20 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
       </div>
 
       {/* Mobile Navigation (Bottom Floating Pill) */}
-      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] max-w-[360px]">
+      <div
+        className="md:hidden fixed left-1/2 -translate-x-1/2 z-[200] max-w-[360px]"
+        style={{ bottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
+      >
         <div className="bg-app-secondary/95 backdrop-blur-2xl border border-white/10 rounded-full p-2 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-between gap-1 overflow-x-auto no-scrollbar">
           {sections.map((section) => {
             const isActive = activeSection === section.id
-            if (!isHovered && !isActive) return null
             return (
               <button
                 key={section.id}
-                onClick={() => {
-                  scrollToSection(section.id)
-                  setIsHovered(isActive)
-                }}
-                className={`flex items-center justify-center p-3.5 rounded-full transition-all duration-300 relative ${
-                  isActive ? 'text-white' : 'text-white/30 hover:text-white/60'
+                aria-label={section.label}
+                onClick={() => scrollToSection(section.id)}
+                className={`flex items-center justify-center p-3.5 rounded-full transition-all duration-300 relative min-w-[44px] min-h-[44px] ${
+                  isActive ? 'text-white' : 'text-white/40 hover:text-white/70'
                 }`}
               >
                 {isActive && (

@@ -57,6 +57,7 @@ export const CustomCursor: React.FC = () => {
   }, [mouseX, mouseY])
 
   if (isMobile) return null
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999]">

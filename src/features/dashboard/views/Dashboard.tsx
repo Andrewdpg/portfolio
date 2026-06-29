@@ -88,10 +88,10 @@ function Dashboard() {
                       }}
                     />
 
-                    <h3 className="text-2xl font-black leading-tight uppercase tracking-tighter">
+                    <h3 className="font-display text-2xl font-black leading-tight uppercase tracking-tight">
                       {item.title}
                     </h3>
-                    <p className="text-xs font-mono uppercase tracking-[0.3em] mt-1 opacity-40">
+                    <p className="text-xs font-mono uppercase tracking-[0.3em] mt-1 opacity-60">
                       {item.subtitle}
                     </p>
 
@@ -140,9 +140,12 @@ function Dashboard() {
                 if (!groupProjects.length) return null
                 return (
                   <div key={group} className="flex flex-col gap-6">
-                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-app-main">
-                      {group}
-                    </span>
+                    <div className="flex items-center gap-4">
+                      <span className="text-sm font-display font-bold uppercase tracking-wider text-white/50">
+                        {group}
+                      </span>
+                      <div className="flex-1 h-px bg-white/10" />
+                    </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
                       {groupProjects.map((project, idx) => (
                         <ProjectCard key={idx} project={project} />
@@ -165,55 +168,34 @@ function Dashboard() {
           >
             <div className="flex flex-col gap-12 mt-12 w-full max-w-4xl mx-auto">
               {/* Featured skills */}
-              <div>
-                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-app-main block mb-6">
-                  Core skills
-                </span>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                  {skills
-                    .filter(
-                      (s) =>
-                        s.experience === Experience.Expert ||
-                        s.experience === Experience.Advanced
-                    )
-                    .map((skill, i) => {
-                      const pct =
-                        skill.experience === Experience.Expert ? 100 : 80
-                      return (
-                        <div
-                          key={i}
-                          className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-app-secondary/8 bg-app-secondary/3 hover:border-app-main/40 hover:bg-app-main/5 group"
-                        >
-                          <div className="text-3xl">{skill.icon}</div>
-                          <span className="text-xs font-bold text-app-secondary text-center leading-tight">
-                            {skill.title}
-                          </span>
-                          <span
-                            className="text-[9px] font-bold tracking-widest uppercase"
-                            style={{ color: skill.color }}
-                          >
-                            {skill.experience}
-                          </span>
-                          <div className="w-full h-1 rounded-full bg-app-secondary/10 overflow-hidden">
-                            <div
-                              className="h-full rounded-full"
-                              style={{
-                                width: `${pct}%`,
-                                backgroundColor: skill.color,
-                              }}
-                            />
-                          </div>
-                        </div>
-                      )
-                    })}
-                </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {skills
+                  .filter(
+                    (s) =>
+                      s.experience === Experience.Expert ||
+                      s.experience === Experience.Advanced
+                  )
+                  .map((skill, i) => (
+                    <div
+                      key={i}
+                      className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-app-secondary/8 bg-app-secondary/3 hover:border-app-main/40 hover:bg-app-main/5 group"
+                    >
+                      <div className="text-3xl">{skill.icon}</div>
+                      <span className="text-xs font-bold text-app-secondary text-center leading-tight">
+                        {skill.title}
+                      </span>
+                      <span
+                        className="text-[9px] font-bold tracking-widest uppercase"
+                        style={{ color: skill.color }}
+                      >
+                        {skill.experience}
+                      </span>
+                    </div>
+                  ))}
               </div>
 
               {/* Also proficient in */}
-              <div>
-                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-app-main block mb-4">
-                  Also proficient in
-                </span>
+              <div className="pt-2 border-t border-app-secondary/8">
                 <div className="flex flex-wrap gap-2">
                   {skills
                     .filter(

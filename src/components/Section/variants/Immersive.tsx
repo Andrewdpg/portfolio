@@ -112,7 +112,7 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
         }}
       >
         <div className="pointer-events-auto">
-          <h2 className="text-5xl lg:text-7xl font-black tracking-tighter leading-[0.9] mb-4 uppercase">
+          <h2 className="font-display text-5xl lg:text-7xl font-black tracking-tight leading-[0.95] mb-4 uppercase">
             {title}
           </h2>
           {subtitle && (
@@ -161,7 +161,7 @@ export const ImmersiveVariant: React.FC<SectionProps> = ({
           style={{ color: containerStyle?.color }}
         >
           <div className={`${hasImage ? '' : 'text-center'}`}>
-            <h2 className="text-3xl font-black uppercase tracking-tighter leading-tight">
+            <h2 className="font-display text-3xl font-black uppercase tracking-tight leading-tight">
               {title}
             </h2>
             <p className="text-xs opacity-60 uppercase tracking-widest mt-1">

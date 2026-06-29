@@ -25,6 +25,7 @@ export const Sparkles = ({
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const dpr = window.devicePixelRatio || 1
     const canvas = canvasRef.current as HTMLCanvasElement
