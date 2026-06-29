@@ -167,10 +167,6 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
         <div className="flex flex-col gap-3 translate-y-6 group-hover:translate-y-0 transition-transform duration-300 ease-out">
           <div className="flex items-center gap-4">
-            {/* Removed backdrop-blur-xl — was creating a GPU compositing layer per card */}
-            <div className="w-10 h-10 rounded-xl bg-app-main/20 flex items-center justify-center text-app-main border border-app-main/20 group-hover:bg-app-main group-hover:text-white transition-[background-color,color] duration-300">
-              {project.icon}
-            </div>
             <div className="flex flex-col">
               <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-app-main/80 mb-0.5">
                 {project.subtitle}
@@ -187,16 +183,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         </div>
       </div>
 
-      {project.inProgress && (
-        <div className="absolute top-8 left-8 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 text-[10px] font-bold uppercase tracking-widest">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          In Progress
-        </div>
-      )}
-
-      {/* Decorative arrow — removed backdrop-blur-sm */}
-      <div className="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/20 group-hover:text-app-main group-hover:border-app-main/40 transition-[color,border-color,transform] duration-300 rotate-12 group-hover:rotate-0 bg-white/5">
-        <ExternalLink size={20} />
+      <div
+        className={`${project.inProgress ? 'bg-emerald-400/20' : ''} absolute top-8 right-8 px-3 py-1.5 rounded-full border border-white/10 flex gap-1.5 items-center justify-center text-white/20 group-hover:text-emerald-600 group-hover:border-emeral-400/40 transition-[color,border-color,transform] duration-300`}
+      >
+        {project.inProgress && 'In Progress'}
+        {project.icon}
       </div>
     </div>
   )

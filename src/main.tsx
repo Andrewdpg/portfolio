@@ -5,12 +5,15 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/AppRoutes'
 import { DrawerProvider } from './context/DrawerContext'
 import { ThemeProvider } from './context/ThemeContext'
+import { ContactModalProvider } from './context/ContactModalContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider>
       <DrawerProvider>
-        <RouterProvider router={router} />
+        <ContactModalProvider>
+          <RouterProvider router={router} />
+        </ContactModalProvider>
       </DrawerProvider>
     </ThemeProvider>
   </React.StrictMode>

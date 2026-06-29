@@ -1,7 +1,10 @@
 import React from 'react'
-import { Github, Instagram, Linkedin, Send } from 'lucide-react'
+import { Github, Instagram, Linkedin, Send, Mail } from 'lucide-react'
+import { useContactModal } from '../../../context/ContactModalContext'
 
 const Footer = () => {
+  const { openContactModal } = useContactModal()
+
   const socialLinks = [
     {
       icon: <Github size={20} />,
@@ -38,6 +41,13 @@ const Footer = () => {
             {social.icon}
           </button>
         ))}
+        <button
+          aria-label="Contact me"
+          onClick={openContactModal}
+          className="text-black/30 dark:text-white/30 transition-all duration-300 hover:scale-125 hover:text-app-main dark:hover:text-app-main"
+        >
+          <Mail size={20} />
+        </button>
       </div>
     </footer>
   )

@@ -8,8 +8,10 @@ import {
   Cpu,
   Sun,
   Moon,
+  Mail,
 } from 'lucide-react'
 import { useTheme } from '../../../context/ThemeContext'
+import { useContactModal } from '../../../context/ContactModalContext'
 
 export type NavSection = {
   id: string
@@ -24,6 +26,7 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
   const [activeSection, setActiveSection] = useState<string>('')
   const [isHovered, setIsHovered] = useState(false)
   const { isDark, toggle } = useTheme()
+  const { openContactModal } = useContactModal()
 
   useEffect(() => {
     const observerOptions = {
@@ -158,6 +161,13 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
             className="flex items-center justify-center p-3.5 rounded-full transition-all duration-300 text-white/40 hover:text-white/70 min-w-[44px] min-h-[44px]"
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+          <button
+            aria-label="Contact me"
+            onClick={openContactModal}
+            className="flex items-center justify-center p-3.5 rounded-full transition-all duration-300 text-white/40 hover:text-white/70 min-w-[44px] min-h-[44px]"
+          >
+            <Mail size={18} />
           </button>
         </div>
       </div>

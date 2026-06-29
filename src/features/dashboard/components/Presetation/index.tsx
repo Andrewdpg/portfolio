@@ -4,15 +4,17 @@ import Heading from '../../../../components/Heading'
 import Body from '../../../../components/Body'
 import me from '../../../../assets/img/me.webp'
 import { TitleCard } from './Components/TitleCard'
-import { Download, Play, X, Loader2, AlertCircle } from 'lucide-react'
+import { Download, Play, X, Loader2, AlertCircle, Mail } from 'lucide-react'
 import Partner from '../../../../components/Partner'
 import { LanguageStamps } from './Components/LanguageStamps'
+import { useContactModal } from '../../../../context/ContactModalContext'
 
 export const Presentation = () => {
   const [showVideo, setShowVideo] = useState(false)
   const [downloadState, setDownloadState] = useState<
     'idle' | 'loading' | 'error'
   >('idle')
+  const { openContactModal } = useContactModal()
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center md:justify-between p-6 md:p-16 gap-8 md:gap-12 min-h-screen relative overflow-y-auto no-scrollbar bg-white dark:bg-[#141414]">
@@ -142,6 +144,13 @@ export const Presentation = () => {
               : downloadState === 'error'
                 ? 'Failed — try again'
                 : 'Resume'}
+          </button>
+          <button
+            onClick={openContactModal}
+            className="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 border-2 border-app-secondary/20 dark:border-white/20 text-app-secondary dark:text-white rounded-full font-bold hover:border-app-main hover:text-app-main transition-all hover:scale-105 active:scale-95"
+          >
+            <Mail size={20} />
+            Contact
           </button>
         </div>
 

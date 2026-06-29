@@ -64,6 +64,23 @@ export interface ChatResponse {
   actions: ActionData[]
 }
 
+export async function sendContactMessage(
+  tenant: string,
+  name: string,
+  email: string,
+  message: string
+): Promise<void> {
+  const res = await fetch(`${API_URL}/api/${tenant}/contact`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, message }),
+  })
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}))
+    throw new Error((err as { error?: string }).error ?? 'Contact failed')
+  }
+}
+
 export async function sendChatMessage(
   tenant: string,
   message: string,

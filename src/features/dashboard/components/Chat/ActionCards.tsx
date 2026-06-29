@@ -6,6 +6,7 @@ import type {
   ExperienceItem,
   ContactInfo,
 } from '../../../../services/chatService'
+import { useContactModal } from '../../../../context/ContactModalContext'
 
 function ProjectCard({ project }: { project: Project }) {
   return (
@@ -146,6 +147,8 @@ function ExperienceCard({ items }: { items: ExperienceItem[] }) {
 }
 
 function ContactCard({ data }: { data: ContactInfo }) {
+  const { openContactModal } = useContactModal()
+
   return (
     <div
       className="rounded-2xl p-3 flex flex-col gap-2"
@@ -175,6 +178,17 @@ function ContactCard({ data }: { data: ContactInfo }) {
       <p className="text-[10px] text-white/30">
         {data.location} · {data.openTo}
       </p>
+      <button
+        onClick={openContactModal}
+        className="mt-1 w-full py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all active:scale-95"
+        style={{
+          backgroundColor: 'rgba(40,234,150,0.12)',
+          border: '1px solid rgba(40,234,150,0.25)',
+          color: '#28EA96',
+        }}
+      >
+        Send me a message →
+      </button>
     </div>
   )
 }
