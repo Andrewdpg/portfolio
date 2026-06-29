@@ -1,10 +1,10 @@
 import React from 'react'
 import { Project } from '../types/project'
-import { usePopup } from '../context/PopupContext'
+import { useDrawer } from '../context/DrawerContext'
 import { ImageGallery } from './ImageGallery'
 import { SkillButton } from './SkillButton'
-import { Info, ExternalLink, Github, Users, User } from 'lucide-react'
-import { Tilt3D } from './Tilt3D'
+import { Info, ExternalLink, Users, User, Building2 } from 'lucide-react'
+import { FaGithub } from 'react-icons/fa'
 
 type ProjectCardProps = {
   project: Project
@@ -12,7 +12,7 @@ type ProjectCardProps = {
 
 const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
   return (
-    <div className="flex flex-col gap-8 text-app-secondary">
+    <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <div className="overflow-hidden rounded-3xl shadow-2xl border border-app-main/10 bg-app-main/5 aspect-video self-start">
           <ImageGallery
@@ -41,22 +41,65 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
             )}
           </div>
 
-          <p className="text-app-secondary/70 text-lg leading-relaxed font-light">
+          <p className="opacity-70 text-lg leading-relaxed font-light">
             {project.body}
           </p>
 
           <div className="h-px bg-app-main/10 w-full" />
 
-          <div className="flex flex-col gap-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-app-main">
-              Technologies Stack
-            </span>
-            <div className="flex flex-wrap gap-3">
-              {project.skills.map((skill, index) => (
-                <SkillButton key={index} skill={skill} />
-              ))}
-            </div>
+          <div className="flex flex-wrap gap-3">
+            {project.skills.map((skill, index) => (
+              <SkillButton key={index} skill={skill} />
+            ))}
           </div>
+
+          {project.institution && (
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-app-main">
+                Institution
+              </span>
+              {project.institution.url ? (
+                <a
+                  href={project.institution.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 w-fit px-4 py-2.5 rounded-xl border border-app-main/20 bg-app-main/5 hover:bg-app-main/10 hover:border-app-main/40 transition-colors group/inst"
+                >
+                  {project.institution.logoUrl ? (
+                    <img
+                      src={project.institution.logoUrl}
+                      alt={project.institution.name}
+                      className="h-5 w-auto object-contain"
+                    />
+                  ) : (
+                    <Building2 size={14} className="text-app-main shrink-0" />
+                  )}
+                  <span className="text-sm font-medium group-hover/inst:text-app-main transition-colors">
+                    {project.institution.name}
+                  </span>
+                  <ExternalLink
+                    size={12}
+                    className="text-app-main/40 group-hover/inst:text-app-main transition-colors"
+                  />
+                </a>
+              ) : (
+                <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl border border-app-main/20 bg-app-main/5 w-fit">
+                  {project.institution.logoUrl ? (
+                    <img
+                      src={project.institution.logoUrl}
+                      alt={project.institution.name}
+                      className="h-5 w-auto object-contain"
+                    />
+                  ) : (
+                    <Building2 size={14} className="text-app-main shrink-0" />
+                  )}
+                  <span className="text-sm font-medium text-app-secondary">
+                    {project.institution.name}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -80,7 +123,7 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
             onClick={() => window.open(project.codeLink, '_blank')}
             className="flex-1 min-w-[200px] py-5 bg-app-secondary text-white rounded-full font-bold flex items-center justify-center gap-3 hover:bg-app-main transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-black/10"
           >
-            <Github size={20} /> Repository
+            <FaGithub size={20} /> Repository
           </button>
         )}
         {project.siteLink && (
@@ -97,56 +140,55 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
-  const { openPopup } = usePopup()
+  const { openDrawer } = useDrawer()
 
   return (
-    <Tilt3D>
-      <div
-        className="group relative h-[380px] w-full overflow-hidden rounded-[32px] bg-app-secondary border border-white/10 hover:border-app-main/40 transition-all duration-700 cursor-pointer shadow-2xl"
-        onClick={() =>
-          openPopup({
-            title: project.title,
-            body: <ProjectDetail project={project} />,
-          })
-        }
-      >
-        {/* Background Image with Blur/Zoom on hover */}
-        <div className="absolute inset-0 z-0 transition-all duration-700 group-hover:scale-105">
-          <img
-            src={project.images[0]}
-            alt={project.title}
-            className="w-full h-full object-cover transition-all duration-700 opacity-50 group-hover:opacity-70"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-app-secondary via-app-secondary/40 to-transparent" />
-        </div>
+    <div
+      className="group relative h-[380px] w-full overflow-hidden rounded-[32px] bg-app-secondary border border-white/10 hover:border-app-main/40 cursor-pointer"
+      onClick={() =>
+        openDrawer({
+          title: project.title,
+          body: <ProjectDetail project={project} />,
+        })
+      }
+    >
+      <div className="absolute inset-0 z-0">
+        <img
+          src={project.images[0]}
+          alt={project.title}
+          loading="lazy"
+          width={600}
+          height={380}
+          className="w-full h-full object-cover transition-[transform,opacity] duration-500 opacity-50 group-hover:opacity-70 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-app-secondary via-app-secondary/40 to-transparent" />
+      </div>
 
-        <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
-          <div className="flex flex-col gap-3 transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-app-main/20 backdrop-blur-xl flex items-center justify-center text-app-main border border-app-main/20 group-hover:bg-app-main group-hover:text-white transition-all duration-500">
-                {project.icon}
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-app-main/80 mb-0.5">
-                  {project.subtitle}
-                </span>
-                <h3 className="text-2xl font-black text-white uppercase tracking-tighter leading-none">
-                  {project.title}
-                </h3>
-              </div>
+      <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
+        <div className="flex flex-col gap-3 translate-y-6 group-hover:translate-y-0 transition-transform duration-300 ease-out">
+          <div className="flex items-center gap-4">
+            <div className="flex flex-col">
+              <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-app-main/80 mb-0.5">
+                {project.subtitle}
+              </span>
+              <h3 className="text-2xl font-black text-white uppercase tracking-tighter leading-none">
+                {project.title}
+              </h3>
             </div>
-
-            <p className="text-xs text-white/50 line-clamp-2 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 font-light italic">
-              &ldquo;{project.body}&rdquo;
-            </p>
           </div>
-        </div>
 
-        {/* Decorative arrow or icon */}
-        <div className="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/20 group-hover:text-app-main group-hover:border-app-main/40 transition-all duration-500 transform group-hover:rotate-0 rotate-12 bg-white/5 backdrop-blur-sm">
-          <ExternalLink size={20} />
+          <p className="text-xs text-white/50 line-clamp-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-75 font-light italic">
+            &ldquo;{project.body}&rdquo;
+          </p>
         </div>
       </div>
-    </Tilt3D>
+
+      <div
+        className={`${project.inProgress ? 'bg-emerald-400/20' : ''} absolute top-8 right-8 px-3 py-1.5 rounded-full border border-white/10 flex gap-1.5 items-center justify-center text-white/20 group-hover:text-emerald-600 group-hover:border-emeral-400/40 transition-[color,border-color,transform] duration-300`}
+      >
+        {project.inProgress && 'In Progress'}
+        {project.icon}
+      </div>
+    </div>
   )
 }

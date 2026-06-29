@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fa'
 import { Experience, Skill } from '../types/skill'
 import { Project } from '../types/project'
-import { Cached, DataArray, Science, Web } from '@mui/icons-material'
+import methodus from '../assets/img/methodus.jpg'
 import kuki_home from '../assets/img/kuki/home.png'
 import kuki_comments from '../assets/img/kuki/comments.png'
 import kuki_login from '../assets/img/kuki/login.png'
@@ -22,78 +22,102 @@ import inew from '../assets/img/lab/new.png'
 import arduino from '../assets/img/parkinson/arduino.png'
 import movement from '../assets/img/parkinson/movement.png'
 import gyro from '../assets/img/parkinson/gyro.png'
+import preanesthesiaPipeline from '../assets/img/preanesthesia/pipeline.png'
+import preanesthesiaRoc from '../assets/img/preanesthesia/roc_auc.png'
+import preanesthesiaRanking from '../assets/img/preanesthesia/ranking.png'
 import { ExperienceGroup } from '../types/timeline'
-import { Bluetooth, Cpu, Laptop, Search } from 'lucide-react'
+import {
+  Bluetooth,
+  Braces,
+  Cpu,
+  FlaskConical,
+  Globe,
+  Laptop,
+  RefreshCw,
+  Search,
+} from 'lucide-react'
 
 // Images for hero backgrounds
 
 const experienceGroups: ExperienceGroup[] = [
   {
     place: 'Academic Foundation',
+    navLabel: 'Education',
+    category: 'Education',
     description:
       'Systems Engineering undergraduate studies focused on software architecture, AI research, and specialized certifications.',
-    heroImage:
-      'https://www.icesi.edu.co/wp-content/uploads/2025/02/trabaja-nosotros-icesi-movil.jpg',
-    backgroundColor: '#5354ED',
+    heroImage: '/img/heroes/icesi.webp',
+    backgroundColor: '#7870ff',
     textColor: '#ffffff',
+    lightBackgroundColor: '#5354ED',
+    lightTextColor: '#ffffff',
+    accentColor: '#ffffff',
     align: 'left',
     variant: 'immersive',
     items: [
       {
-        title: 'Systems Engineering Degree',
-        subtitle: '2022 - 2026 (Expected)',
-        body: 'Focused on Cloud Native architecture and agile development methodologies.',
-        skills: ['Systems Engineering', 'Software Design', 'Agile'],
-      },
-      {
-        title: 'AI & Biomedical Research',
-        subtitle: '2024 - 2026',
-        body: 'Developing machine learning models for early disease detection and pre-anesthetic evaluation.',
-        skills: ['AI/ML', 'Data Science', 'Research'],
+        title: 'B.S. Systems Engineering',
+        subtitle: '2022 – 2026 (Expected) · GPA 4.6/5.0',
+        body: "Focused on software architecture, cloud-native systems, and agile methodologies. Academic Excellence Scholarship awarded by the Mayor's Office of Cali. Honor Roll recognition.",
+        skills: ['Software Architecture', 'Agile', 'Cloud Native'],
       },
       {
         title: 'Software Architecture Certification',
-        subtitle: 'Perficient (2024)',
+        subtitle: 'Perficient · 2024',
         body: 'Specialization in Microservices, Serverless design, and scalable architectural patterns.',
-        skills: ['Microservices', 'System Design', 'Cloud'],
+        skills: ['Microservices', 'Serverless', 'System Design', 'Cloud'],
       },
     ],
   },
   {
     place: 'ICESI University',
+    navLabel: 'Work · ICESI',
+    category: 'Work',
     description:
       'Applied software engineering and technical support within institutional development centers.',
-    heroImage:
-      'https://www.valoraanalitik.com/wp-content/uploads/2025/09/La-Universidad-Icesi-celebra-una-etapa-de-crecimiento-1024x597.jpg',
-    backgroundColor: '#5354ED',
+    heroImage: '/img/heroes/valora.webp',
+    backgroundColor: '#7870ff',
     textColor: '#ffffff',
+    lightBackgroundColor: '#5354ED',
+    lightTextColor: '#ffffff',
+    accentColor: '#ffffff',
     align: 'right',
     variant: 'immersive',
     items: [
       {
-        title: 'Fullstack Developer (SYRI)',
-        subtitle: '2024 - 2025',
-        body: 'Led the development of automated internal systems, streamlining institutional processes.',
-        skills: ['Fullstack', 'Processes', 'Automation'],
+        title: 'Software Development Intern',
+        subtitle: 'Oct 2024 – Jun 2026',
+        body: 'Led design and development of a survey management system for academic and administrative processes. Contributed to a certificate generation and validation system. Collaborated with Scrum teams ensuring timely delivery and quality standards.',
+        skills: ['Fullstack', 'Scrum', 'Automation', 'Institutional Systems'],
       },
     ],
   },
   {
     place: 'Swiset',
+    navLabel: 'Work · Swiset',
+    category: 'Work',
     description:
       'A leading fintech platform delivering advanced analytics and trading engines for global prop firms.',
-    heroImage:
-      'https://hub.swiset.com/wp-content/uploads/2025/02/featured-image_Mesa-de-trabajo-1-copia.jpg',
+    heroImage: '/img/heroes/swiset.webp',
     backgroundColor: '#28EA96',
     textColor: '#000000',
+    lightBackgroundColor: '#28EA96',
+    lightTextColor: '#000000',
+    accentColor: '#000000',
     align: 'left',
     variant: 'immersive',
     items: [
       {
         title: 'Software Developer',
-        subtitle: 'Dec 2025 - Present',
-        body: 'Developing high-performance fintech solutions with a focus on trader analytics and risk management.',
-        skills: ['Fintech', 'Analytics', 'Prop Trading'],
+        subtitle: 'Dec 2025 – Present',
+        body: 'Developed and shipped features spanning backend, frontend, and infrastructure — including integrations with external trading services and real-time data flows.\n\nImproved system observability and incident response workflows. Operated in a CI/CD environment, collaborating with product and QA teams.',
+        skills: [
+          'Fintech',
+          'Real-time Data',
+          'Observability',
+          'CI/CD',
+          'Prop Trading',
+        ],
       },
     ],
   },
@@ -114,9 +138,15 @@ const skills: Skill[] = [
   {
     id: 'nest',
     title: 'Nest.js',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'Backend',
-    icon: React.createElement('i', { className: 'devicon-nestjs-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/nestjs.svg',
+      alt: 'nestjs',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#68A063',
   },
   {
@@ -140,7 +170,13 @@ const skills: Skill[] = [
     title: 'Dart',
     experience: Experience.Intermediate,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-dart-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/dart.svg',
+      alt: 'dart',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#0175C2',
   },
   {
@@ -156,7 +192,13 @@ const skills: Skill[] = [
     title: 'TypeScript',
     experience: Experience.Advanced,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-typescript-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/typescript.svg',
+      alt: 'typescript',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#007ACC',
   },
   {
@@ -164,7 +206,13 @@ const skills: Skill[] = [
     title: 'C#',
     experience: Experience.Basic,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-csharp-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/csharp.svg',
+      alt: 'csharp',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#00599C',
   },
   {
@@ -172,7 +220,13 @@ const skills: Skill[] = [
     title: 'Flutter',
     experience: Experience.Intermediate,
     category: 'UI/UX',
-    icon: React.createElement('i', { className: 'devicon-flutter-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/flutter.svg',
+      alt: 'flutter',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#02569B',
   },
   {
@@ -180,7 +234,13 @@ const skills: Skill[] = [
     title: 'Django',
     experience: Experience.Advanced,
     category: 'Backend',
-    icon: React.createElement('i', { className: 'devicon-django-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/django.svg',
+      alt: 'django',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#092E20',
   },
   {
@@ -188,7 +248,13 @@ const skills: Skill[] = [
     title: 'Express.js',
     experience: Experience.Intermediate,
     category: 'Backend',
-    icon: React.createElement('i', { className: 'devicon-express-original' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/express.svg',
+      alt: 'express',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#000000',
   },
   {
@@ -196,7 +262,13 @@ const skills: Skill[] = [
     title: 'Spring Boot',
     experience: Experience.Advanced,
     category: 'Backend',
-    icon: React.createElement('i', { className: 'devicon-spring-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/spring.svg',
+      alt: 'spring',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#6DB33F',
   },
   {
@@ -204,7 +276,13 @@ const skills: Skill[] = [
     title: 'TailwindCSS',
     experience: Experience.Intermediate,
     category: 'UI/UX',
-    icon: React.createElement('i', { className: 'devicon-tailwindcss-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/tailwindcss.svg',
+      alt: 'tailwindcss',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#38B2AC',
   },
   {
@@ -212,7 +290,13 @@ const skills: Skill[] = [
     title: 'PostgreSQL',
     experience: Experience.Advanced,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-postgresql-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/postgresql.svg',
+      alt: 'postgresql',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#4169E1',
   },
   {
@@ -220,7 +304,13 @@ const skills: Skill[] = [
     title: 'Firebase',
     experience: Experience.Advanced,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-firebase-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/firebase.svg',
+      alt: 'firebase',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#FFCA28',
   },
   {
@@ -228,7 +318,13 @@ const skills: Skill[] = [
     title: 'MongoDB',
     experience: Experience.Intermediate,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-mongodb-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/mongodb.svg',
+      alt: 'mongodb',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#47A248',
   },
   {
@@ -236,7 +332,13 @@ const skills: Skill[] = [
     title: 'MySQL',
     experience: Experience.Advanced,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-mysql-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/mysql.svg',
+      alt: 'mysql',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#4479A1',
   },
   {
@@ -260,7 +362,13 @@ const skills: Skill[] = [
     title: 'Postman',
     experience: Experience.Advanced,
     category: 'Tools',
-    icon: React.createElement('i', { className: 'devicon-postman-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/postman.svg',
+      alt: 'postman',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#FF6C37',
   },
   {
@@ -268,7 +376,13 @@ const skills: Skill[] = [
     title: 'VS Code',
     experience: Experience.Advanced,
     category: 'Tools',
-    icon: React.createElement('i', { className: 'devicon-vscode-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/vscode.svg',
+      alt: 'vscode',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#007ACC',
   },
   {
@@ -284,7 +398,13 @@ const skills: Skill[] = [
     title: 'JUnit',
     experience: Experience.Intermediate,
     category: 'Testing',
-    icon: React.createElement('i', { className: 'devicon-junit-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/junit.svg',
+      alt: 'junit',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#25A162',
   },
   {
@@ -292,7 +412,13 @@ const skills: Skill[] = [
     title: 'Selenium',
     experience: Experience.Intermediate,
     category: 'Testing',
-    icon: React.createElement('i', { className: 'devicon-selenium-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/selenium.svg',
+      alt: 'selenium',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#43B02A',
   },
   {
@@ -301,14 +427,26 @@ const skills: Skill[] = [
     experience: Experience.Intermediate,
     category: 'Tools',
     color: '#4285F4',
-    icon: React.createElement('i', { className: 'devicon-googlecloud-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/googlecloud.svg',
+      alt: 'googlecloud',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
   },
   {
     id: 'cpp',
     title: 'C++',
     experience: Experience.Basic,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-cplusplus-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/cplusplus.svg',
+      alt: 'cplusplus',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#00599C',
   },
   {
@@ -324,7 +462,7 @@ const skills: Skill[] = [
     title: 'Cache Optimization',
     experience: Experience.Intermediate,
     category: 'Data Science',
-    icon: React.createElement(Cached),
+    icon: React.createElement(RefreshCw),
     color: '#FF5733',
   },
   {
@@ -332,7 +470,7 @@ const skills: Skill[] = [
     title: 'Design of Experiments (DoE)',
     experience: Experience.Intermediate,
     category: 'Data Science',
-    icon: React.createElement(Science),
+    icon: React.createElement(FlaskConical),
     color: '#FFD700',
   },
   {
@@ -356,7 +494,13 @@ const skills: Skill[] = [
     title: 'Arduino',
     experience: Experience.Basic,
     category: 'Hardware',
-    icon: React.createElement('i', { className: 'devicon-arduino-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/arduino.svg',
+      alt: 'arduino',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#00979D',
   },
   {
@@ -372,7 +516,7 @@ const skills: Skill[] = [
     title: 'Data Acquisition',
     experience: Experience.Intermediate,
     category: 'Data Science',
-    icon: React.createElement(DataArray),
+    icon: React.createElement(Braces),
     color: '#DA5B0B',
   },
   {
@@ -380,7 +524,13 @@ const skills: Skill[] = [
     title: 'Kotlin',
     experience: Experience.Intermediate,
     category: 'Languages',
-    icon: React.createElement('i', { className: 'devicon-kotlin-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/kotlin.svg',
+      alt: 'kotlin',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#7F52FF',
   },
   {
@@ -388,7 +538,13 @@ const skills: Skill[] = [
     title: 'Next.js',
     experience: Experience.Advanced,
     category: 'UI/UX',
-    icon: React.createElement('i', { className: 'devicon-nextjs-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/nextjs.svg',
+      alt: 'nextjs',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#000000',
   },
   {
@@ -396,7 +552,13 @@ const skills: Skill[] = [
     title: 'Kubernetes',
     experience: Experience.Basic,
     category: 'DevOps',
-    icon: React.createElement('i', { className: 'devicon-kubernetes-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/kubernetes.svg',
+      alt: 'kubernetes',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#326CE5',
   },
   {
@@ -404,7 +566,13 @@ const skills: Skill[] = [
     title: 'Jenkins',
     experience: Experience.Basic,
     category: 'DevOps',
-    icon: React.createElement('i', { className: 'devicon-jenkins-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/jenkins.svg',
+      alt: 'jenkins',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#D24939',
   },
   {
@@ -412,7 +580,13 @@ const skills: Skill[] = [
     title: 'Terraform',
     experience: Experience.Basic,
     category: 'DevOps',
-    icon: React.createElement('i', { className: 'devicon-terraform-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/terraform.svg',
+      alt: 'terraform',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#7B42BC',
   },
   {
@@ -420,7 +594,13 @@ const skills: Skill[] = [
     title: 'Scikit-learn',
     experience: Experience.Intermediate,
     category: 'AI/ML',
-    icon: React.createElement('i', { className: 'devicon-scikitlearn-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/scikitlearn.svg',
+      alt: 'scikitlearn',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#F7931E',
   },
   {
@@ -428,7 +608,13 @@ const skills: Skill[] = [
     title: 'TensorFlow',
     experience: Experience.Intermediate,
     category: 'AI/ML',
-    icon: React.createElement('i', { className: 'devicon-tensorflow-line' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/tensorflow.svg',
+      alt: 'tensorflow',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#FF6F00',
   },
   {
@@ -436,7 +622,13 @@ const skills: Skill[] = [
     title: 'PyTorch',
     experience: Experience.Intermediate,
     category: 'AI/ML',
-    icon: React.createElement('i', { className: 'devicon-pytorch-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/pytorch.svg',
+      alt: 'pytorch',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#EE4C2C',
   },
   {
@@ -444,7 +636,13 @@ const skills: Skill[] = [
     title: 'Oracle SQL',
     experience: Experience.Advanced,
     category: 'Database',
-    icon: React.createElement('i', { className: 'devicon-oracle-original' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/oracle.svg',
+      alt: 'oracle',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#F80000',
   },
   {
@@ -452,7 +650,13 @@ const skills: Skill[] = [
     title: 'Linux',
     experience: Experience.Advanced,
     category: 'Tools',
-    icon: React.createElement('i', { className: 'devicon-linux-plain' }),
+    icon: React.createElement('img', {
+      src: '/icons/devicon/linux.svg',
+      alt: 'linux',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
     color: '#FCC624',
   },
   {
@@ -486,15 +690,96 @@ const skills: Skill[] = [
     category: 'Competencies',
     icon: React.createElement(Laptop),
     color: '#9C27B0',
-  }
+  },
+  {
+    id: 'vuejs',
+    title: 'Vue.js',
+    experience: Experience.Intermediate,
+    category: 'UI/UX' as const,
+    icon: React.createElement('img', {
+      src: '/icons/devicon/vuejs.svg',
+      alt: 'vuejs',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
+    color: '#42B883',
+  },
+  {
+    id: 'fastapi',
+    title: 'FastAPI',
+    experience: Experience.Intermediate,
+    category: 'Backend' as const,
+    icon: React.createElement('img', {
+      src: '/icons/devicon/fastapi.svg',
+      alt: 'fastapi',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
+    color: '#009688',
+  },
+  {
+    id: 'dynamodb',
+    title: 'DynamoDB',
+    experience: Experience.Intermediate,
+    category: 'Database' as const,
+    icon: React.createElement('i', {
+      className: 'devicon-amazonwebservices-plain',
+    }),
+    color: '#FF9900',
+  },
+  {
+    id: 'aws',
+    title: 'AWS',
+    experience: Experience.Intermediate,
+    category: 'DevOps' as const,
+    icon: React.createElement('i', {
+      className: 'devicon-amazonwebservices-plain',
+    }),
+    color: '#FF9900',
+  },
+  {
+    id: 'rabbitmq',
+    title: 'RabbitMQ',
+    experience: Experience.Intermediate,
+    category: 'Tools' as const,
+    icon: React.createElement('img', {
+      src: '/icons/devicon/rabbitmq.svg',
+      alt: 'rabbitmq',
+      width: 32,
+      height: 32,
+      style: { display: 'inline-block' },
+    }),
+    color: '#FF6600',
+  },
 ]
 // Define projects
 const projects: Project[] = [
   {
+    title: 'Methodus',
+    subtitle: 'Adaptive ICFES preparation platform',
+    body: 'Leading the full technical development of Methodus — an adaptive learning platform for ICFES exam preparation. Built with a focus on personalized experiences and real-time feedback. Managing release planning, QA coordination, and incident response as the platform prepares for pilot use with real students.',
+    icon: React.createElement(Globe),
+    inProgress: true,
+    group: 'Software',
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'React' ||
+        skill.title === 'Next.js' ||
+        skill.title === 'TypeScript' ||
+        skill.title === 'PostgreSQL' ||
+        skill.title === 'Docker'
+    ),
+    images: [methodus],
+    category: 'Web',
+  },
+  {
     title: 'Kuki',
     subtitle: 'Social network for chefs',
     body: 'A cooking-focused social network for home and professional chefs. Users can share recipes, upload photos, interact, and get ingredient-based recommendations, creating a vibrant culinary community.',
-    icon: React.createElement(Web),
+    icon: React.createElement(Globe),
+    group: 'Software',
     skills: skills.filter(
       (skill) =>
         skill.title === 'React' ||
@@ -516,8 +801,9 @@ const projects: Project[] = [
     title: 'People-Database',
     subtitle: 'Database management system',
     alone: true,
+    group: 'Software',
     body: 'A people database management system. It allows administrators to manage employees data and generate reports. Also, employees can manage clients data and visit reports. It includes user authentication, data validation and data visualization.',
-    icon: React.createElement(Web),
+    icon: React.createElement(Globe),
     skills: skills.filter(
       (skill) =>
         skill.title === 'Flutter' ||
@@ -532,7 +818,8 @@ const projects: Project[] = [
     title: 'Memory Optimization in Matrix Multiplication',
     subtitle: 'High-performance computing research project',
     body: 'A research project focused on optimizing matrix multiplication by leveraging cache locality principles. It evaluates multiple algorithmic approaches and introduces a panel-based multiplication technique to improve performance. Statistical analysis and experimental design were applied to validate results.',
-    icon: React.createElement(Science),
+    icon: React.createElement(FlaskConical),
+    group: 'Research & ML',
     skills: skills.filter(
       (skill) =>
         skill.title === 'C++' ||
@@ -546,21 +833,47 @@ const projects: Project[] = [
     category: 'Research',
   },
   {
+    title: 'Pre-Anesthetic Predictive Screening',
+    subtitle:
+      "Bachelor's thesis — ML pipeline for perioperative risk stratification",
+    body: 'End-to-end machine learning system that predicts adverse perioperative events from preoperative clinical records. Apache Airflow orchestrates the full pipeline — data validation, NLP-based medication normalization, feature engineering, training of up to 9 model families with probabilistic calibration, and threshold optimization. A FastAPI server exposes the trained models as a REST API for real-time patient risk scoring (low / medium / high). Deployed entirely in Docker.',
+    icon: React.createElement(FlaskConical),
+    group: 'Research & ML',
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'Python' ||
+        skill.title === 'FastAPI' ||
+        skill.title === 'Docker' ||
+        skill.title === 'Scikit-learn' ||
+        skill.title === 'Statistical Analysis'
+    ),
+    images: [preanesthesiaPipeline, preanesthesiaRoc, preanesthesiaRanking],
+    institution: {
+      name: 'Fundación Valle del Lili',
+      url: 'https://www.valledellili.org',
+    },
+    category: 'AI',
+  },
+  {
     title: 'Early Parkinson Detection',
     subtitle: 'Research project on biomedical signal processing',
-    body: 'A research project focused on developing a system for early detection of Parkinson’s disease using inertial sensors and a mobile application. The system utilizes Arduino Nano 33 IoT for data acquisition, Bluetooth Low Energy for wireless communication, and machine learning techniques to identify motor patterns.',
-    icon: React.createElement(Science),
+    body: "A research project focused on developing a system for early detection of Parkinson's disease using inertial sensors and a mobile application. The system utilizes Arduino Nano 33 IoT for data acquisition, Bluetooth Low Energy for wireless communication, and machine learning techniques to identify motor patterns.",
+    icon: React.createElement(FlaskConical),
+    group: 'Research & ML',
     skills: skills.filter(
       (skill) =>
         skill.title === 'Arduino' ||
         skill.title === 'Bluetooth Low Energy (BLE)' ||
         skill.title === 'TensorFlow' ||
-        skill.title === 'Python' ||
-        skill.title === 'Android'
+        skill.title === 'Python'
     ),
     images: [arduino, movement, gyro],
     siteLink:
       'https://drive.google.com/file/d/1yFMc7df5MKc4jlOZC7zKR7on0HKm3EF7/view?usp=sharing',
+    institution: {
+      name: 'i2t Research Group — Universidad Icesi',
+      url: 'https://i2t.icesi.edu.co',
+    },
     category: 'Research',
   },
 ]

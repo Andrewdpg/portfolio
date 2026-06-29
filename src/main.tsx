@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/AppRoutes'
-import './index.css'
-import { PopupProvider } from './context/PopupContext'
+import { DrawerProvider } from './context/DrawerContext'
+import { ThemeProvider } from './context/ThemeContext'
+import { ContactModalProvider } from './context/ContactModalContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <PopupProvider>
-      <RouterProvider router={router} />
-    </PopupProvider>
+    <ThemeProvider>
+      <DrawerProvider>
+        <ContactModalProvider>
+          <RouterProvider router={router} />
+        </ContactModalProvider>
+      </DrawerProvider>
+    </ThemeProvider>
   </React.StrictMode>
 )

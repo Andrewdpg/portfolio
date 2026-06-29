@@ -1,5 +1,4 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 import { SectionProps } from '../types'
 
 export const SplitVariant: React.FC<SectionProps> = ({
@@ -20,7 +19,7 @@ export const SplitVariant: React.FC<SectionProps> = ({
     >
       {/* Background Color Side (Skewed) */}
       <div
-        className={`absolute inset-0 z-0 bg-current transition-colors duration-500`}
+        className={`absolute inset-0 z-0`}
         style={{
           clipPath: isLeft
             ? 'polygon(0 0, 75% 0, 65% 100%, 0 100%)'
@@ -32,12 +31,7 @@ export const SplitVariant: React.FC<SectionProps> = ({
       <div
         className={`relative z-10 flex-1 flex flex-col justify-center p-8 md:p-24 ${isLeft ? '' : 'items-end text-right'}`}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-2xl"
-        >
+        <div className="max-w-2xl">
           <h2 className="text-5xl md:text-7xl font-black mb-4 uppercase tracking-tighter leading-none">
             {title}
           </h2>
@@ -51,16 +45,11 @@ export const SplitVariant: React.FC<SectionProps> = ({
           >
             {children}
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {heroImage && (
-        <motion.div
-          initial={{ scale: 1.1, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.2 }}
-          className="relative flex-1 min-h-[40vh] md:min-h-screen z-0"
-        >
+        <div className="relative flex-1 min-h-[40vh] md:min-h-screen z-0">
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -79,7 +68,7 @@ export const SplitVariant: React.FC<SectionProps> = ({
                 : 'polygon(74% 0, 75% 0, 85% 100%, 84% 100%)',
             }}
           />
-        </motion.div>
+        </div>
       )}
     </div>
   )

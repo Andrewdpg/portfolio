@@ -1,10 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+        sans: ['"Barlow"', 'system-ui', 'sans-serif'],
+        display: ['"Barlow Condensed"', '"Barlow"', 'system-ui', 'sans-serif'],
       },
       colors: {
         // Main colors

@@ -25,6 +25,7 @@ export const Sparkles = ({
 
   useEffect(() => {
     if (typeof window === 'undefined') return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const dpr = window.devicePixelRatio || 1
     const canvas = canvasRef.current as HTMLCanvasElement
@@ -40,6 +41,8 @@ export const Sparkles = ({
     let isScrolling = false
     let lastScroll = window.scrollY
     let scrollDirection = 1
+    let isActive = true
+    let idleTimeout = 0
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth * dpr
@@ -127,7 +130,18 @@ export const Sparkles = ({
       }
     }
 
+    const resetIdleTimer = () => {
+      isActive = true
+      clearTimeout(idleTimeout)
+      idleTimeout = window.setTimeout(() => {
+        isActive = false
+      }, 2000)
+    }
+
     const animate = () => {
+      animationFrameIdRef.current = requestAnimationFrame(animate)
+      if (!isActive) return
+
       const width = canvas.width / dpr
       const height = canvas.height / dpr
       ctx.clearRect(0, 0, width, height)
@@ -136,8 +150,6 @@ export const Sparkles = ({
         particle.update()
         particle.draw()
       })
-
-      animationFrameIdRef.current = requestAnimationFrame(animate)
     }
 
     initParticles()
@@ -152,11 +164,9 @@ export const Sparkles = ({
       const currentScroll = window.scrollY
       scrollDirection = currentScroll - lastScroll > 0 ? 1 : -1
       lastScroll = currentScroll
-
       isScrolling = true
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current)
-      }
+      resetIdleTimer()
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
       scrollTimeoutRef.current = window.setTimeout(() => {
         isScrolling = false
       }, 100)
@@ -164,14 +174,17 @@ export const Sparkles = ({
 
     window.addEventListener('resize', handleResize)
     window.addEventListener('scroll', handleScroll)
+    window.addEventListener('mousemove', resetIdleTimer, { passive: true })
+
+    resetIdleTimer()
 
     return () => {
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('mousemove', resetIdleTimer)
       cancelAnimationFrame(animationFrameIdRef.current)
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current)
-      }
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current)
+      clearTimeout(idleTimeout)
     }
   }, [maxSize, minSize, particleColor, particleDensity])
 

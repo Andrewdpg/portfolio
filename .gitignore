@@ -26,4 +26,5 @@ yarn-error.log*
 tsconfig.tsbuildinfo
 
 # local env files
-# .env**
+.env*
+!.env.example
