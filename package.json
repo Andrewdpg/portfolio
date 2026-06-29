@@ -38,6 +38,22 @@
     "prepare": "husky && husky install",
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css}'"
   },
+  "overrides": {
+    "eslint-plugin-import": {
+      "minimatch": {
+        "brace-expansion": "^1.1.15"
+      }
+    },
+    "micromatch": {
+      "picomatch": "^2.3.2"
+    },
+    "anymatch": {
+      "picomatch": "^2.3.2"
+    },
+    "readdirp": {
+      "picomatch": "^2.3.2"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

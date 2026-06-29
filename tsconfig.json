@@ -11,8 +11,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "baseUrl": "./src",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["./src/*"]
     },

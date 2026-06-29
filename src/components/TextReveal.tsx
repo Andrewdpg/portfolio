@@ -10,19 +10,19 @@ type TextRevealProps = {
   stagger?: number
 }
 
-export const TextReveal: React.FC<TextRevealProps> = ({ 
-  text, 
-  className = "", 
-  once = true, 
+export const TextReveal: React.FC<TextRevealProps> = ({
+  text,
+  className = '',
+  once = true,
   delay = 0,
-  stagger = 0.02
+  stagger = 0.02,
 }) => {
   const { ref, inView } = useInView({
     triggerOnce: once,
     threshold: 0.1,
   })
 
-  const words = text.split(" ")
+  const words = text.split(' ')
 
   const containerVars = {
     hidden: { opacity: 0 },
@@ -36,19 +36,19 @@ export const TextReveal: React.FC<TextRevealProps> = ({
   }
 
   const wordVars = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 20,
-      filter: "blur(4px)"
+      filter: 'blur(4px)',
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      filter: "blur(0px)",
+      filter: 'blur(0px)',
       transition: {
         duration: 0.6,
-        ease: [0.2, 0.65, 0.3, 0.9],
-      }
+        ease: [0.2, 0.65, 0.3, 0.9] as const,
+      },
     },
   }
 
@@ -57,15 +57,12 @@ export const TextReveal: React.FC<TextRevealProps> = ({
       ref={ref}
       variants={containerVars}
       initial="hidden"
-      animate={inView ? "visible" : "hidden"}
+      animate={inView ? 'visible' : 'hidden'}
       className={`inline-block overflow-hidden ${className}`}
     >
       {words.map((word, i) => (
         <span key={i} className="inline-block whitespace-nowrap mr-[0.25em]">
-          <motion.span
-            variants={wordVars}
-            className="inline-block"
-          >
+          <motion.span variants={wordVars} className="inline-block">
             {word}
           </motion.span>
         </span>
