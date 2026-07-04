@@ -1,5 +1,6 @@
 import React from 'react'
 import { Github, Instagram, Linkedin, Send, Mail } from 'lucide-react'
+import { SiSpotify } from 'react-icons/si'
 import { useContactModal } from '../../../context/ContactModalContext'
 
 const Footer = () => {
@@ -25,6 +26,11 @@ const Footer = () => {
       icon: <Send size={20} />,
       url: 'https://t.me/Andrewdpg',
       label: 'Telegram',
+    },
+    {
+      icon: <SiSpotify size={18} />,
+      url: 'https://open.spotify.com/user/31w5iqswuv7kfmzrkeqeeba4gvea?si=28CQagsfQ5WQg8G1NZHCbw',
+      label: 'Spotify',
     },
   ]
 

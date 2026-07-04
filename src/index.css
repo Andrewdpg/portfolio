@@ -90,3 +90,29 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.prose-chat > :not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.prose-chat strong {
+  font-weight: 700;
+}
+
+.prose-chat a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose-chat h1,
+.prose-chat h2,
+.prose-chat h3 {
+  font-weight: 700;
+}
+
+.prose-chat code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+  font-size: 0.85em;
+}

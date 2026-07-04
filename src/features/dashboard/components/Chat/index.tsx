@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageSquare, X, Send, Loader2 } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
 import { sendChatMessage } from '../../../../services/chatService'
 import type { ChatMessage, ActionData } from '../../../../services/chatService'
 import { ActionCards } from './ActionCards'
@@ -210,7 +211,13 @@ export function ChatWidget() {
                           }
                     }
                   >
-                    {msg.content}
+                    {msg.role === 'assistant' ? (
+                      <div className="prose-chat">
+                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      </div>
+                    ) : (
+                      msg.content
+                    )}
                     {msg.actions && <ActionCards actions={msg.actions} />}
                   </div>
                 </div>
