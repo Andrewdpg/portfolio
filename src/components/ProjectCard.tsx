@@ -26,9 +26,14 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
               <span className="text-xs font-mono uppercase tracking-widest text-app-main mb-1">
                 {project.subtitle}
               </span>
-              <h3 className="text-3xl font-black uppercase tracking-tighter leading-none">
-                {project.title}
-              </h3>
+              <div className="flex items-center gap-3">
+                <h3 className="text-3xl font-black uppercase tracking-tighter leading-none">
+                  {project.title}
+                </h3>
+                <span className="text-xs font-mono font-bold text-app-main/40 bg-app-main/10 px-2.5 py-1 rounded-full border border-app-main/10 shrink-0">
+                  {project.year}
+                </span>
+              </div>
             </div>
             {!project.alone ? (
               <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest bg-app-main/10 text-app-main px-3 py-1.5 rounded-full shrink-0">
@@ -131,7 +136,7 @@ const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
             onClick={() => window.open(project.siteLink, '_blank')}
             className="flex-1 min-w-[200px] py-5 border-2 border-app-main text-app-main rounded-full font-bold flex items-center justify-center gap-3 hover:bg-app-main hover:text-white transition-all hover:scale-[1.02] active:scale-95"
           >
-            <ExternalLink size={20} /> Live Demo
+            <ExternalLink size={20} /> {project.siteLabel ?? 'Live Demo'}
           </button>
         )}
       </div>
@@ -171,9 +176,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-app-main/80 mb-0.5">
                 {project.subtitle}
               </span>
-              <h3 className="text-2xl font-black text-white uppercase tracking-tighter leading-none">
-                {project.title}
-              </h3>
+              <div className="flex items-center gap-3">
+                <h3 className="text-2xl font-black text-white uppercase tracking-tighter leading-none">
+                  {project.title}
+                </h3>
+                <span className="text-[11px] font-mono font-bold text-white/30 bg-white/5 px-3 py-1 rounded-full border border-white/10 shrink-0">
+                  {project.year}
+                </span>
+              </div>
             </div>
           </div>
 

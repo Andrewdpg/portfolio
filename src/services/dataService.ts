@@ -10,10 +10,38 @@ import {
 } from 'react-icons/fa'
 import { Experience, Skill } from '../types/skill'
 import { Project } from '../types/project'
-import methodus from '../assets/img/methodus.jpg'
-import kuki_home from '../assets/img/kuki/home.png'
-import kuki_comments from '../assets/img/kuki/comments.png'
-import kuki_login from '../assets/img/kuki/login.png'
+const methodusImages = import.meta.glob('../assets/img/methodus/*.webp', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>
+const kukiImages = import.meta.glob('../assets/img/kuki/*.webp', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>
+
+const methodusOrder = [
+  'landing',
+  'admin_dash',
+  'admin_users',
+  'admin_classes',
+  'admin_resources',
+  'admin_forms',
+  'student_dash',
+  'student_classes',
+  'student_forms',
+  'student_gamification',
+]
+const kukiOrder = [
+  'home',
+  'login',
+  'post',
+  'settings',
+  'darkmode',
+  'create_post_1',
+  'create_post_2',
+  'create_post_3',
+  'comments',
+]
 import first from '../assets/img/kids-db/first.png'
 import second from '../assets/img/kids-db/second.png'
 import third from '../assets/img/kids-db/third.png'
@@ -757,50 +785,10 @@ const skills: Skill[] = [
 // Define projects
 const projects: Project[] = [
   {
-    title: 'Methodus',
-    subtitle: 'Adaptive ICFES preparation platform',
-    body: 'Leading the full technical development of Methodus — an adaptive learning platform for ICFES exam preparation. Built with a focus on personalized experiences and real-time feedback. Managing release planning, QA coordination, and incident response as the platform prepares for pilot use with real students.',
-    icon: React.createElement(Globe),
-    inProgress: true,
-    group: 'Software',
-    skills: skills.filter(
-      (skill) =>
-        skill.title === 'React' ||
-        skill.title === 'Next.js' ||
-        skill.title === 'TypeScript' ||
-        skill.title === 'PostgreSQL' ||
-        skill.title === 'Docker'
-    ),
-    images: [methodus],
-    category: 'Web',
-  },
-  {
-    title: 'Kuki',
-    subtitle: 'Social network for chefs',
-    body: 'A cooking-focused social network for home and professional chefs. Users can share recipes, upload photos, interact, and get ingredient-based recommendations, creating a vibrant culinary community.',
-    icon: React.createElement(Globe),
-    group: 'Software',
-    skills: skills.filter(
-      (skill) =>
-        skill.title === 'React' ||
-        skill.title === 'Spring Boot' ||
-        skill.title === 'PostgreSQL' ||
-        skill.title === 'Postman' ||
-        skill.title === 'Docker' ||
-        skill.title === 'Next.js'
-    ),
-    images: [kuki_home, kuki_comments, kuki_login],
-    codeLink: 'https://github.com/Andrewdpg/kuki-social-network-back',
-    siteLink: 'https://kuki-social-network-front.vercel.app/',
-    warnings: [
-      'Backend is hosted on free-tier render so it may take a few seconds/minutes to start',
-    ],
-    category: 'Web',
-  },
-  {
     title: 'People-Database',
     subtitle: 'Database management system',
     alone: true,
+    year: 2021,
     group: 'Software',
     body: 'A people database management system. It allows administrators to manage employees data and generate reports. Also, employees can manage clients data and visit reports. It includes user authentication, data validation and data visualization.',
     icon: React.createElement(Globe),
@@ -815,10 +803,37 @@ const projects: Project[] = [
     category: 'Multiplatform',
   },
   {
+    title: 'Kuki',
+    subtitle: 'Social network for chefs',
+    body: 'A cooking-focused social network for home and professional chefs. Users can share recipes, upload photos, interact, and get ingredient-based recommendations, creating a vibrant culinary community.',
+    icon: React.createElement(Globe),
+    year: 2023,
+    group: 'Software',
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'React' ||
+        skill.title === 'Spring Boot' ||
+        skill.title === 'PostgreSQL' ||
+        skill.title === 'Postman' ||
+        skill.title === 'Docker' ||
+        skill.title === 'Next.js'
+    ),
+    images: kukiOrder.map(
+      (name) => kukiImages[`../assets/img/kuki/${name}.webp`]
+    ),
+    codeLink: 'https://github.com/Andrewdpg/kuki-social-network-back',
+    siteLink: 'https://kuki-social-network-front.vercel.app/',
+    warnings: [
+      'Backend is hosted on free-tier render so it may take a few seconds/minutes to start',
+    ],
+    category: 'Web',
+  },
+  {
     title: 'Memory Optimization in Matrix Multiplication',
     subtitle: 'High-performance computing research project',
     body: 'A research project focused on optimizing matrix multiplication by leveraging cache locality principles. It evaluates multiple algorithmic approaches and introduces a panel-based multiplication technique to improve performance. Statistical analysis and experimental design were applied to validate results.',
     icon: React.createElement(FlaskConical),
+    year: 2024,
     group: 'Research & ML',
     skills: skills.filter(
       (skill) =>
@@ -833,32 +848,11 @@ const projects: Project[] = [
     category: 'Research',
   },
   {
-    title: 'Pre-Anesthetic Predictive Screening',
-    subtitle:
-      "Bachelor's thesis — ML pipeline for perioperative risk stratification",
-    body: 'End-to-end machine learning system that predicts adverse perioperative events from preoperative clinical records. Apache Airflow orchestrates the full pipeline — data validation, NLP-based medication normalization, feature engineering, training of up to 9 model families with probabilistic calibration, and threshold optimization. A FastAPI server exposes the trained models as a REST API for real-time patient risk scoring (low / medium / high). Deployed entirely in Docker.',
-    icon: React.createElement(FlaskConical),
-    group: 'Research & ML',
-    skills: skills.filter(
-      (skill) =>
-        skill.title === 'Python' ||
-        skill.title === 'FastAPI' ||
-        skill.title === 'Docker' ||
-        skill.title === 'Scikit-learn' ||
-        skill.title === 'Statistical Analysis'
-    ),
-    images: [preanesthesiaPipeline, preanesthesiaRoc, preanesthesiaRanking],
-    institution: {
-      name: 'Fundación Valle del Lili',
-      url: 'https://www.valledellili.org',
-    },
-    category: 'AI',
-  },
-  {
     title: 'Early Parkinson Detection',
     subtitle: 'Research project on biomedical signal processing',
     body: "A research project focused on developing a system for early detection of Parkinson's disease using inertial sensors and a mobile application. The system utilizes Arduino Nano 33 IoT for data acquisition, Bluetooth Low Energy for wireless communication, and machine learning techniques to identify motor patterns.",
     icon: React.createElement(FlaskConical),
+    year: 2024,
     group: 'Research & ML',
     skills: skills.filter(
       (skill) =>
@@ -875,6 +869,52 @@ const projects: Project[] = [
       url: 'https://i2t.icesi.edu.co',
     },
     category: 'Research',
+  },
+  {
+    title: 'Methodus',
+    subtitle: 'Adaptive ICFES preparation platform',
+    body: 'Leading the full technical development of Methodus — an adaptive learning platform for ICFES exam preparation. Built with a focus on personalized experiences and real-time feedback. Managing release planning, QA coordination, and incident response as the platform prepares for pilot use with real students.',
+    icon: React.createElement(Globe),
+    year: 2026,
+    inProgress: true,
+    group: 'Software',
+    siteLink: 'https://entrenamiento.methodus.online/',
+    siteLabel: 'Production',
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'React' ||
+        skill.title === 'Next.js' ||
+        skill.title === 'TypeScript' ||
+        skill.title === 'PostgreSQL' ||
+        skill.title === 'Docker'
+    ),
+    images: methodusOrder.map(
+      (name) => methodusImages[`../assets/img/methodus/${name}.webp`]
+    ),
+    category: 'Web',
+  },
+  {
+    title: 'Pre-Anesthetic Predictive Screening',
+    subtitle:
+      "Bachelor's thesis — ML pipeline for perioperative risk stratification",
+    body: 'End-to-end machine learning system that predicts adverse perioperative events from preoperative clinical records. Apache Airflow orchestrates the full pipeline — data validation, NLP-based medication normalization, feature engineering, training of up to 9 model families with probabilistic calibration, and threshold optimization. A FastAPI server exposes the trained models as a REST API for real-time patient risk scoring (low / medium / high). Deployed entirely in Docker.',
+    icon: React.createElement(FlaskConical),
+    year: 2026,
+    group: 'Research & ML',
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'Python' ||
+        skill.title === 'FastAPI' ||
+        skill.title === 'Docker' ||
+        skill.title === 'Scikit-learn' ||
+        skill.title === 'Statistical Analysis'
+    ),
+    images: [preanesthesiaPipeline, preanesthesiaRoc, preanesthesiaRanking],
+    institution: {
+      name: 'Fundación Valle del Lili',
+      url: 'https://www.valledellili.org',
+    },
+    category: 'AI',
   },
 ]
 

@@ -12,6 +12,7 @@ export type Project = {
   title: string
   subtitle: string
   body: string
+  year: number
   alone?: boolean
   inProgress?: boolean
   group: ProjectGroup
@@ -31,5 +32,6 @@ export type Project = {
   images: string[]
   codeLink?: string
   siteLink?: string
+  siteLabel?: string
   warnings?: string[]
 }
