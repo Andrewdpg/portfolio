@@ -11,7 +11,7 @@ import { Presentation } from '../components/Presetation'
 import { Navigation, NavSection } from '../../layout/components/Navigation'
 import { AIWorkflow } from '../components/AIWorkflow'
 import { ChatWidget } from '../components/Chat'
-import { Experience } from '../../../types/skill'
+import { SkillsRadar } from '../../../components/SkillsRadar'
 import { useTheme } from '../../../context/ThemeContext'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
@@ -179,53 +179,7 @@ function Dashboard() {
             }}
             align="left"
           >
-            <div className="flex flex-col gap-12 mt-12 w-full max-w-4xl mx-auto">
-              {/* Featured skills */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {skills
-                  .filter(
-                    (s) =>
-                      s.experience === Experience.Expert ||
-                      s.experience === Experience.Advanced
-                  )
-                  .map((skill, i) => (
-                    <div
-                      key={i}
-                      className="flex flex-col items-center gap-2 p-4 rounded-2xl border border-app-secondary/10 dark:border-white/8 bg-app-secondary/3 dark:bg-white/3 hover:border-app-main/40 hover:bg-app-main/5 group transition-all duration-300"
-                    >
-                      <div className="w-10 h-10 rounded-xl bg-white/60 dark:bg-white/10 flex items-center justify-center text-2xl shrink-0">
-                        {skill.icon}
-                      </div>
-                      <span className="text-xs font-bold text-app-secondary dark:text-[#E8E4F0] text-center leading-tight">
-                        {skill.title}
-                      </span>
-                      <span className="text-[9px] font-bold tracking-widest uppercase text-app-secondary/40 dark:text-white/40">
-                        {skill.experience}
-                      </span>
-                    </div>
-                  ))}
-              </div>
-
-              {/* Also proficient in */}
-              <div className="pt-2 border-t border-app-secondary/8 dark:border-white/8">
-                <div className="flex flex-wrap gap-2">
-                  {skills
-                    .filter(
-                      (s) =>
-                        s.experience !== Experience.Expert &&
-                        s.experience !== Experience.Advanced
-                    )
-                    .map((skill, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1.5 rounded-full text-[11px] font-semibold border border-app-secondary/10 dark:border-white/10 bg-app-secondary/4 dark:bg-white/4 text-app-secondary/70 dark:text-[#E8E4F0]/70 hover:bg-app-main hover:text-white hover:border-app-main cursor-default transition-all duration-200"
-                      >
-                        {skill.title}
-                      </span>
-                    ))}
-                </div>
-              </div>
-            </div>
+            <SkillsRadar skills={skills} isDark={isDark} />
           </Section>
         </div>
 

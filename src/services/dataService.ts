@@ -57,12 +57,15 @@ import { ExperienceGroup } from '../types/timeline'
 import {
   Bluetooth,
   Braces,
+  Bug,
   Cpu,
   FlaskConical,
   Globe,
   Laptop,
   RefreshCw,
   Search,
+  Terminal,
+  TestTube,
 } from 'lucide-react'
 
 // Images for hero backgrounds
@@ -158,7 +161,7 @@ const skills: Skill[] = [
   {
     id: 'react',
     title: 'React',
-    experience: Experience.Advanced,
+    experience: Experience.Expert,
     category: 'UI/UX',
     icon: React.createElement(FaReact),
     color: '#61DAFB',
@@ -166,7 +169,7 @@ const skills: Skill[] = [
   {
     id: 'nest',
     title: 'Nest.js',
-    experience: Experience.Intermediate,
+    experience: Experience.Advanced,
     category: 'Backend',
     icon: React.createElement('img', {
       src: '/icons/devicon/nestjs.svg',
@@ -218,7 +221,7 @@ const skills: Skill[] = [
   {
     id: 'typescript',
     title: 'TypeScript',
-    experience: Experience.Advanced,
+    experience: Experience.Expert,
     category: 'Languages',
     icon: React.createElement('img', {
       src: '/icons/devicon/typescript.svg',
@@ -274,7 +277,7 @@ const skills: Skill[] = [
   {
     id: 'express',
     title: 'Express.js',
-    experience: Experience.Intermediate,
+    experience: Experience.Advanced,
     category: 'Backend',
     icon: React.createElement('img', {
       src: '/icons/devicon/express.svg',
@@ -288,7 +291,7 @@ const skills: Skill[] = [
   {
     id: 'springboot',
     title: 'Spring Boot',
-    experience: Experience.Advanced,
+    experience: Experience.Expert,
     category: 'Backend',
     icon: React.createElement('img', {
       src: '/icons/devicon/spring.svg',
@@ -372,7 +375,7 @@ const skills: Skill[] = [
   {
     id: 'docker',
     title: 'Docker',
-    experience: Experience.Intermediate,
+    experience: Experience.Advanced,
     category: 'Tools',
     icon: React.createElement(FaDocker),
     color: '#2496ED',
@@ -450,6 +453,22 @@ const skills: Skill[] = [
     color: '#43B02A',
   },
   {
+    id: 'vitest',
+    title: 'Vitest',
+    experience: Experience.Intermediate,
+    category: 'Testing',
+    icon: React.createElement(TestTube),
+    color: '#6C9F2A',
+  },
+  {
+    id: 'playwright',
+    title: 'Playwright',
+    experience: Experience.Intermediate,
+    category: 'Testing',
+    icon: React.createElement(Bug),
+    color: '#45BA4B',
+  },
+  {
     id: 'google-cloud',
     title: 'Google Cloud',
     experience: Experience.Intermediate,
@@ -466,7 +485,7 @@ const skills: Skill[] = [
   {
     id: 'cpp',
     title: 'C++',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'Languages',
     icon: React.createElement('img', {
       src: '/icons/devicon/cplusplus.svg',
@@ -480,7 +499,7 @@ const skills: Skill[] = [
   {
     id: 'hpc',
     title: 'High-Performance Computing',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'Data Science',
     icon: React.createElement(Laptop),
     color: '#008000',
@@ -512,7 +531,7 @@ const skills: Skill[] = [
   {
     id: 'ble',
     title: 'Bluetooth Low Energy (BLE)',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'Hardware',
     icon: React.createElement(Bluetooth),
     color: '#0082FC',
@@ -520,7 +539,7 @@ const skills: Skill[] = [
   {
     id: 'arduino',
     title: 'Arduino',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'Hardware',
     icon: React.createElement('img', {
       src: '/icons/devicon/arduino.svg',
@@ -532,9 +551,17 @@ const skills: Skill[] = [
     color: '#00979D',
   },
   {
+    id: 'iot',
+    title: 'IoT',
+    experience: Experience.Intermediate,
+    category: 'Hardware',
+    icon: React.createElement(Cpu),
+    color: '#FF6B35',
+  },
+  {
     id: 'sensor-processing',
     title: 'Sensor Data Processing',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'Data Science',
     icon: React.createElement(Cpu),
     color: '#FFD700',
@@ -562,6 +589,14 @@ const skills: Skill[] = [
     color: '#7F52FF',
   },
   {
+    id: 'go',
+    title: 'Go',
+    experience: Experience.Advanced,
+    category: 'Languages',
+    icon: React.createElement(Terminal),
+    color: '#00ADD8',
+  },
+  {
     id: 'nextjs',
     title: 'Next.js',
     experience: Experience.Advanced,
@@ -578,7 +613,7 @@ const skills: Skill[] = [
   {
     id: 'kubernetes',
     title: 'Kubernetes',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'DevOps',
     icon: React.createElement('img', {
       src: '/icons/devicon/kubernetes.svg',
@@ -592,7 +627,7 @@ const skills: Skill[] = [
   {
     id: 'jenkins',
     title: 'Jenkins',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'DevOps',
     icon: React.createElement('img', {
       src: '/icons/devicon/jenkins.svg',
@@ -606,7 +641,7 @@ const skills: Skill[] = [
   {
     id: 'terraform',
     title: 'Terraform',
-    experience: Experience.Basic,
+    experience: Experience.Intermediate,
     category: 'DevOps',
     icon: React.createElement('img', {
       src: '/icons/devicon/terraform.svg',
@@ -712,6 +747,14 @@ const skills: Skill[] = [
     color: '#2196F3',
   },
   {
+    id: 'system-design',
+    title: 'System Design & Architecture',
+    experience: Experience.Expert,
+    category: 'Competencies',
+    icon: React.createElement(Laptop),
+    color: '#6C5CE7',
+  },
+  {
     id: 'ideation-design',
     title: 'Ideation & Design',
     experience: Experience.Advanced,
@@ -736,7 +779,7 @@ const skills: Skill[] = [
   {
     id: 'fastapi',
     title: 'FastAPI',
-    experience: Experience.Intermediate,
+    experience: Experience.Advanced,
     category: 'Backend' as const,
     icon: React.createElement('img', {
       src: '/icons/devicon/fastapi.svg',
@@ -760,7 +803,7 @@ const skills: Skill[] = [
   {
     id: 'aws',
     title: 'AWS',
-    experience: Experience.Intermediate,
+    experience: Experience.Advanced,
     category: 'DevOps' as const,
     icon: React.createElement('i', {
       className: 'devicon-amazonwebservices-plain',
@@ -892,6 +935,25 @@ const projects: Project[] = [
       (name) => methodusImages[`../assets/img/methodus/${name}.webp`]
     ),
     category: 'Web',
+  },
+  {
+    title: 'Support Agent',
+    subtitle: 'AI support agent for Methodus',
+    body: 'An AI-powered support agent built with OpenClaw that handles tier-1 support tickets for Methodus. Designed to reduce response time and automate common inquiries — account issues, exercise explanations, and platform guidance — so the team can focus on product development.',
+    icon: React.createElement(Globe),
+    year: 2026,
+    inProgress: true,
+    relatedTo: 'Methodus',
+    group: 'Software',
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'Python' ||
+        skill.title === 'React' ||
+        skill.title === 'TypeScript' ||
+        skill.title === 'Docker'
+    ),
+    images: [],
+    category: 'AI',
   },
   {
     title: 'Pre-Anesthetic Predictive Screening',
