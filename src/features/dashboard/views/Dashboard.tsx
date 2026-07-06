@@ -6,6 +6,7 @@ import {
   experienceGroups,
 } from '../../../services/dataService'
 import { ProjectCard } from '../../../components/ProjectCard'
+import { ProjectCardStack } from '../../../components/ProjectCardStack'
 import { Section } from '../../../components/Section'
 import { Presentation } from '../components/Presetation'
 import { Navigation, NavSection } from '../../layout/components/Navigation'
@@ -157,9 +158,22 @@ function Dashboard() {
                       <div className="flex-1 h-px bg-white/10" />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-                      {groupProjects.map((project, idx) => (
-                        <ProjectCard key={idx} project={project} />
-                      ))}
+                      {groupProjects
+                        .filter((p) => !p.relatedTo)
+                        .map((project, idx) => {
+                          const children = groupProjects.filter(
+                            (c) => c.relatedTo === project.title
+                          )
+                          return children.length > 0 ? (
+                            <ProjectCardStack
+                              key={idx}
+                              parent={project}
+                              components={children}
+                            />
+                          ) : (
+                            <ProjectCard key={idx} project={project} />
+                          )
+                        })}
                     </div>
                   </div>
                 )

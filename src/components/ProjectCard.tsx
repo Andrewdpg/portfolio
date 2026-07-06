@@ -10,16 +10,20 @@ type ProjectCardProps = {
   project: Project
 }
 
-const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
+export const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
   return (
     <div className="flex flex-col gap-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="overflow-hidden rounded-3xl shadow-2xl border border-app-main/10 bg-app-main/5 aspect-video self-start">
-          <ImageGallery
-            images={project.images}
-            className="w-full h-full object-cover"
-          />
-        </div>
+      <div
+        className={`grid ${project.images.length > 0 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'} gap-10`}
+      >
+        {project.images.length > 0 && (
+          <div className="overflow-hidden rounded-3xl shadow-2xl border border-app-main/10 bg-app-main/5 aspect-video self-start">
+            <ImageGallery
+              images={project.images}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between gap-4">
             <div className="flex flex-col">

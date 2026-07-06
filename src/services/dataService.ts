@@ -56,9 +56,12 @@ import preanesthesiaRanking from '../assets/img/preanesthesia/ranking.png'
 import { ExperienceGroup } from '../types/timeline'
 import {
   Bluetooth,
+  Bot,
   Braces,
+  Brain,
   Bug,
   Cpu,
+  Database,
   FlaskConical,
   Globe,
   Laptop,
@@ -824,6 +827,30 @@ const skills: Skill[] = [
     }),
     color: '#FF6600',
   },
+  {
+    id: 'redis',
+    title: 'Redis',
+    experience: Experience.Intermediate,
+    category: 'Database' as const,
+    icon: React.createElement(Database),
+    color: '#DC382D',
+  },
+  {
+    id: 'openclaw',
+    title: 'OpenClaw',
+    experience: Experience.Advanced,
+    category: 'Tools' as const,
+    icon: React.createElement(Bot),
+    color: '#6C5CE7',
+  },
+  {
+    id: 'ai-agents',
+    title: 'AI Agents',
+    experience: Experience.Advanced,
+    category: 'AI/ML' as const,
+    icon: React.createElement(Brain),
+    color: '#00B894',
+  },
 ]
 // Define projects
 const projects: Project[] = [
@@ -929,7 +956,10 @@ const projects: Project[] = [
         skill.title === 'Next.js' ||
         skill.title === 'TypeScript' ||
         skill.title === 'PostgreSQL' ||
-        skill.title === 'Docker'
+        skill.title === 'Redis' ||
+        skill.title === 'Docker' ||
+        skill.title === 'Terraform' ||
+        skill.title === 'Google Cloud'
     ),
     images: methodusOrder.map(
       (name) => methodusImages[`../assets/img/methodus/${name}.webp`]
@@ -947,10 +977,10 @@ const projects: Project[] = [
     group: 'Software',
     skills: skills.filter(
       (skill) =>
-        skill.title === 'Python' ||
-        skill.title === 'React' ||
-        skill.title === 'TypeScript' ||
-        skill.title === 'Docker'
+        skill.title === 'OpenClaw' ||
+        skill.title === 'AI Agents' ||
+        skill.title === 'Google Cloud' ||
+        skill.title === 'PostgreSQL'
     ),
     images: [],
     category: 'AI',

@@ -30,6 +30,7 @@ export type Project = {
   icon: React.ReactNode
   skills: Skill[]
   images: string[]
+  relatedTo?: string
   codeLink?: string
   siteLink?: string
   siteLabel?: string
