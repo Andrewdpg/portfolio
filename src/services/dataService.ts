@@ -18,6 +18,13 @@ const kukiImages = import.meta.glob('../assets/img/kuki/*.webp', {
   eager: true,
   import: 'default',
 }) as Record<string, string>
+const casiaycanelaImages = import.meta.glob(
+  '../assets/img/casiaycanela/*.webp',
+  {
+    eager: true,
+    import: 'default',
+  }
+) as Record<string, string>
 
 const methodusOrder = [
   'landing',
@@ -41,6 +48,14 @@ const kukiOrder = [
   'create_post_2',
   'create_post_3',
   'comments',
+]
+const casiaycanelaOrder = [
+  'home',
+  'store',
+  'item',
+  'cart',
+  'login',
+  'dashboard',
 ]
 import first from '../assets/img/kids-db/first.png'
 import second from '../assets/img/kids-db/second.png'
@@ -963,6 +978,28 @@ const projects: Project[] = [
     ),
     images: methodusOrder.map(
       (name) => methodusImages[`../assets/img/methodus/${name}.webp`]
+    ),
+    category: 'Web',
+  },
+  {
+    title: 'Casia & Canela',
+    subtitle: 'Headless e-commerce for a niche perfume decant store',
+    alone: true,
+    body: 'Freelance-built storefront for a Colombian perfumery specializing in original, imported and niche fragrance decants. Next.js App Router front end running headless over WooCommerce (REST + Store API), with custom JWT-based auth, cart, checkout and account order tracking.',
+    icon: React.createElement(Globe),
+    year: 2026,
+    group: 'Software',
+    siteLink: 'https://casiaycanela.com',
+    siteLabel: 'Visit Store',
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'React' ||
+        skill.title === 'Next.js' ||
+        skill.title === 'TypeScript' ||
+        skill.title === 'TailwindCSS'
+    ),
+    images: casiaycanelaOrder.map(
+      (name) => casiaycanelaImages[`../assets/img/casiaycanela/${name}.webp`]
     ),
     category: 'Web',
   },
