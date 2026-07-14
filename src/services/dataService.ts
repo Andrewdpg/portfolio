@@ -25,6 +25,10 @@ const casiaycanelaImages = import.meta.glob(
     import: 'default',
   }
 ) as Record<string, string>
+const cartogramImages = import.meta.glob('../assets/img/cartogram/*.webp', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>
 
 const methodusOrder = [
   'landing',
@@ -57,6 +61,7 @@ const casiaycanelaOrder = [
   'login',
   'dashboard',
 ]
+const cartogramOrder = ['home', 'project', 'settings', 'mcp_request']
 import first from '../assets/img/kids-db/first.png'
 import second from '../assets/img/kids-db/second.png'
 import third from '../assets/img/kids-db/third.png'
@@ -1021,6 +1026,33 @@ const projects: Project[] = [
     ),
     images: [],
     category: 'AI',
+  },
+  {
+    title: 'Cartogram',
+    subtitle:
+      'Architecture diagramming platform with an MCP server for AI agents',
+    body: 'A drill-down architecture diagramming tool: C4-style diagrams where nodes can link to child diagrams, so a system can be explored top-down from deployment view down to component detail. What makes it different is the MCP server — any MCP-compatible AI agent (e.g. Claude Code) can authenticate via OAuth 2.1 + PKCE and read or create diagrams directly, so architecture docs can be generated and kept in sync from within a coding session instead of by hand. Split across three repositories that deploy independently: a React/Vite frontend, a Supabase backend (Postgres, Auth, Row-Level Security), and the MCP server (Node/Express) that bridges AI agents to the backend.',
+    icon: React.createElement(Globe),
+    year: 2026,
+    inProgress: true,
+    group: 'Software',
+    siteLink: 'https://cartogram.andrewpg.me',
+    codeLink: 'https://github.com/Andrewdpg/cartogram',
+    skills: skills.filter(
+      (skill) =>
+        skill.title === 'React' ||
+        skill.title === 'TypeScript' ||
+        skill.title === 'PostgreSQL' ||
+        skill.title === 'Express.js' ||
+        skill.title === 'Docker'
+    ),
+    images: cartogramOrder.map(
+      (name) => cartogramImages[`../assets/img/cartogram/${name}.webp`]
+    ),
+    warnings: [
+      'The MCP server is hosted on Render free tier, so the first request after inactivity may take up to a minute to respond',
+    ],
+    category: 'Web',
   },
   {
     title: 'Pre-Anesthetic Predictive Screening',
