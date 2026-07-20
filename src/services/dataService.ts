@@ -25,7 +25,7 @@ const casiaycanelaImages = import.meta.glob(
     import: 'default',
   }
 ) as Record<string, string>
-const cartogramImages = import.meta.glob('../assets/img/cartogram/*.webp', {
+const waycairnImages = import.meta.glob('../assets/img/waycairn/*.webp', {
   eager: true,
   import: 'default',
 }) as Record<string, string>
@@ -61,7 +61,6 @@ const casiaycanelaOrder = [
   'login',
   'dashboard',
 ]
-const cartogramOrder = ['home', 'project', 'settings', 'mcp_request']
 import first from '../assets/img/kids-db/first.png'
 import second from '../assets/img/kids-db/second.png'
 import third from '../assets/img/kids-db/third.png'
@@ -1028,30 +1027,20 @@ const projects: Project[] = [
     category: 'AI',
   },
   {
-    title: 'Cartogram',
+    title: 'Waycairn',
     subtitle:
-      'Architecture diagramming platform with an MCP server for AI agents',
-    body: 'A drill-down architecture diagramming tool: C4-style diagrams where nodes can link to child diagrams, so a system can be explored top-down from deployment view down to component detail. What makes it different is the MCP server — any MCP-compatible AI agent (e.g. Claude Code) can authenticate via OAuth 2.1 + PKCE and read or create diagrams directly, so architecture docs can be generated and kept in sync from within a coding session instead of by hand. Split across three repositories that deploy independently: a React/Vite frontend, a Supabase backend (Postgres, Auth, Row-Level Security), and the MCP server (Node/Express) that bridges AI agents to the backend.',
+      'Local-first MCP server for documenting a codebase as you work in it — evolution of Cartogram',
+    body: 'A local-first MCP server that turns architecture documentation into a byproduct of normal agent-assisted coding: C4/UML-style diagrams and notes stored as versioned JSON files inside the repo itself (.waycairn/), with no cloud backend and no auth. Any MCP-compatible AI agent (Claude Code, Codex CLI, opencode) reads and writes documentation as part of its workflow, with a session-end hook nudging it to keep diagrams current. A CLI installs the MCP server, a documentation skill and the hook per repo, and a read-only local web UI (Express, bound to localhost only) browses diagrams with drill-down through child diagrams and cross-repo references. Rebuilt as the successor to Cartogram, trading its OAuth-secured multi-repo cloud backend for a simpler, git-native, zero-infrastructure model.',
     icon: React.createElement(Globe),
     year: 2026,
     inProgress: true,
     group: 'Software',
-    siteLink: 'https://cartogram.andrewpg.me',
-    codeLink: 'https://github.com/Andrewdpg/cartogram',
+    siteLink: 'https://www.npmjs.com/package/waycairn',
+    codeLink: 'https://github.com/Andrewdpg/waycairn',
     skills: skills.filter(
-      (skill) =>
-        skill.title === 'React' ||
-        skill.title === 'TypeScript' ||
-        skill.title === 'PostgreSQL' ||
-        skill.title === 'Express.js' ||
-        skill.title === 'Docker'
+      (skill) => skill.title === 'TypeScript' || skill.title === 'Express.js'
     ),
-    images: cartogramOrder.map(
-      (name) => cartogramImages[`../assets/img/cartogram/${name}.webp`]
-    ),
-    warnings: [
-      'The MCP server is hosted on Render free tier, so the first request after inactivity may take up to a minute to respond',
-    ],
+    images: Object.values(waycairnImages),
     category: 'Web',
   },
   {
