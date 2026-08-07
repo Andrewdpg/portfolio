@@ -143,6 +143,12 @@ const experienceGroups: ExperienceGroup[] = [
         body: 'Led design and development of a survey management system for academic and administrative processes. Contributed to a certificate generation and validation system. Collaborated with Scrum teams ensuring timely delivery and quality standards.',
         skills: ['Fullstack', 'Scrum', 'Automation', 'Institutional Systems'],
       },
+      {
+        title: 'Software Developer',
+        subtitle: 'Aug 2026 – Present · Full-time',
+        body: 'Returned full-time to build software that raises the bar for the student academic experience, working across the full stack from requirements through implementation.',
+        skills: ['Fullstack', 'Institutional Systems'],
+      },
     ],
   },
   {
