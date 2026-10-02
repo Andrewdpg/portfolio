@@ -53,7 +53,7 @@ export const TextReveal: React.FC<TextRevealProps> = ({
   }
 
   return (
-    <motion.div
+    <motion.span
       ref={ref}
       variants={containerVars}
       initial="hidden"
@@ -67,6 +67,6 @@ export const TextReveal: React.FC<TextRevealProps> = ({
           </motion.span>
         </span>
       ))}
-    </motion.div>
+    </motion.span>
   )
 }

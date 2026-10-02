@@ -98,7 +98,7 @@ const experienceGroups: ExperienceGroup[] = [
     navLabel: 'Education',
     category: 'Education',
     description:
-      'Systems Engineering undergraduate studies focused on software architecture, AI research, and specialized certifications.',
+      'Software Systems Engineering degree, graduated Magna Cum Laude, plus specialized certifications.',
     heroImage: '/img/heroes/icesi.webp',
     backgroundColor: '#7870ff',
     textColor: '#ffffff',
@@ -109,9 +109,9 @@ const experienceGroups: ExperienceGroup[] = [
     variant: 'immersive',
     items: [
       {
-        title: 'B.S. Systems Engineering',
-        subtitle: '2022 – 2026 (Expected) · GPA 4.6/5.0',
-        body: "Focused on software architecture, cloud-native systems, and agile methodologies. Academic Excellence Scholarship awarded by the Mayor's Office of Cali. Honor Roll recognition.",
+        title: 'B.S. Software Systems Engineering',
+        subtitle: '2022 – 2026 · GPA 4.6/5.0 · Magna Cum Laude',
+        body: "Graduated Magna Cum Laude, top 10% of class. Focused on software architecture, cloud-native systems, and agile methodologies. Completed the 10-semester program in 9. Dean's List every semester, Merit Scholarship in 2023 and 2025, and Academic Excellence Scholarship awarded by the Mayor's Office of Cali.",
         skills: ['Software Architecture', 'Agile', 'Cloud Native'],
       },
       {
@@ -139,15 +139,15 @@ const experienceGroups: ExperienceGroup[] = [
     items: [
       {
         title: 'Software Development Intern',
-        subtitle: 'Oct 2024 – Jun 2026',
+        subtitle: 'Oct 2024 – Jul 2026',
         body: 'Led design and development of a survey management system for academic and administrative processes. Contributed to a certificate generation and validation system. Collaborated with Scrum teams ensuring timely delivery and quality standards.',
         skills: ['Fullstack', 'Scrum', 'Automation', 'Institutional Systems'],
       },
       {
         title: 'Software Developer',
         subtitle: 'Aug 2026 – Present · Full-time',
-        body: 'Returned full-time to build software that raises the bar for the student academic experience, working across the full stack from requirements through implementation.',
-        skills: ['Fullstack', 'Institutional Systems'],
+        body: "Building SIDEA, Icesi's student success platform: it follows each student through their entire university journey and turns that data into early identification of at-risk students, so support teams know where to focus.\n\nIt also powers institution-wide processes, from keeping donors updated on their sponsored scholars to accreditation.",
+        skills: ['Spring Boot', 'React', 'Oracle', 'JHipster'],
       },
     ],
   },
@@ -167,8 +167,8 @@ const experienceGroups: ExperienceGroup[] = [
     variant: 'immersive',
     items: [
       {
-        title: 'Software Developer',
-        subtitle: 'Dec 2025 – Present',
+        title: 'Full Stack Developer',
+        subtitle: 'Dec 2025 – Jul 2026 · Full-time',
         body: 'Developed and shipped features spanning backend, frontend, and infrastructure — including integrations with external trading services and real-time data flows.\n\nImproved system observability and incident response workflows. Operated in a CI/CD environment, collaborating with product and QA teams.',
         skills: [
           'Fintech',
@@ -177,6 +177,12 @@ const experienceGroups: ExperienceGroup[] = [
           'CI/CD',
           'Prop Trading',
         ],
+      },
+      {
+        title: 'Full Stack Developer',
+        subtitle: 'Aug 2026 – Sep 2026 · Contract',
+        body: 'Part-time consulting after moving to a full-time role, focused on payments infrastructure and risk systems.\n\nRebuilt the billing flow from a product-based e-commerce gateway integration to dynamic, backend-generated payment orders, unlocking flexible pricing. Developed Risk, a behavioral detection service that flags trading-account abuse (martingale, hedging, HFT, copy trading, multi-accounting) across 10,000+ accounts.',
+        skills: ['Payments', 'Risk Detection', 'Backend'],
       },
     ],
   },

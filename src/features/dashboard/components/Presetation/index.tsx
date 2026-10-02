@@ -114,9 +114,8 @@ export const Presentation = () => {
                 Software engineer with experience building backend systems,
                 full-stack applications, and data-driven platforms. Interested
                 in backend architecture, distributed systems, data engineering,
-                and applied machine learning. Currently building fintech
-                infrastructure at Swiset and leading platform development at
-                Methodus.
+                and applied machine learning. Currently a software developer at
+                Universidad ICESI and leading platform development at Methodus.
               </Body>
 
               <div className="relative inline-block">
