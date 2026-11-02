@@ -6,6 +6,7 @@ import { useCrt, type Crt } from './useCrt'
 import { Avatar } from './Avatar'
 import { RBox, Interactive } from './parts'
 import { SkillShelf } from './SkillShelf'
+import { ProjectPosters } from './ProjectPosters'
 
 export type Action = 'projects' | 'skills' | 'music' | 'contact' | 'about'
 
@@ -612,6 +613,12 @@ function Scene({ paused, onHover, onAction }: DeskSceneProps) {
 
       <Room m={m} />
       <Bookcase m={m} />
+      <ProjectPosters
+        position={LAYOUT.posterWall}
+        frame={m.metal}
+        onHover={onHover}
+        onSelect={() => onAction('projects')}
+      />
       <SkillShelf
         position={LAYOUT.shelf}
         onHover={onHover}
