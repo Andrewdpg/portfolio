@@ -207,7 +207,7 @@ export const HomeSection: React.FC = () => {
                 : 'Resume'}
           </button>
           <LanguageStamps className="ml-1 hidden scale-75 md:flex" />
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Partner />
           </div>
         </div>
