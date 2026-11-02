@@ -1,6 +1,6 @@
 # Avatar
 
-`public/models/avatar.glb` is generated, not hand-modelled. Edit `build_avatar.py` (palette, proportions and hair layout are at the top or in `build()`), then regenerate:
+`public/models/avatar.glb` and `public/models/pets.glb` (the two cats, `build_pets.py`) are generated, not hand-modelled. Edit `build_avatar.py` (palette, proportions and hair layout are at the top or in `build()`), then regenerate:
 
 ```
 blender -b -P tools/avatar/build_avatar.py -- --out public/models/avatar.glb --renders tools/avatar/out

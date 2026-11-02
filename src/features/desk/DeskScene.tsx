@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { useCrt, type Crt } from './useCrt'
 import { Avatar } from './Avatar'
+import { Pets } from './Pets'
 import { RBox, Interactive } from './parts'
 import { LAYOUT, STOPS, sampleTour } from './tour'
 import { SkillShelf } from './SkillShelf'
@@ -512,7 +513,7 @@ function Plant({ m }: { m: Mats }) {
 
 function Lamp({ m }: { m: Mats }) {
   return (
-    <group position={[-4.25, 0.02, 0.05]}>
+    <group position={[-3.7, 0.02, 0.35]} rotation={[0, -1.0, 0]}>
       <mesh position={[0, 0.05, 0]} material={m.metal} castShadow>
         <cylinderGeometry args={[0.3, 0.34, 0.08, 22]} />
       </mesh>
@@ -701,6 +702,11 @@ function Scene({
       <ModelBoundary>
         <Suspense fallback={null}>
           <Avatar onHover={onHover} onClick={() => onAction('about')} />
+        </Suspense>
+      </ModelBoundary>
+      <ModelBoundary>
+        <Suspense fallback={null}>
+          <Pets onHover={onHover} />
         </Suspense>
       </ModelBoundary>
 

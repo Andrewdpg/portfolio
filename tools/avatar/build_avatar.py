@@ -455,4 +455,5 @@ def main():
         renders(a.renders)
 
 
-main()
+if __name__ == "__main__":
+    main()
