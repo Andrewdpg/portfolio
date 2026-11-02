@@ -6,10 +6,9 @@ import React, {
   useState,
 } from 'react'
 import { useContactModal } from '../../context/ContactModalContext'
+import type { Action } from './DeskScene'
 
 const DeskScene = React.lazy(() => import('./DeskScene'))
-
-type Action = 'projects' | 'music' | 'contact' | 'about'
 
 const SPOTIFY = 'https://open.spotify.com/user/31w5iqswuv7kfmzrkeqeeba4gvea'
 
@@ -54,10 +53,8 @@ export const HomeSection: React.FC = () => {
 
   const onAction = useCallback(
     (action: Action) => {
-      if (action === 'projects') {
-        document
-          .getElementById('projects')
-          ?.scrollIntoView({ behavior: 'smooth' })
+      if (action === 'projects' || action === 'skills') {
+        document.getElementById(action)?.scrollIntoView({ behavior: 'smooth' })
       }
       if (action === 'music') {
         window.open(SPOTIFY, '_blank', 'noopener,noreferrer')

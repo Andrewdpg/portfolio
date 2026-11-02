@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { useCrt, type Crt } from './useCrt'
 import { Avatar } from './Avatar'
+import { RBox, Interactive } from './parts'
+import { SkillShelf } from './SkillShelf'
 
-type Action = 'projects' | 'music' | 'contact' | 'about'
+export type Action = 'projects' | 'skills' | 'music' | 'contact' | 'about'
 
 type DeskSceneProps = {
   paused: boolean
@@ -83,38 +85,12 @@ function useMaterials() {
 
 type Mats = ReturnType<typeof useMaterials>
 
-function useRounded(w: number, h: number, d: number, r = 0.04) {
-  return useMemo(() => new RoundedBoxGeometry(w, h, d, 3, r), [w, h, d, r])
-}
-
-const RBox: React.FC<{
-  size: [number, number, number]
-  radius?: number
-  material: THREE.Material
-  position?: [number, number, number]
-  rotation?: [number, number, number]
-  scale?: [number, number, number]
-}> = ({ size, radius = 0.04, material, position, rotation, scale }) => {
-  const geo = useRounded(size[0], size[1], size[2], radius)
-  return (
-    <mesh
-      geometry={geo}
-      material={material}
-      position={position}
-      rotation={rotation}
-      scale={scale}
-      castShadow
-      receiveShadow
-    />
-  )
-}
-
 /* ---------------------------------- room ---------------------------------- */
 
 // Where the informative props live; camera tour stops aim at these too.
 export const LAYOUT = {
   posterWall: [3.7, 2.9, -4.4] as [number, number, number],
-  shelf: [5.6, -2.75, 1.4] as [number, number, number],
+  shelf: [6.5, -2.75, 0.3] as [number, number, number],
   brand: [-6.6, 1.3, -1.2] as [number, number, number],
 }
 
@@ -559,47 +535,6 @@ function Lamp({ m }: { m: Mats }) {
 
 /* -------------------------------- interaction ------------------------------ */
 
-const Interactive: React.FC<{
-  label: string
-  onClick?: () => void
-  onHover: (label: string | null) => void
-  children: React.ReactNode
-  lift?: number
-}> = ({ label, onClick, onHover, children, lift = 0.03 }) => {
-  const ref = useRef<THREE.Group>(null)
-  const [hovered, setHovered] = useState(false)
-
-  useFrame(() => {
-    if (!ref.current) return
-    const target = hovered ? 1.025 : 1
-    ref.current.scale.lerp(new THREE.Vector3(target, target, target), 0.18)
-    const y = hovered ? lift : 0
-    ref.current.position.y += (y - ref.current.position.y) * 0.18
-  })
-
-  return (
-    <group
-      ref={ref}
-      onPointerOver={(e) => {
-        e.stopPropagation()
-        setHovered(true)
-        onHover(label)
-      }}
-      onPointerOut={(e) => {
-        e.stopPropagation()
-        setHovered(false)
-        onHover(null)
-      }}
-      onClick={(e) => {
-        e.stopPropagation()
-        onClick?.()
-      }}
-    >
-      {children}
-    </group>
-  )
-}
-
 /* --------------------------------- camera --------------------------------- */
 
 function CameraRig({ paused }: { paused: boolean }) {
@@ -677,6 +612,11 @@ function Scene({ paused, onHover, onAction }: DeskSceneProps) {
 
       <Room m={m} />
       <Bookcase m={m} />
+      <SkillShelf
+        position={LAYOUT.shelf}
+        onHover={onHover}
+        onSelect={() => onAction('skills')}
+      />
       <Desk m={m} />
       <Lamp m={m} />
       <Keyboard m={m} />
