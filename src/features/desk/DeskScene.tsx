@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { Suspense, useEffect, useMemo, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
@@ -85,13 +85,7 @@ function useMaterials() {
         emissive: '#ffb877',
         emissiveIntensity: 2.6,
       }),
-      skin: mat('#9c6b4e', 0.72),
-      hair: mat('#15100e', 0.9),
-      hoodie: mat('#1a1524', 0.95),
-      glass: mat('#0a0810', 0.3, 0.2),
       frame: mat('#7a6a92', 0.45, 0.3),
-      cord: mat('#9B76D3', 0.7),
-      pocket: mat('#241d30', 0.9),
     }
   }, [])
 }
@@ -541,6 +535,20 @@ function Lamp({ m }: { m: Mats }) {
 
 /* -------------------------------- interaction ------------------------------ */
 
+// If the avatar GLB fails to load, render the room without it instead of a blank canvas.
+class ModelBoundary extends React.Component<
+  { children: React.ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  render() {
+    return this.state.failed ? null : this.props.children
+  }
+}
+
 /* --------------------------------- camera --------------------------------- */
 
 function CameraRig({
@@ -653,7 +661,11 @@ function Scene({
       <Mouse m={m} />
       <Books m={m} />
       <Plant m={m} />
-      <Avatar m={m} onHover={onHover} onClick={() => onAction('about')} />
+      <ModelBoundary>
+        <Suspense fallback={null}>
+          <Avatar onHover={onHover} onClick={() => onAction('about')} />
+        </Suspense>
+      </ModelBoundary>
 
       <Monitor m={m} crt={crt} onHover={onHover} />
       <Dial m={m} crt={crt} onHover={onHover} />
