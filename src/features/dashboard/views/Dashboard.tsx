@@ -14,6 +14,7 @@ import { AIWorkflow } from '../components/AIWorkflow'
 import { ChatWidget } from '../components/Chat'
 import { SkillsRadar } from '../../../components/SkillsRadar'
 import { useTheme } from '../../../context/ThemeContext'
+import { HomeSection } from '../../desk/HomeSection'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
 
@@ -30,7 +31,8 @@ function Dashboard() {
   }, [])
 
   const sections: NavSection[] = [
-    { id: 'intro', label: 'Home' },
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
     ...experienceGroups.map((group, idx) => ({
       id: `exp-${idx}`,
       label: group.navLabel || group.place,
@@ -45,8 +47,13 @@ function Dashboard() {
       <Navigation sections={sections} />
       <ChatWidget />
       <HeroScroll>
-        {/* Presentation Section */}
-        <div id="intro">
+        {/* Home — the room */}
+        <div id="home">
+          <HomeSection />
+        </div>
+
+        {/* About Section */}
+        <div id="about">
           <Presentation />
         </div>
 

@@ -11,7 +11,6 @@ import {
   Loader2,
   AlertCircle,
   Mail,
-  Coffee,
   ArrowLeft,
 } from 'lucide-react'
 import Partner from '../../../../components/Partner'
@@ -21,7 +20,6 @@ import { useContactModal } from '../../../../context/ContactModalContext'
 export const Presentation = () => {
   const [showVideo, setShowVideo] = useState(false)
   const [showPersonal, setShowPersonal] = useState(false)
-  const [hasClickedOffClock, setHasClickedOffClock] = useState(false)
   const [downloadState, setDownloadState] = useState<
     'idle' | 'loading' | 'error'
   >('idle')
@@ -118,65 +116,7 @@ export const Presentation = () => {
                 Universidad ICESI and leading platform development at Methodus.
               </Body>
 
-              <div className="relative inline-block">
-                <button
-                  aria-label="Meet the person behind the code"
-                  title="Meet the person behind the code"
-                  onClick={() => {
-                    setShowPersonal(true)
-                    setHasClickedOffClock(true)
-                  }}
-                  className="group flex items-center gap-2 pl-3 pr-4 h-10 rounded-full border-2 border-app-main text-app-main bg-app-main/5 shadow-md shadow-app-main/10 hover:bg-app-main hover:text-white transition-all hover:scale-105 active:scale-95"
-                >
-                  <Coffee size={15} />
-                  <span className="text-[11px] font-black uppercase tracking-widest">
-                    Off the clock
-                  </span>
-                </button>
-
-                {!hasClickedOffClock && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, y: [0, -3, 0] }}
-                    transition={{
-                      opacity: { duration: 0.4, delay: 0.6 },
-                      y: {
-                        duration: 1.6,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: 'easeInOut',
-                      },
-                    }}
-                    className="hidden md:flex absolute -top-12 left-4 flex-col items-center pointer-events-none select-none"
-                  >
-                    <span className="italic text-xs font-bold text-app-main -rotate-3 whitespace-nowrap mb-0.5">
-                      click me
-                    </span>
-                    <svg
-                      width="24"
-                      height="26"
-                      viewBox="0 0 24 26"
-                      fill="none"
-                      className="text-app-main"
-                    >
-                      <path
-                        d="M19 2C13 4 6 9 4 24"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                      <path
-                        d="M9 19L4 24L2 16"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </motion.div>
-                )}
-              </div>
-
-              <div className="flex flex-wrap gap-3 md:gap-4 justify-center md:justify-start scale-90 md:scale-100">
+              <div className="flex flex-wrap gap-3 md:gap-4 justify-center md:justify-start md:pl-8 scale-90 md:scale-100">
                 <button
                   onClick={() => {
                     window.open(
