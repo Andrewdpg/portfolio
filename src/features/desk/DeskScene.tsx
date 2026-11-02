@@ -7,8 +7,10 @@ import { Avatar } from './Avatar'
 import { RBox, Interactive } from './parts'
 import { SkillShelf } from './SkillShelf'
 import { ProjectPosters } from './ProjectPosters'
+import { EmployerBadge } from './EmployerBadge'
 
-export type Action = 'projects' | 'skills' | 'music' | 'contact' | 'about'
+export type Action =
+  'projects' | 'skills' | 'music' | 'contact' | 'about' | { section: string }
 
 type DeskSceneProps = {
   paused: boolean
@@ -613,6 +615,12 @@ function Scene({ paused, onHover, onAction }: DeskSceneProps) {
 
       <Room m={m} />
       <Bookcase m={m} />
+      <EmployerBadge
+        position={LAYOUT.brand}
+        frame={m.metal}
+        onHover={onHover}
+        onSelect={(section) => onAction({ section })}
+      />
       <ProjectPosters
         position={LAYOUT.posterWall}
         frame={m.metal}
