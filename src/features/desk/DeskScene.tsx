@@ -70,7 +70,6 @@ function useMaterials() {
         emissive: '#ffb877',
         emissiveIntensity: 2.6,
       }),
-      coffee: mat('#33210f', 0.4),
       skin: mat('#9c6b4e', 0.72),
       hair: mat('#15100e', 0.9),
       hoodie: mat('#1a1524', 0.95),
@@ -112,63 +111,112 @@ const RBox: React.FC<{
 
 /* ---------------------------------- room ---------------------------------- */
 
+// Where the informative props live; camera tour stops aim at these too.
+export const LAYOUT = {
+  posterWall: [3.7, 2.9, -4.4] as [number, number, number],
+  shelf: [5.6, -2.75, 1.4] as [number, number, number],
+  brand: [-6.6, 1.3, -1.2] as [number, number, number],
+}
+
+// Room is far wider than any viewport so ultra-wide screens see more room, never an edge.
+const ROOM = { minX: -6.6, maxX: 30, backZ: -4.4, maxZ: 14, floorY: -2.75 }
+
 function Room({ m }: { m: Mats }) {
+  const w = ROOM.maxX - ROOM.minX
+  const d = ROOM.maxZ - ROOM.backZ
+  const cx = (ROOM.maxX + ROOM.minX) / 2
+  const cz = (ROOM.maxZ + ROOM.backZ) / 2
   return (
     <>
-      <mesh position={[0, 2.6, -4.4]} material={m.wall} receiveShadow>
-        <planeGeometry args={[22, 12]} />
+      <mesh position={[cx, 4.25, ROOM.backZ]} material={m.wall} receiveShadow>
+        <planeGeometry args={[w, 14]} />
       </mesh>
-      <mesh position={[-6.6, 2.6, -4.4]} rotation={[0, Math.PI / 2, 0]} material={m.wall2} receiveShadow>
-        <planeGeometry args={[12, 12]} />
+      <mesh
+        position={[ROOM.minX, 4.25, cz]}
+        rotation={[0, Math.PI / 2, 0]}
+        material={m.wall2}
+        receiveShadow
+      >
+        <planeGeometry args={[d, 14]} />
       </mesh>
-      <mesh position={[0, -2.75, -1]} rotation={[-Math.PI / 2, 0, 0]} material={m.floor} receiveShadow>
-        <planeGeometry args={[24, 18]} />
+      <mesh
+        position={[cx, ROOM.floorY, cz]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        material={m.floor}
+        receiveShadow
+      >
+        <planeGeometry args={[w, d]} />
       </mesh>
-      <mesh position={[0.2, -2.73, 0.6]} rotation={[-Math.PI / 2, 0, 0]} scale={[1, 0.72, 1]} material={m.rug} receiveShadow>
+      {/* baseboards */}
+      <mesh
+        position={[cx, ROOM.floorY + 0.12, ROOM.backZ + 0.03]}
+        material={m.deskLeg}
+      >
+        <boxGeometry args={[w, 0.24, 0.06]} />
+      </mesh>
+      <mesh
+        position={[ROOM.minX + 0.03, ROOM.floorY + 0.12, cz]}
+        material={m.deskLeg}
+      >
+        <boxGeometry args={[0.06, 0.24, d]} />
+      </mesh>
+      <mesh
+        position={[0.2, -2.73, 0.6]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        scale={[1, 0.72, 1]}
+        material={m.rug}
+        receiveShadow
+      >
         <circleGeometry args={[5.2, 48]} />
       </mesh>
     </>
   )
 }
 
-function Poster({ m }: { m: Mats }) {
-  const tex = useMemo(() => {
-    const cv = document.createElement('canvas')
-    cv.width = 300
-    cv.height = 400
-    const ctx = cv.getContext('2d')
-    if (!ctx) return null
-    ctx.fillStyle = '#0d0a12'
-    ctx.fillRect(0, 0, 300, 400)
-    ctx.strokeStyle = '#9B76D3'
-    ctx.lineWidth = 3
-    ctx.beginPath()
-    ctx.arc(150, 170, 62, 0, Math.PI * 2)
-    ctx.stroke()
-    ctx.beginPath()
-    ctx.arc(150, 170, 28, 0, Math.PI * 2)
-    ctx.stroke()
-    ctx.fillStyle = '#9B76D3'
-    ctx.fillRect(60, 300, 180, 4)
-    ctx.fillStyle = '#5b4780'
-    ctx.fillRect(60, 320, 120, 4)
-    const t = new THREE.CanvasTexture(cv)
-    t.colorSpace = THREE.SRGBColorSpace
-    return t
-  }, [])
-
-  const posterMat = useMemo(
-    () => new THREE.MeshStandardMaterial({ map: tex, roughness: 0.9 }),
-    [tex]
-  )
-
+// Filler for wide screens: a low bookcase against the back wall, right of the posters.
+function Bookcase({ m }: { m: Mats }) {
+  const spines = useMemo(() => {
+    const mats = [m.book1, m.book2, m.book3, m.book1, m.book2]
+    const out: { x: number; y: number; h: number; mat: THREE.Material }[] = []
+    for (let shelf = 0; shelf < 3; shelf++)
+      for (let i = 0; i < 9; i++) {
+        if ((i + shelf * 2) % 7 === 6) continue
+        out.push({
+          x: -1.15 + i * 0.27,
+          y: -2.15 + shelf * 1.05,
+          h: 0.6 + ((i * 7 + shelf) % 4) * 0.08,
+          mat: mats[(i + shelf) % 5],
+        })
+      }
+    return out
+  }, [m])
   return (
-    <>
-      <RBox size={[0.12, 3.0, 2.3]} radius={0.02} material={m.metal} position={[-6.5, 2.5, -1.0]} />
-      <mesh position={[-6.43, 2.5, -1.0]} rotation={[0, Math.PI / 2, 0]} material={posterMat}>
-        <planeGeometry args={[2.05, 2.72]} />
-      </mesh>
-    </>
+    <group position={[9.6, 0, -3.95]}>
+      <RBox
+        size={[2.8, 3.4, 0.8]}
+        radius={0.04}
+        material={m.deskLeg}
+        position={[0, -1.05, 0]}
+      />
+      {[0, 1, 2].map((i) => (
+        <RBox
+          key={i}
+          size={[2.6, 0.06, 0.7]}
+          radius={0.01}
+          material={m.deskTop}
+          position={[0, -2.5 + i * 1.05, 0.06]}
+        />
+      ))}
+      {spines.map((b, i) => (
+        <RBox
+          key={i}
+          size={[0.22, b.h, 0.55]}
+          radius={0.02}
+          material={b.mat}
+          position={[b.x, b.y + b.h / 2 - 0.28, 0.08]}
+        />
+      ))}
+    </group>
   )
 }
 
@@ -177,23 +225,47 @@ function Poster({ m }: { m: Mats }) {
 function Desk({ m }: { m: Mats }) {
   return (
     <>
-      <RBox size={[8.4, 0.3, 4.0]} radius={0.05} material={m.deskTop} position={[0, -0.15, 0.35]} />
+      <RBox
+        size={[8.4, 0.3, 4.0]}
+        radius={0.05}
+        material={m.deskTop}
+        position={[0, -0.15, 0.35]}
+      />
       {[
         [-3.6, -1.35],
         [3.6, -1.35],
         [-3.6, 1.85],
         [3.6, 1.85],
       ].map(([x, z], i) => (
-        <RBox key={i} size={[0.18, 2.4, 0.18]} radius={0.02} material={m.deskLeg} position={[x, -1.5, z]} />
+        <RBox
+          key={i}
+          size={[0.18, 2.4, 0.18]}
+          radius={0.02}
+          material={m.deskLeg}
+          position={[x, -1.5, z]}
+        />
       ))}
-      <RBox size={[7.8, 0.26, 0.14]} radius={0.02} material={m.deskLeg} position={[0, -0.45, -1.5]} />
+      <RBox
+        size={[7.8, 0.26, 0.14]}
+        radius={0.02}
+        material={m.deskLeg}
+        position={[0, -0.45, -1.5]}
+      />
     </>
   )
 }
 
 /* --------------------------------- monitor -------------------------------- */
 
-function Monitor({ m, crt, onHover }: { m: Mats; crt: Crt; onHover: (l: string | null) => void }) {
+function Monitor({
+  m,
+  crt,
+  onHover,
+}: {
+  m: Mats
+  crt: Crt
+  onHover: (l: string | null) => void
+}) {
   const screenMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
@@ -209,11 +281,26 @@ function Monitor({ m, crt, onHover }: { m: Mats; crt: Crt; onHover: (l: string |
 
   return (
     <group position={[-1.7, 0.02, -0.75]} rotation={[0, 0.28, 0]}>
-      <RBox size={[1.4, 0.08, 0.84]} radius={0.05} material={m.bezel} position={[0, 0.04, 0.1]} />
-      <RBox size={[0.22, 0.78, 0.18]} radius={0.03} material={m.metal} position={[0, 0.45, 0]} />
+      <RBox
+        size={[1.4, 0.08, 0.84]}
+        radius={0.05}
+        material={m.bezel}
+        position={[0, 0.04, 0.1]}
+      />
+      <RBox
+        size={[0.22, 0.78, 0.18]}
+        radius={0.03}
+        material={m.metal}
+        position={[0, 0.45, 0]}
+      />
       <group position={[0, 1.86, 0]} rotation={[-0.05, 0, 0]}>
         <RBox size={[3.5, 2.24, 0.22]} radius={0.07} material={m.body} />
-        <RBox size={[3.27, 2.0, 0.05]} radius={0.04} material={m.dark} position={[0, 0, 0.13]} />
+        <RBox
+          size={[3.27, 2.0, 0.05]}
+          radius={0.04}
+          material={m.dark}
+          position={[0, 0, 0.13]}
+        />
         <mesh
           position={[0, 0, 0.17]}
           material={screenMat}
@@ -237,7 +324,15 @@ function Monitor({ m, crt, onHover }: { m: Mats; crt: Crt; onHover: (l: string |
   )
 }
 
-function Dial({ m, crt, onHover }: { m: Mats; crt: Crt; onHover: (l: string | null) => void }) {
+function Dial({
+  m,
+  crt,
+  onHover,
+}: {
+  m: Mats
+  crt: Crt
+  onHover: (l: string | null) => void
+}) {
   return (
     <group position={[0.55, 0.02, -0.35]}>
       <mesh position={[0, 0.03, 0]} material={m.metal} castShadow receiveShadow>
@@ -274,19 +369,34 @@ function Dial({ m, crt, onHover }: { m: Mats; crt: Crt; onHover: (l: string | nu
 /* -------------------------------- peripherals ----------------------------- */
 
 function Keyboard({ m }: { m: Mats }) {
-  const keyGeo = useMemo(() => new RoundedBoxGeometry(0.18, 0.05, 0.15, 2, 0.015), [])
+  const keyGeo = useMemo(
+    () => new RoundedBoxGeometry(0.18, 0.05, 0.15, 2, 0.015),
+    []
+  )
   const keys = useMemo(() => {
     const out: [number, number, number][] = []
     for (let r = 0; r < 4; r++)
-      for (let c = 0; c < 12; c++) out.push([-1.23 + c * 0.224, 0.13, -0.3 + r * 0.2])
+      for (let c = 0; c < 12; c++)
+        out.push([-1.23 + c * 0.224, 0.13, -0.3 + r * 0.2])
     return out
   }, [])
 
   return (
     <group position={[-1.4, 0.02, 1.15]} rotation={[0, 0.1, 0]}>
-      <RBox size={[2.9, 0.12, 0.95]} radius={0.05} material={m.plastic} position={[0, 0.06, 0]} />
+      <RBox
+        size={[2.9, 0.12, 0.95]}
+        radius={0.05}
+        material={m.plastic}
+        position={[0, 0.06, 0]}
+      />
       {keys.map((p, i) => (
-        <mesh key={i} geometry={keyGeo} material={m.dark} position={p} castShadow />
+        <mesh
+          key={i}
+          geometry={keyGeo}
+          material={m.dark}
+          position={p}
+          castShadow
+        />
       ))}
     </group>
   )
@@ -295,27 +405,18 @@ function Keyboard({ m }: { m: Mats }) {
 function Mouse({ m }: { m: Mats }) {
   return (
     <group position={[0.45, 0.02, 1.35]} rotation={[0, -0.2, 0]}>
-      <RBox size={[0.38, 0.14, 0.58]} radius={0.11} material={m.plastic} position={[0, 0.07, 0]} />
-      <RBox size={[0.016, 0.02, 0.24]} radius={0.008} material={m.purple} position={[0, 0.14, -0.05]} />
-    </group>
-  )
-}
-
-function Mug({ m }: { m: Mats }) {
-  return (
-    <group position={[1.45, 0.02, 1.55]}>
-      <mesh position={[0, 0.25, 0]} material={m.light} castShadow receiveShadow>
-        <cylinderGeometry args={[0.3, 0.26, 0.48, 24]} />
-      </mesh>
-      <mesh position={[0.31, 0.28, 0]} rotation={[0, Math.PI / 2, 0]} material={m.light}>
-        <torusGeometry args={[0.14, 0.04, 10, 22]} />
-      </mesh>
-      <mesh position={[0, 0.5, 0]} material={m.coffee}>
-        <cylinderGeometry args={[0.27, 0.27, 0.012, 24]} />
-      </mesh>
-      <mesh position={[0, 0.49, 0]} rotation={[Math.PI / 2, 0, 0]} material={m.light}>
-        <torusGeometry args={[0.292, 0.014, 8, 28]} />
-      </mesh>
+      <RBox
+        size={[0.38, 0.14, 0.58]}
+        radius={0.11}
+        material={m.plastic}
+        position={[0, 0.07, 0]}
+      />
+      <RBox
+        size={[0.016, 0.02, 0.24]}
+        radius={0.008}
+        material={m.purple}
+        position={[0, 0.14, -0.05]}
+      />
     </group>
   )
 }
@@ -323,46 +424,40 @@ function Mug({ m }: { m: Mats }) {
 function Headphones({ m }: { m: Mats }) {
   return (
     <group position={[2.95, 0.02, 0.6]} rotation={[0, 0.35, 0]}>
-      <mesh position={[0, 0.1, 0]} rotation={[-Math.PI / 2, 0, 0]} material={m.plastic} castShadow>
+      <mesh
+        position={[0, 0.1, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        material={m.plastic}
+        castShadow
+      >
         <torusGeometry args={[0.5, 0.085, 14, 32, Math.PI]} />
       </mesh>
-      <mesh position={[0, 0.16, 0]} rotation={[-Math.PI / 2, 0, 0]} material={m.purple}>
+      <mesh
+        position={[0, 0.16, 0]}
+        rotation={[-Math.PI / 2, 0, 0]}
+        material={m.purple}
+      >
         <torusGeometry args={[0.5, 0.028, 10, 32, Math.PI]} />
       </mesh>
       {[-1, 1].map((s) => (
         <group key={s}>
-          <mesh position={[0.5 * s, 0.1, 0]} rotation={[0, 0, Math.PI / 2]} material={m.plastic} castShadow>
+          <mesh
+            position={[0.5 * s, 0.1, 0]}
+            rotation={[0, 0, Math.PI / 2]}
+            material={m.plastic}
+            castShadow
+          >
             <cylinderGeometry args={[0.24, 0.24, 0.16, 22]} />
           </mesh>
-          <mesh position={[0.5 * s, 0.1, 0]} rotation={[0, 0, Math.PI / 2]} material={m.purple}>
+          <mesh
+            position={[0.5 * s, 0.1, 0]}
+            rotation={[0, 0, Math.PI / 2]}
+            material={m.purple}
+          >
             <cylinderGeometry args={[0.17, 0.17, 0.18, 22]} />
           </mesh>
         </group>
       ))}
-    </group>
-  )
-}
-
-function Gamepad({ m }: { m: Mats }) {
-  return (
-    <group position={[0.15, 0.02, 0.95]} rotation={[0, -0.5, 0]}>
-      <RBox size={[0.86, 0.17, 0.4]} radius={0.13} material={m.plastic} position={[0, 0.1, 0]} />
-      {[-1, 1].map((s) => (
-        <RBox
-          key={s}
-          size={[0.26, 0.2, 0.46]}
-          radius={0.11}
-          material={m.plastic}
-          position={[0.36 * s, 0.08, 0.14]}
-          rotation={[0, -0.35 * s, 0]}
-        />
-      ))}
-      {[-1, 1].map((s) => (
-        <mesh key={s} position={[0.14 * s, 0.2, 0]} material={m.purple}>
-          <cylinderGeometry args={[0.062, 0.062, 0.08, 16]} />
-        </mesh>
-      ))}
-      <RBox size={[0.46, 0.014, 0.09]} radius={0.007} material={m.purple} position={[0, 0.19, 0.15]} />
     </group>
   )
 }
@@ -387,7 +482,11 @@ function Books({ m }: { m: Mats }) {
 
 function Plant({ m }: { m: Mats }) {
   const leaves = useMemo(() => {
-    const out: { p: [number, number, number]; s: [number, number, number]; r: [number, number, number] }[] = []
+    const out: {
+      p: [number, number, number]
+      s: [number, number, number]
+      r: [number, number, number]
+    }[] = []
     for (let i = 0; i < 9; i++) {
       const a = (i / 9) * Math.PI * 2
       const rad = 0.15 + (i % 2) * 0.06
@@ -406,7 +505,14 @@ function Plant({ m }: { m: Mats }) {
         <cylinderGeometry args={[0.29, 0.22, 0.4, 20]} />
       </mesh>
       {leaves.map((l, i) => (
-        <mesh key={i} position={l.p} scale={l.s} rotation={l.r} material={m.leaf} castShadow>
+        <mesh
+          key={i}
+          position={l.p}
+          scale={l.s}
+          rotation={l.r}
+          material={m.leaf}
+          castShadow
+        >
           <sphereGeometry args={[0.19, 10, 8]} />
         </mesh>
       ))}
@@ -426,7 +532,12 @@ function Lamp({ m }: { m: Mats }) {
       <mesh position={[0, 1.65, 0]} material={m.metal}>
         <sphereGeometry args={[0.085, 12, 10]} />
       </mesh>
-      <mesh position={[0.42, 1.65, 0]} rotation={[0, 0, Math.PI / 2]} material={m.metal} castShadow>
+      <mesh
+        position={[0.42, 1.65, 0]}
+        rotation={[0, 0, Math.PI / 2]}
+        material={m.metal}
+        castShadow
+      >
         <cylinderGeometry args={[0.045, 0.045, 0.9, 12]} />
       </mesh>
       <mesh position={[0.85, 1.52, 0]} material={m.shade} castShadow>
@@ -435,7 +546,13 @@ function Lamp({ m }: { m: Mats }) {
       <mesh position={[0.85, 1.42, 0]} material={m.bulb}>
         <sphereGeometry args={[0.1, 12, 10]} />
       </mesh>
-      <pointLight position={[0.85, 1.35, 0]} color="#ffb877" intensity={9} distance={8} decay={2} />
+      <pointLight
+        position={[0.85, 1.35, 0]}
+        color="#ffb877"
+        intensity={9}
+        distance={8}
+        decay={2}
+      />
     </group>
   )
 }
@@ -531,7 +648,15 @@ function Scene({ paused, onHover, onAction }: DeskSceneProps) {
   return (
     <>
       <CameraRig paused={paused} />
-      <ambientLight color="#4d4162" intensity={0.7} />
+      <ambientLight color="#5a4d70" intensity={1.0} />
+      {/* soft wash over the poster wall so the informative props read first */}
+      <pointLight
+        position={[LAYOUT.posterWall[0], 5.6, -1.6]}
+        color="#e6d9f7"
+        intensity={14}
+        distance={11}
+        decay={1.6}
+      />
       <directionalLight
         color="#fff2e0"
         intensity={2.4}
@@ -544,10 +669,14 @@ function Scene({ paused, onHover, onAction }: DeskSceneProps) {
         shadow-camera-bottom={-14}
         shadow-bias={-0.0006}
       />
-      <directionalLight color="#9B76D3" intensity={1.2} position={[-9, 4, -6]} />
+      <directionalLight
+        color="#9B76D3"
+        intensity={1.2}
+        position={[-9, 4, -6]}
+      />
 
       <Room m={m} />
-      <Poster m={m} />
+      <Bookcase m={m} />
       <Desk m={m} />
       <Lamp m={m} />
       <Keyboard m={m} />
@@ -558,20 +687,22 @@ function Scene({ paused, onHover, onAction }: DeskSceneProps) {
 
       <Monitor m={m} crt={crt} onHover={onHover} />
       <Dial m={m} crt={crt} onHover={onHover} />
-      <Interactive label="AURORA on repeat ↗" onHover={onHover} onClick={() => onAction('music')}>
+      <Interactive
+        label="AURORA on repeat ↗"
+        onHover={onHover}
+        onClick={() => onAction('music')}
+      >
         <Headphones m={m} />
-      </Interactive>
-      <Interactive label="Say hi" onHover={onHover} onClick={() => onAction('contact')}>
-        <Mug m={m} />
-      </Interactive>
-      <Interactive label="The Last of Us · Assassin's Creed" onHover={onHover}>
-        <Gamepad m={m} />
       </Interactive>
     </>
   )
 }
 
-export default function DeskScene({ paused, onHover, onAction }: DeskSceneProps) {
+export default function DeskScene({
+  paused,
+  onHover,
+  onAction,
+}: DeskSceneProps) {
   return (
     <Canvas
       shadows

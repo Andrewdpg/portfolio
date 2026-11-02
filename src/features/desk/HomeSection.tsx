@@ -1,12 +1,17 @@
-import React, { Suspense, useCallback, useEffect, useRef, useState } from 'react'
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { useContactModal } from '../../context/ContactModalContext'
 
 const DeskScene = React.lazy(() => import('./DeskScene'))
 
 type Action = 'projects' | 'music' | 'contact' | 'about'
 
-const SPOTIFY =
-  'https://open.spotify.com/user/31w5iqswuv7kfmzrkeqeeba4gvea'
+const SPOTIFY = 'https://open.spotify.com/user/31w5iqswuv7kfmzrkeqeeba4gvea'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
 
@@ -115,19 +120,11 @@ export const HomeSection: React.FC = () => {
         )}
       </div>
 
-      <div
-        className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-full md:w-[58%]"
-        style={{
-          background:
-            'linear-gradient(90deg, #0b0812 0%, rgba(11,8,18,0.86) 34%, rgba(11,8,18,0) 100%)',
-        }}
-      />
-
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 p-6 md:p-10">
         <p className="font-mono text-[10px] uppercase tracking-[0.35em] text-app-main">
           Software engineer · Cali, Colombia
         </p>
-        <h1 className="mt-2 font-display text-6xl font-black uppercase leading-[0.9] tracking-tight md:text-8xl">
+        <h1 className="mt-2 font-display text-5xl font-black uppercase leading-[0.9] tracking-tight md:text-6xl">
           Andrés Parra
         </h1>
         <p className="mt-3 max-w-sm text-sm font-light leading-relaxed text-white/55">
@@ -136,7 +133,7 @@ export const HomeSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="absolute bottom-0 left-0 z-10 flex flex-wrap items-center gap-3 p-6 md:pb-10 md:pl-28 md:pr-10 md:pt-10">
+      <div className="absolute bottom-0 left-0 z-10 flex flex-wrap items-center gap-3 p-6 pb-28 md:pb-10 md:pl-28 md:pr-10 md:pt-10">
         <button
           onClick={openContactModal}
           className="rounded-full bg-app-main px-6 py-3 text-sm font-bold text-black transition-all hover:scale-105 hover:bg-app-main/85 active:scale-95"
@@ -158,24 +155,15 @@ export const HomeSection: React.FC = () => {
               ? 'Try again'
               : 'Resume'}
         </button>
-        <button
-          onClick={() => setAboutOpen(true)}
-          className="rounded-full px-4 py-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 transition-colors hover:text-app-main"
-        >
-          Off the clock ↗
-        </button>
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-6 z-10 flex flex-col items-center gap-3 px-6">
+      <div className="pointer-events-none absolute inset-x-0 bottom-44 z-10 md:bottom-6 flex flex-col items-center gap-3 px-6">
         <span
           className={`rounded-full border border-app-main/30 bg-black/40 px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-app-main backdrop-blur-sm transition-opacity duration-300 ${
             hover ? 'opacity-100' : 'opacity-0'
           }`}
         >
           {hover ?? ''}
-        </span>
-        <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-white/25">
-          Hover the objects. Some of them do something.
         </span>
       </div>
 
@@ -220,8 +208,8 @@ export const HomeSection: React.FC = () => {
               </p>
               <p>
                 Honesty and follow-through matter more to me than almost
-                anything. And most of what I build comes down to the same
-                thing: staying curious, and wanting it to actually matter.
+                anything. And most of what I build comes down to the same thing:
+                staying curious, and wanting it to actually matter.
               </p>
             </div>
 
