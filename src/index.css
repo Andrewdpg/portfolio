@@ -10,12 +10,6 @@ p {
   text-wrap: pretty;
 }
 
-.tiptap {
-  outline: none;
-  min-height: 75px;
-  padding: 8px;
-}
-
 ol, ul {
   list-style: disc inside;
   margin-left: 1.5rem;
