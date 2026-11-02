@@ -194,6 +194,7 @@ const experienceGroups: ExperienceGroup[] = [
 const skills: Skill[] = [
   {
     id: 'react',
+    featured: true,
     title: 'React',
     experience: Experience.Expert,
     category: 'UI/UX',
@@ -202,6 +203,7 @@ const skills: Skill[] = [
   },
   {
     id: 'nest',
+    featured: true,
     title: 'Nest.js',
     experience: Experience.Advanced,
     category: 'Backend',
@@ -216,6 +218,7 @@ const skills: Skill[] = [
   },
   {
     id: 'java',
+    featured: true,
     title: 'Java',
     experience: Experience.Expert,
     category: 'Languages',
@@ -224,6 +227,7 @@ const skills: Skill[] = [
   },
   {
     id: 'python',
+    featured: true,
     title: 'Python',
     experience: Experience.Advanced,
     category: 'Languages',
@@ -254,6 +258,7 @@ const skills: Skill[] = [
   },
   {
     id: 'typescript',
+    featured: true,
     title: 'TypeScript',
     experience: Experience.Expert,
     category: 'Languages',
@@ -324,6 +329,7 @@ const skills: Skill[] = [
   },
   {
     id: 'springboot',
+    featured: true,
     title: 'Spring Boot',
     experience: Experience.Expert,
     category: 'Backend',
@@ -352,6 +358,7 @@ const skills: Skill[] = [
   },
   {
     id: 'postgresql',
+    featured: true,
     title: 'PostgreSQL',
     experience: Experience.Advanced,
     category: 'Database',
@@ -408,6 +415,7 @@ const skills: Skill[] = [
   },
   {
     id: 'docker',
+    featured: true,
     title: 'Docker',
     experience: Experience.Advanced,
     category: 'Tools',
@@ -416,6 +424,7 @@ const skills: Skill[] = [
   },
   {
     id: 'git',
+    featured: true,
     title: 'Git',
     experience: Experience.Expert,
     category: 'Tools',
@@ -632,6 +641,7 @@ const skills: Skill[] = [
   },
   {
     id: 'nextjs',
+    featured: true,
     title: 'Next.js',
     experience: Experience.Advanced,
     category: 'UI/UX',
@@ -730,6 +740,7 @@ const skills: Skill[] = [
   },
   {
     id: 'oracle',
+    featured: true,
     title: 'Oracle SQL',
     experience: Experience.Advanced,
     category: 'Database',
@@ -744,6 +755,7 @@ const skills: Skill[] = [
   },
   {
     id: 'linux',
+    featured: true,
     title: 'Linux',
     experience: Experience.Advanced,
     category: 'Tools',
@@ -973,6 +985,7 @@ const projects: Project[] = [
   },
   {
     title: 'Methodus',
+    featured: true,
     subtitle: 'Adaptive ICFES preparation platform',
     body: 'Leading the full technical development of Methodus — an adaptive learning platform for ICFES exam preparation. Built with a focus on personalized experiences and real-time feedback. Managing release planning, QA coordination, and incident response as the platform prepares for pilot use with real students.',
     icon: React.createElement(Globe),
@@ -999,6 +1012,7 @@ const projects: Project[] = [
   },
   {
     title: 'Casia & Canela',
+    featured: true,
     subtitle: 'Headless e-commerce for a niche perfume decant store',
     alone: true,
     body: 'Freelance-built storefront for a Colombian perfumery specializing in original, imported and niche fragrance decants. Next.js App Router front end running headless over WooCommerce (REST + Store API), with custom JWT-based auth, cart, checkout and account order tracking.',
@@ -1040,6 +1054,7 @@ const projects: Project[] = [
   },
   {
     title: 'Waycairn',
+    featured: true,
     subtitle:
       'Local-first MCP server for documenting a codebase as you work in it — evolution of Cartogram',
     body: 'A local-first MCP server that turns architecture documentation into a byproduct of normal agent-assisted coding: C4/UML-style diagrams and notes stored as versioned JSON files inside the repo itself (.waycairn/), with no cloud backend and no auth. Any MCP-compatible AI agent (Claude Code, Codex CLI, opencode) reads and writes documentation as part of its workflow, with a session-end hook nudging it to keep diagrams current. A CLI installs the MCP server, a documentation skill and the hook per repo, and a read-only local web UI (Express, bound to localhost only) browses diagrams with drill-down through child diagrams and cross-repo references. Rebuilt as the successor to Cartogram, trading its OAuth-secured multi-repo cloud backend for a simpler, git-native, zero-infrastructure model.',

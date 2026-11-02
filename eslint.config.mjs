@@ -11,4 +11,7 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  {settings: {react: {version: "detect"}}},
+  // react-three-fiber JSX props (position, args, castShadow…) aren't DOM props.
+  {files: ["src/features/desk/**/*.tsx"], rules: {"react/no-unknown-property": "off"}},
 ];

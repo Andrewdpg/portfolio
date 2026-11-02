@@ -18,4 +18,5 @@
     "types": ["vite/client"]
   },
   "include": ["src", "declarations.d.ts", "vite.env.d.ts"],
+  "exclude": ["src/**/*.test.ts"]
 }

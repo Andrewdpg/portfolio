@@ -123,6 +123,5 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 - [React](https://reactjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Redux](https://redux.js.org/)
 - [SweetAlert2](https://sweetalert2.github.io/)
 - [Docker](https://www.docker.com/)

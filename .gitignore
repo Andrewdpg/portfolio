@@ -28,3 +28,7 @@ tsconfig.tsbuildinfo
 # local env files
 .env*
 !.env.example
+
+# brainstorm / plan scratch
+.superpowers/
+tools/avatar/out/

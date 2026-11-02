@@ -25,6 +25,7 @@ export type SkillCategory =
 
 export type Skill = {
   id: string
+  featured?: boolean
   title: string
   experience: Experience
   category: SkillCategory

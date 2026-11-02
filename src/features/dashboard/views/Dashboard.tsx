@@ -8,12 +8,12 @@ import {
 import { ProjectCard } from '../../../components/ProjectCard'
 import { ProjectCardStack } from '../../../components/ProjectCardStack'
 import { Section } from '../../../components/Section'
-import { Presentation } from '../components/Presetation'
 import { Navigation, NavSection } from '../../layout/components/Navigation'
 import { AIWorkflow } from '../components/AIWorkflow'
 import { ChatWidget } from '../components/Chat'
 import { SkillsRadar } from '../../../components/SkillsRadar'
 import { useTheme } from '../../../context/ThemeContext'
+import { HomeSection } from '../../desk/HomeSection'
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
 
@@ -30,7 +30,7 @@ function Dashboard() {
   }, [])
 
   const sections: NavSection[] = [
-    { id: 'intro', label: 'Home' },
+    { id: 'home', label: 'Home' },
     ...experienceGroups.map((group, idx) => ({
       id: `exp-${idx}`,
       label: group.navLabel || group.place,
@@ -45,9 +45,10 @@ function Dashboard() {
       <Navigation sections={sections} />
       <ChatWidget />
       <HeroScroll>
-        {/* Presentation Section */}
-        <div id="intro">
-          <Presentation />
+        {/* Home — the room */}
+        {/* no snap on the pinned hero: the camera tour needs free scrolling */}
+        <div id="home" style={{ scrollSnapAlign: 'none' }}>
+          <HomeSection />
         </div>
 
         {/* Scrollable Experience Sections (Grouped by Place) */}

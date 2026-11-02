@@ -10,6 +10,7 @@ export type ProjectGroup = 'Software' | 'Research & ML'
 
 export type Project = {
   title: string
+  featured?: boolean
   subtitle: string
   body: string
   year: number
