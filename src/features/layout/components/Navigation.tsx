@@ -31,7 +31,10 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
   useEffect(() => {
     const observerOptions = {
       root: document.querySelector('.hero-scroll-container'),
-      threshold: 0.5,
+      // active = the section crossing the viewport's centre line; works for sections taller
+      // than the viewport (the pinned 400dvh hero can never be 50% visible)
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0,
     }
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {

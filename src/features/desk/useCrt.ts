@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
+import { isTypingTarget } from './keys'
 
 export type CrtAction = 'pitch' | 'music'
 
@@ -301,6 +302,7 @@ export function useCrt(paused: boolean, onAction: (a: CrtAction) => void) {
     if (channel !== 3 || paused) return
 
     const onKey = (e: KeyboardEvent) => {
+      if (isTypingTarget(e.target as Element | null)) return
       const k = e.key.toLowerCase()
       const map: Record<string, Dir> = {
         arrowup: { x: 0, y: -1 },
