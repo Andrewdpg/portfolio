@@ -5,17 +5,27 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 import { useCrt, type Crt } from './useCrt'
 import { Avatar } from './Avatar'
 import { RBox, Interactive } from './parts'
+import { LAYOUT, STOPS, sampleTour } from './tour'
 import { SkillShelf } from './SkillShelf'
 import { ProjectPosters } from './ProjectPosters'
 import { EmployerBadge } from './EmployerBadge'
 
 export type Action =
-  'projects' | 'skills' | 'music' | 'contact' | 'about' | { section: string }
+  | 'projects'
+  | 'skills'
+  | 'music'
+  | 'contact'
+  | 'about'
+  | 'pitch'
+  | { section: string }
 
 type DeskSceneProps = {
   paused: boolean
   onHover: (label: string | null) => void
   onAction: (action: Action) => void
+  /** 0..1 scroll progress through the pinned hero; read every frame, never re-renders. */
+  progress: React.RefObject<number>
+  onStop: (label: string | null) => void
 }
 
 const C = {
@@ -89,13 +99,6 @@ function useMaterials() {
 type Mats = ReturnType<typeof useMaterials>
 
 /* ---------------------------------- room ---------------------------------- */
-
-// Where the informative props live; camera tour stops aim at these too.
-export const LAYOUT = {
-  posterWall: [3.7, 2.9, -4.4] as [number, number, number],
-  shelf: [6.5, -2.75, 0.3] as [number, number, number],
-  brand: [-6.6, 1.3, -1.2] as [number, number, number],
-}
 
 // Room is far wider than any viewport so ultra-wide screens see more room, never an edge.
 const ROOM = { minX: -6.6, maxX: 30, backZ: -4.4, maxZ: 14, floorY: -2.75 }
@@ -540,10 +543,14 @@ function Lamp({ m }: { m: Mats }) {
 
 /* --------------------------------- camera --------------------------------- */
 
-function CameraRig({ paused }: { paused: boolean }) {
+function CameraRig({
+  paused,
+  progress,
+  onStop,
+}: Pick<DeskSceneProps, 'paused' | 'progress' | 'onStop'>) {
   const { camera, size, pointer } = useThree()
-  const base = useRef(new THREE.Vector3(9, 6.4, 12))
-  const target = useRef(new THREE.Vector3(0, 0.6, 0))
+  const look = useRef(new THREE.Vector3())
+  const active = useRef('overview')
 
   useEffect(() => {
     const ortho = camera as THREE.OrthographicCamera
@@ -556,21 +563,23 @@ function CameraRig({ paused }: { paused: boolean }) {
     ortho.updateProjectionMatrix()
   }, [camera, size])
 
-  useEffect(() => {
-    camera.position.copy(base.current)
-    camera.lookAt(target.current)
-  }, [camera])
-
   useFrame(() => {
     if (paused) return
-    const p = pointer
     const ortho = camera as THREE.OrthographicCamera
-    const aspect = size.width / size.height
-    const height = aspect < 1 ? 17 : 11.4
-    const dx = p.x * height * 0.018
-    const dy = -p.y * height * 0.012
-    ortho.position.set(base.current.x + dx, base.current.y + dy, base.current.z)
-    ortho.lookAt(target.current)
+    const tour = sampleTour(STOPS, progress.current ?? 0)
+    // pointer parallax on top of the tour, shrinking as we zoom in
+    const k = 11.4 / tour.zoom
+    const [x, y, z] = tour.position
+    ortho.position.set(x + pointer.x * k * 0.018, y - pointer.y * k * 0.012, z)
+    ortho.lookAt(look.current.set(...tour.target))
+    if (ortho.zoom !== tour.zoom) {
+      ortho.zoom = tour.zoom
+      ortho.updateProjectionMatrix()
+    }
+    if (tour.activeId !== active.current) {
+      active.current = tour.activeId
+      onStop(STOPS.find((s) => s.id === tour.activeId)?.label ?? null)
+    }
   })
 
   return null
@@ -578,14 +587,20 @@ function CameraRig({ paused }: { paused: boolean }) {
 
 /* ---------------------------------- scene --------------------------------- */
 
-function Scene({ paused, onHover, onAction }: DeskSceneProps) {
+function Scene({
+  paused,
+  onHover,
+  onAction,
+  progress,
+  onStop,
+}: DeskSceneProps) {
   const m = useMaterials()
   const crt = useCrt(paused, onAction)
   useFrame((_, delta) => crt.tick(delta))
 
   return (
     <>
-      <CameraRig paused={paused} />
+      <CameraRig paused={paused} progress={progress} onStop={onStop} />
       <ambientLight color="#5a4d70" intensity={1.0} />
       {/* soft wash over the poster wall so the informative props read first */}
       <pointLight
@@ -653,11 +668,8 @@ function Scene({ paused, onHover, onAction }: DeskSceneProps) {
   )
 }
 
-export default function DeskScene({
-  paused,
-  onHover,
-  onAction,
-}: DeskSceneProps) {
+export default function DeskScene(props: DeskSceneProps) {
+  const { paused } = props
   return (
     <Canvas
       shadows
@@ -672,7 +684,7 @@ export default function DeskScene({
         gl.toneMappingExposure = 1.05
       }}
     >
-      <Scene paused={paused} onHover={onHover} onAction={onAction} />
+      <Scene {...props} />
     </Canvas>
   )
 }

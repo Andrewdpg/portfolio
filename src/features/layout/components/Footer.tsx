@@ -1,5 +1,5 @@
 import React from 'react'
-import { Github, Instagram, Linkedin, Send, Mail } from 'lucide-react'
+import { Code2, Github, Instagram, Linkedin, Send, Mail } from 'lucide-react'
 import { SiSpotify } from 'react-icons/si'
 import { useContactModal } from '../../../context/ContactModalContext'
 
@@ -31,6 +31,11 @@ const Footer = () => {
       icon: <SiSpotify size={18} />,
       url: 'https://open.spotify.com/user/31w5iqswuv7kfmzrkeqeeba4gvea?si=28CQagsfQ5WQg8G1NZHCbw',
       label: 'Spotify',
+    },
+    {
+      icon: <Code2 size={20} />,
+      url: 'https://github.com/Andrewdpg/portfolio',
+      label: 'Source code',
     },
   ]
 

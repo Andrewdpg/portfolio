@@ -6,7 +6,6 @@ import {
   Briefcase,
   Code,
   Cpu,
-  User,
   Sun,
   Moon,
   Mail,
@@ -62,7 +61,6 @@ export const Navigation: React.FC<NavigationProps> = ({ sections }) => {
 
   const getIcon = (id: string) => {
     if (id === 'home') return <Home size={18} />
-    if (id === 'about') return <User size={18} />
     if (id.startsWith('exp')) return <Briefcase size={18} />
     if (id === 'projects') return <Code size={18} />
     if (id === 'skills') return <Cpu size={18} />

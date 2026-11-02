@@ -8,7 +8,6 @@ import {
 import { ProjectCard } from '../../../components/ProjectCard'
 import { ProjectCardStack } from '../../../components/ProjectCardStack'
 import { Section } from '../../../components/Section'
-import { Presentation } from '../components/Presetation'
 import { Navigation, NavSection } from '../../layout/components/Navigation'
 import { AIWorkflow } from '../components/AIWorkflow'
 import { ChatWidget } from '../components/Chat'
@@ -32,7 +31,6 @@ function Dashboard() {
 
   const sections: NavSection[] = [
     { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
     ...experienceGroups.map((group, idx) => ({
       id: `exp-${idx}`,
       label: group.navLabel || group.place,
@@ -48,13 +46,9 @@ function Dashboard() {
       <ChatWidget />
       <HeroScroll>
         {/* Home — the room */}
-        <div id="home">
+        {/* no snap on the pinned hero: the camera tour needs free scrolling */}
+        <div id="home" style={{ scrollSnapAlign: 'none' }}>
           <HomeSection />
-        </div>
-
-        {/* About Section */}
-        <div id="about">
-          <Presentation />
         </div>
 
         {/* Scrollable Experience Sections (Grouped by Place) */}

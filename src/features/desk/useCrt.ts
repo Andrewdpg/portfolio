@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 
-export type CrtAction = 'projects' | 'music'
+export type CrtAction = 'pitch' | 'music'
 
 type Dir = { x: number; y: number }
 type Game = {
@@ -31,7 +31,12 @@ const COL = {
   green: '#7fe0b0',
 }
 
-const LABELS = ['Projects ↗', 'AURORA on Spotify ↗', 'Play Snake', 'Arrows to move']
+const LABELS = [
+  'Watch pitch ▶',
+  'AURORA on Spotify ↗',
+  'Play Snake',
+  'Arrows to move',
+]
 
 function resetGame(): Game {
   return {
@@ -81,50 +86,37 @@ function chrome(ctx: CanvasRenderingContext2D, ch: number) {
   ctx.globalAlpha = 1
 }
 
-function drawArch(ctx: CanvasRenderingContext2D) {
+// Channel 1: the pitch video that used to live in the About section.
+function drawPitch(ctx: CanvasRenderingContext2D) {
   chrome(ctx, 0)
   ctx.textAlign = 'left'
-  ctx.fillStyle = COL.purple
-  ctx.font = 'bold 22px monospace'
-  ctx.fillText('SELECTED WORK', 18, 52)
+  ctx.fillStyle = COL.light
+  ctx.font = 'bold 30px monospace'
+  ctx.fillText('MEET ANDRÉS', 18, 70)
   ctx.fillStyle = COL.dim
-  ctx.font = '11px monospace'
-  ctx.fillText('04 ENTRIES', 18, 72)
+  ctx.font = '12px monospace'
+  ctx.fillText('A SHORT PITCH, IN HIS OWN WORDS', 20, 94)
 
-  ctx.strokeStyle = COL.dim
-  ctx.lineWidth = 1.5
-  const boxes = [
-    [40, 100, 96, 28],
-    [40, 142, 96, 28],
-    [40, 184, 96, 28],
-    [180, 120, 76, 24],
-    [180, 164, 76, 24],
-    [300, 140, 60, 32],
-  ]
-  boxes.forEach(([x, y, w, h]) => ctx.strokeRect(x, y, w, h))
+  const cx = W - 92
+  const cy = 136
+  ctx.strokeStyle = COL.purple
+  ctx.lineWidth = 3
   ctx.beginPath()
-  ctx.moveTo(136, 114)
-  ctx.lineTo(180, 132)
-  ctx.moveTo(136, 156)
-  ctx.lineTo(180, 132)
-  ctx.moveTo(136, 156)
-  ctx.lineTo(180, 176)
-  ctx.moveTo(136, 198)
-  ctx.lineTo(180, 176)
-  ctx.moveTo(256, 132)
-  ctx.lineTo(300, 150)
-  ctx.moveTo(256, 176)
-  ctx.lineTo(300, 162)
+  ctx.arc(cx, cy, 44, 0, Math.PI * 2)
   ctx.stroke()
-
   ctx.fillStyle = COL.purple
-  ctx.fillRect(44, 106, 44, 4)
-  ctx.fillRect(44, 148, 32, 4)
-  ctx.fillRect(44, 190, 52, 4)
+  ctx.beginPath()
+  ctx.moveTo(cx - 14, cy - 22)
+  ctx.lineTo(cx + 24, cy)
+  ctx.lineTo(cx - 14, cy + 22)
+  ctx.closePath()
+  ctx.fill()
 
+  ctx.fillStyle = COL.grid
+  for (let i = 0; i < 4; i++) ctx.fillRect(20, 124 + i * 16, 150 - i * 28, 6)
+  ctx.fillStyle = COL.purple
   ctx.font = 'bold 11px monospace'
-  ctx.fillStyle = COL.purple
-  ctx.fillText('CLICK TO OPEN ↗', 18, 214)
+  ctx.fillText('CLICK TO PLAY ▶', 20, 216)
 }
 
 function drawMusic(ctx: CanvasRenderingContext2D, t: number) {
@@ -198,10 +190,21 @@ function drawSnake(ctx: CanvasRenderingContext2D, g: Game) {
   ctx.globalAlpha = 0.25
   ctx.fillStyle = COL.purple
   ctx.beginPath()
-  ctx.arc(g.food.x * CELL + CELL / 2, PLAY_Y + g.food.y * CELL + CELL / 2, CELL / 2, 0, Math.PI * 2)
+  ctx.arc(
+    g.food.x * CELL + CELL / 2,
+    PLAY_Y + g.food.y * CELL + CELL / 2,
+    CELL / 2,
+    0,
+    Math.PI * 2
+  )
   ctx.fill()
   ctx.globalAlpha = 1
-  ctx.fillRect(g.food.x * CELL + 5, PLAY_Y + g.food.y * CELL + 5, CELL - 10, CELL - 10)
+  ctx.fillRect(
+    g.food.x * CELL + 5,
+    PLAY_Y + g.food.y * CELL + 5,
+    CELL - 10,
+    CELL - 10
+  )
 
   ctx.textAlign = 'right'
   ctx.fillStyle = COL.purple
@@ -271,7 +274,7 @@ export function useCrt(paused: boolean, onAction: (a: CrtAction) => void) {
   const draw = useCallback(
     (ch: number) => {
       if (!ctx) return
-      if (ch === 0) drawArch(ctx)
+      if (ch === 0) drawPitch(ctx)
       else if (ch === 1) drawMusic(ctx, performance.now() / 1000)
       else if (ch === 2) drawGames(ctx)
       else drawSnake(ctx, game.current)
@@ -280,14 +283,11 @@ export function useCrt(paused: boolean, onAction: (a: CrtAction) => void) {
     [ctx, texture]
   )
 
-  const goTo = useCallback(
-    (n: number) => {
-      const next = (n + 4) % 4
-      if (next === 3) game.current = resetGame()
-      setChannel(next)
-    },
-    []
-  )
+  const goTo = useCallback((n: number) => {
+    const next = (n + 4) % 4
+    if (next === 3) game.current = resetGame()
+    setChannel(next)
+  }, [])
 
   useEffect(() => {
     draw(channel)
@@ -351,7 +351,7 @@ export function useCrt(paused: boolean, onAction: (a: CrtAction) => void) {
   )
 
   const screenClick = useCallback(() => {
-    if (channel === 0) onAction('projects')
+    if (channel === 0) onAction('pitch')
     else if (channel === 1) onAction('music')
     else if (channel === 2) {
       game.current = resetGame()
