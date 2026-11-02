@@ -22,7 +22,7 @@ function signTexture(place: string, logo?: string) {
   tex.colorSpace = THREE.SRGBColorSpace
   tex.anisotropy = 4
   const paint = (img?: HTMLImageElement) => {
-    ctx.fillStyle = '#f3f0fa'
+    ctx.fillStyle = '#b4acc3' // matte print, same value as the cube faces
     ctx.fillRect(0, 0, W, H)
     ctx.fillStyle = '#5354ED'
     ctx.font = '700 18px monospace'
@@ -59,7 +59,7 @@ export const EmployerBadge: React.FC<{
       place
         ? new THREE.MeshStandardMaterial({
             map: signTexture(place, LOGOS[place]),
-            roughness: 0.7,
+            roughness: 0.88,
           })
         : null,
     [place]

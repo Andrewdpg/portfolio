@@ -44,8 +44,8 @@ const C = {
   leaf: '#3f6350',
   metal: '#241d31',
   shade: '#43305f',
-  wall: '#1a1422',
-  wall2: '#151019',
+  wall: '#1c1625',
+  wall2: '#17121d',
   floor: '#0f0d12',
   rug: '#251c33',
 }
@@ -80,6 +80,7 @@ function useMaterials() {
       wall2: mat(C.wall2, 0.95),
       floor: mat(C.floor, 1),
       rug: mat(C.rug, 1),
+      mat: mat('#2a2137', 1),
       bulb: new THREE.MeshStandardMaterial({
         color: '#ffd9a8',
         emissive: '#ffb877',
@@ -250,7 +251,7 @@ function Monitor({
         emissiveIntensity: 1.3,
         emissiveMap: crt.texture,
         map: crt.texture,
-        roughness: 0.35,
+        roughness: 0.7,
       }),
     [crt.texture]
   )
@@ -343,6 +344,19 @@ function Dial({
 }
 
 /* -------------------------------- peripherals ----------------------------- */
+
+// Felt mat under keyboard and mouse: grounds the peripherals, costs one box.
+function DeskMat({ m }: { m: Mats }) {
+  return (
+    <RBox
+      size={[4.1, 0.025, 1.45]}
+      radius={0.012}
+      material={m.mat}
+      position={[-0.75, 0.012, 1.25]}
+      rotation={[0, 0.06, 0]}
+    />
+  )
+}
 
 function Keyboard({ m }: { m: Mats }) {
   const keyGeo = useMemo(
@@ -551,6 +565,9 @@ class ModelBoundary extends React.Component<
 
 /* --------------------------------- camera --------------------------------- */
 
+const PORTRAIT_HEIGHT = 21
+const PORTRAIT_SHIFT = 2.2
+
 function CameraRig({
   paused,
   progress,
@@ -563,7 +580,7 @@ function CameraRig({
   useEffect(() => {
     const ortho = camera as THREE.OrthographicCamera
     const aspect = size.width / size.height
-    const height = aspect < 1 ? 17 : 11.4
+    const height = aspect < 1 ? PORTRAIT_HEIGHT : 11.4
     ortho.top = height / 2
     ortho.bottom = -height / 2
     ortho.left = (-height / 2) * aspect
@@ -577,9 +594,16 @@ function CameraRig({
     const tour = sampleTour(STOPS, progress.current ?? 0)
     // pointer parallax on top of the tour, shrinking as we zoom in
     const k = 11.4 / tour.zoom
+    // portrait: frame the desk *and* the props to its right instead of the desk alone
+    const sx = size.width < size.height ? PORTRAIT_SHIFT : 0
     const [x, y, z] = tour.position
-    ortho.position.set(x + pointer.x * k * 0.018, y - pointer.y * k * 0.012, z)
-    ortho.lookAt(look.current.set(...tour.target))
+    const [tx, ty, tz] = tour.target
+    ortho.position.set(
+      x + sx * 0.8 + pointer.x * k * 0.018,
+      y - pointer.y * k * 0.012,
+      z - sx * 0.6
+    )
+    ortho.lookAt(look.current.set(tx + sx * 0.8, ty, tz - sx * 0.6))
     if (ortho.zoom !== tour.zoom) {
       ortho.zoom = tour.zoom
       ortho.updateProjectionMatrix()
@@ -609,18 +633,13 @@ function Scene({
   return (
     <>
       <CameraRig paused={paused} progress={progress} onStop={onStop} />
-      <ambientLight color="#5a4d70" intensity={1.0} />
-      {/* soft wash over the poster wall so the informative props read first */}
-      <pointLight
-        position={[LAYOUT.posterWall[0], 5.6, -1.6]}
-        color="#e6d9f7"
-        intensity={14}
-        distance={11}
-        decay={1.6}
-      />
+      {/* One light story: warm lamp key, cool monitor glow, soft night fill. Props read because they're lit, not because they glow. */}
+      <fog attach="fog" args={['#110d15', 22, 38]} />
+      <hemisphereLight args={['#4b3f63', '#0b0910', 0.9]} />
+      <ambientLight color="#5a4d70" intensity={0.22} />
       <directionalLight
-        color="#fff2e0"
-        intensity={2.4}
+        color="#ffe9d2"
+        intensity={1.7}
         position={[6, 9, 8]}
         castShadow
         shadow-mapSize={[2048, 2048]}
@@ -628,12 +647,29 @@ function Scene({
         shadow-camera-right={14}
         shadow-camera-top={14}
         shadow-camera-bottom={-14}
-        shadow-bias={-0.0006}
+        shadow-bias={-0.0004}
+        shadow-normalBias={0.02}
       />
       <directionalLight
         color="#9B76D3"
-        intensity={1.2}
+        intensity={0.8}
         position={[-9, 4, -6]}
+      />
+      {/* picture light over the posters: warm, falls off before the floor */}
+      <pointLight
+        position={[LAYOUT.posterWall[0], 5.4, -2.6]}
+        color="#ffe2c4"
+        intensity={9}
+        distance={7}
+        decay={1.8}
+      />
+      {/* monitor spill onto the avatar and desk */}
+      <pointLight
+        position={[0.2, 1.7, -0.9]}
+        color="#b7a2ff"
+        intensity={3.2}
+        distance={3.6}
+        decay={2}
       />
 
       <Room m={m} />
@@ -657,6 +693,7 @@ function Scene({
       />
       <Desk m={m} />
       <Lamp m={m} />
+      <DeskMat m={m} />
       <Keyboard m={m} />
       <Mouse m={m} />
       <Books m={m} />
@@ -693,7 +730,7 @@ export default function DeskScene(props: DeskSceneProps) {
       style={{ background: 'transparent' }}
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping
-        gl.toneMappingExposure = 1.05
+        gl.toneMappingExposure = 1.0
       }}
     >
       <Scene {...props} />

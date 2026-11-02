@@ -6,7 +6,7 @@ import { pickFeatured } from './featured'
 import { iconSource } from './iconSource'
 import { Interactive } from './parts'
 
-const FACE = '#e9e1f5'
+const FACE = '#a59ab6' // muted lavender card: icons stay legible without out-glowing the room
 const SIDE = '#3a2d4f'
 const SIZE = 0.72
 const GAP = 0.05
@@ -22,7 +22,7 @@ function iconTexture(src: string | null, accent: string) {
     ctx.fillStyle = FACE
     ctx.fillRect(0, 0, 256, 256)
     ctx.strokeStyle = accent
-    ctx.globalAlpha = 0.5
+    ctx.globalAlpha = 0.3
     ctx.lineWidth = 6
     ctx.strokeRect(14, 14, 228, 228)
     ctx.globalAlpha = 1
@@ -66,7 +66,7 @@ export const SkillShelf: React.FC<{
         const s = picked[k]
         const face = new THREE.MeshStandardMaterial({
           map: iconTexture(iconSource(s.icon, s.color), s.color),
-          roughness: 0.55,
+          roughness: 0.78,
         })
         const step = SIZE + GAP
         out.push({

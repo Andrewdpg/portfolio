@@ -177,7 +177,7 @@ export const HomeSection: React.FC = () => {
           <h1 className="mt-2 font-display text-5xl font-black uppercase leading-[0.9] tracking-tight md:text-6xl">
             Andrés Parra
           </h1>
-          <p className="mt-3 max-w-sm text-sm font-light leading-relaxed text-white/55">
+          <p className="mt-3 max-w-sm text-sm font-light leading-relaxed text-white/75">
             Software engineer building backend systems, full-stack apps and
             data-driven platforms. Currently a software developer at Universidad
             ICESI and leading platform development at Methodus.
